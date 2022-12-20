@@ -9,7 +9,7 @@ snippet phpp "PHP block"
 endsnippet
 
 snippet php "Opening PHP block"
-<?php 
+<?php
 endsnippet
 
 snippet p= "PHP echo block"
@@ -193,7 +193,7 @@ endsnippet
 ###############
 
 snippet i "int" i
-int 
+int
 endsnippet
 
 snippet f "float" i
@@ -245,14 +245,32 @@ protected function ${1:name}(${2:$param}) {
 }$0
 endsnippet
 
+snippet priv "Private function" !b
+private function ${1:name}(${2:$param}) {
+    ${VISUAL}${3:return null;}
+}$0
+endsnippet${3}
+
 snippet pri "Private function" !b
 private function ${1:name}(${2:$param}) {
     ${VISUAL}${3:return null;}
 }$0
 endsnippet${3}
 
+snippet "public s" "Public static function" !b
+public static function ${1:name}(${2:$param}) {
+    ${VISUAL}${3:return null;}
+}$0
+endsnippet
+
 snippet pubs "Public static function" !b
 public static function ${1:name}(${2:$param}) {
+    ${VISUAL}${3:return null;}
+}$0
+endsnippet
+
+snippet "protected s" "Protected static function" !b
+protected static function ${1:name}(${2:$param}) {
     ${VISUAL}${3:return null;}
 }$0
 endsnippet
@@ -263,8 +281,20 @@ protected static function ${1:name}(${2:$param}) {
 }$0
 endsnippet
 
+snippet "private s" "Private static function" !b
+private static function ${1:name}(${2:$param}) {
+    ${VISUAL}${3:return null;}
+}$0
+endsnippet
+
 snippet pris "Private static function" !b
 private static function ${1:name}(${2:$param}) {
+    ${VISUAL}${3:return null;}
+}$0
+endsnippet
+
+snippet func "Function snip" !b
+function ${1:name}(${2:$param}) {
     ${VISUAL}${3:return null;}
 }$0
 endsnippet
@@ -307,7 +337,7 @@ snippet new "New class instance" !b
 endsnippet
 
 snippet cl "Class declaration template" !b
-class $1 ${2:extends ${3:parentClass}}${4: implements ${5:interfaceClass}} 
+class $1 ${2:extends ${3:parentClass}}${4: implements ${5:interfaceClass}}
 {
 
     $0
@@ -316,7 +346,7 @@ class $1 ${2:extends ${3:parentClass}}${4: implements ${5:interfaceClass}}
 endsnippet
 
 snippet in "Interface delcaration template" !b
-interface $1 
+interface $1
 {
 
     $0
