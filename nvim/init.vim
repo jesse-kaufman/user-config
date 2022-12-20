@@ -20,8 +20,7 @@ call plug#begin("~/.vim/plugged")
 	Plug 'hlissner/vim-ultisnips-snippets'
 	Plug 'jesse-kaufman/vim-glandix'
 
-	let g:coc_global_extensions = [ 'coc-diagnostic', 'coc-css', 'coc-highlight', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-phpls', 'coc-syntax', 'coc-snippets', 'coc-eslint' ]
-	" let g:coc_global_extensions = [ 'coc-diagnostic', 'coc-css', 'coc-highlight', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-phpls', 'coc-syntax', 'coc-ultisnips', 'coc-eslint', '@yaegassy/coc-intelephense' ]
+	let g:coc_global_extensions = [ 'coc-diagnostic', 'coc-css', 'coc-highlight', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-phpls', 'coc-syntax', 'coc-eslint', 'coc-snippets', '@yaegassy/coc-intelephense' ]
 call plug#end()
 
 
