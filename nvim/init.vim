@@ -113,12 +113,12 @@ function! MyToggleNoChars()
 	if s:my_noCharsState
   		set nonumber
   		set nolist
-		set scl=no
+		set signcolumn=no
 		let &showbreak = ''
 	else
 		set number
 		set list
-		set scl=auto
+		set signcolumn=number
 		let &showbreak = '» '
 	endif
 	let s:my_noCharsState = !s:my_noCharsState
