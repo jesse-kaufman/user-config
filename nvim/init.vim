@@ -45,6 +45,12 @@ set noswapfile
 set cmdheight=1
 set whichwrap=
 
+" Use <Tab> for jump to next snippet placeholder
+let g:coc_snippet_next = '<Tab>'
+
+" Use <S-Tab> for jump to previous snippet placeholder
+let g:coc_snippet_prev = '<S-Tab>'
+
 
 autocmd FileType scss setl iskeyword+=@-@
 
