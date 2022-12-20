@@ -6,3 +6,4 @@ configstore/update-notifier-npm*
 composer/keys*
 coc/extensions
 coc/list_history.dat
+*vendor*
