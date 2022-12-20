@@ -15,6 +15,7 @@
 	},
 	"intelephense.client.autoCloseDocCommentDoSuggest": false,
 	"intelephense.enable": false,
+	"snippets.priority": 99999
 	/*"diagnostic-languageserver.formatFiletypes": {
 		"php": "phpcbf"
 	},
