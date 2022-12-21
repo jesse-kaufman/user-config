@@ -36,5 +36,6 @@ alias gpll='git pull'
 alias gl='git log'
 alias gd='git diff'
 alias ga='git add'
+alias grest='git restore --staged'
 
 alias diff='diff --color=always'
