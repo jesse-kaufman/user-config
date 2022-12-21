@@ -1,5 +1,0 @@
-{
-    "require-dev": {
-        "php-stubs/generator": "^0.8.2"
-    }
-}
