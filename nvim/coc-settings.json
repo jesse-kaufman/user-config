@@ -1,31 +1,3 @@
 {
-	"diagnostic-languageserver.mergeConfig": true,
-	"diagnostic.errorSign": "⛔️",
-	"diagnostic.warningSign": "⚠️",
-	"diagnostic.infoSign": "ℹ️",
-	"diagnostic.hintSign": "☝️",
-	"diagnostic.checkCurrentLine": true,
-	"diagnostic-languageserver.filetypes": {
-		"php": ["phpcs"]
-	},
-	"diagnostic-languageserver.linters": {
-		"phpcs": {
-			"args": ["--report=emacs", "-s", "-"]
-		}
-	},
-	"intelephense.client.autoCloseDocCommentDoSuggest": false,
-	"intelephense.enable": false,
-	"snippets.priority": 99999
-	/*"diagnostic-languageserver.formatFiletypes": {
-		"php": "phpcbf"
-	},
-	"diagnostic-languageserver.formatters": {
-		"phpcbf": {
-			"command": "./vendor/bin/phpcbf",
-			"rootPatterns": ["composer.json", "composer.lock", "vendor", ".git"],
-			"args": ["%file"],
-			"isStdout": false,
-			"doesWriteToFile": true
-		}
-	}*/
+	"snippets.priority": 99999,
 }
