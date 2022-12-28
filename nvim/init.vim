@@ -11,14 +11,17 @@ call plug#begin("~/.vim/plugged")
 
 	Plug 'nvim-lualine/lualine.nvim'
 	" Plug 'sheerun/vim-polyglot'
+	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-commentary'
+	Plug 'tpope/vim-repeat'
 	Plug 'ap/vim-css-color'
 	Plug 'editorconfig/editorconfig-vim'
-	Plug 'rafi/awesome-vim-colorschemes'
 	Plug 'pangloss/vim-javascript'
 	Plug 'othree/html5.vim'
-	Plug 'jesse-kaufman/vim-glandix'
 	Plug 'arkav/lualine-lsp-progress'
+	Plug 'nvim-tree/nvim-web-devicons'
+
+	Plug 'jesse-kaufman/vim-glandix'
 
 	" Improved syntax highlighting
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -28,9 +31,18 @@ call plug#begin("~/.vim/plugged")
 	" Improved LSP interface
 	Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 	" Autocomplete menus
-	Plug 'hrsh7th/nvim-compe'
+	Plug 'hrsh7th/cmp-nvim-lsp'
+	Plug 'hrsh7th/cmp-buffer'
+	Plug 'hrsh7th/cmp-path'
+	Plug 'hrsh7th/cmp-cmdline'
+	Plug 'hrsh7th/nvim-cmp'
+	" For ultisnips users.
+	Plug 'SirVer/ultisnips'
+	Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 	" Formatter integration
 	Plug 'mhartington/formatter.nvim'
+	" Icons for diagnostics popups
+	Plug 'onsails/lspkind.nvim'
 
 	let g:coc_global_extensions = [ 'coc-css', 'coc-highlight', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-syntax', 'coc-eslint' ]
 call plug#end()
@@ -38,15 +50,6 @@ call plug#end()
 " -------------------------- "
 "     REQUIRED LUA FILES     "
 " -------------------------- "
-
-" Load Lua LSP config
-lua require('lsp-config')
-
-" Load Lua formatting config
-lua require('formatting')
-
-" Load lualine theme
-lua require('evil_lualine')
 
 
 " -------------------------- "
@@ -69,8 +72,29 @@ set noswapfile          " no swap files
 set nobackup            " no backups
 set nowritebackup       " no backups
 set signcolumn=number   " put diagnostic signs in number column to save space
+set timeoutlen=1000
+set timeout
+set nottimeout
+set ttimeoutlen=1       " wait up to 0ms after Esc for special key
 let &showbreak='↪'      " wrap character
-set list listchars=tab:‣\ ,nbsp:␣,eol:¬,space:·,trail:,lead:/,precedes:,extends: " special characters
+let mapleader = " "     " set leader to space
+let g:tablineclosebutton=0 " hide close tab button
+
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i:ver100-iCursor
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:blinkwait10
+
+" supposedly help startup time
+let g:loaded_python_provier=1
+let g:python_host_skip_check = 1
+let g:python_host_prog='/usr/bin/python2'
+let g:python3_host_prog='/usr/bin/python3'
+set pyxversion=3
+
+" set list listchars=tab:‣\ ,nbsp:␣,eol:¬,space:·,trail:,precedes:,extends: " special characters
+set list listchars=tab:‣\ ,nbsp:␣,eol:¬,space:·,trail:,precedes:,extends: " special characters
+set list listchars=tab:‣\ ,nbsp:␣,eol:¬,space:·,trail:,precedes:,extends: " special characters
 
 " Indent blankline (shows indent lines and context) settings.
 let g:indent_blankline_show_current_context = v:true
@@ -82,12 +106,38 @@ let g:indent_blankline_disable_with_nolist = v:true
 
 
 " -------------------------- "
+"    NUMBER COLUMN SIGNS     "
+" -------------------------- "
+sign define LspSagaLightBulb text= texthl=LspSagaLightBulb
+sign define DiagnosticSignError text=  texthl=DiagnosticSignError
+sign define DiagnosticSignWarn text=  texthl=DiagnosticSignWarn
+sign define DiagnosticSignInfo text=  texthl=DiagnosticSignInfo
+sign define DiagnosticSignHint text=  texthl=DiagnosticSignHint
+
+
+" -------------------------- "
 "        KEY MAPPINGS        "
 " -------------------------- "
+"
+" Make surround easier to use
+nmap <Leader>"   ysiw"
+nmap <Leader>'   ysiw'
+nmap <Leader>s   ysiw
+nmap <Leader>sr  ds
+nmap <Leader>sc  cs
+nmap <Leader>st  ysiw
+nmap <Leader>srt ds
+nmap <Leader>sct cs
+
+" toggle comments
+map <Leader>c gcc
+
 
 " Tab / Shift Tab to switch between tabs (:tabe <file>)
-"nnoremap <Tab> :tabnext<CR>
-"nnoremap <S-Tab> :tabprevious<CR>
+nnoremap <Tab> :tabnext<CR>
+nnoremap <S-Tab> :tabprevious<CR>
+nnoremap <Leader><Tab> :tabnext<CR>
+nnoremap <Leader><S-Tab> :tabprevious<CR>
 
 " Make indent/outdent keep selection
 vmap < <gv
@@ -102,11 +152,12 @@ cnoremap <PageUp> <C-u>
 cnoremap <PageDown> <C-d>
 
 " opt + left/right
-noremap <ESC>b b
-noremap <ESC>f e
-inoremap <ESC>b <C-o>b
-inoremap <ESC>f <C-o>w
-cnoremap <ESC>f e
+"map f e
+noremap <A-Left> b
+noremap <A-Right> e
+inoremap <A-Left> <C-o>b
+inoremap <A-Right> <C-o>w
+cnoremap <A-Right> e
 
 " shift + opt + left/right
 noremap <S-M-Right> E
@@ -160,6 +211,9 @@ autocmd InsertLeave * match ErrorMsg /\( \+\ze\t\)\+\ze/
 " Clear matches when exiting
 autocmd BufWinLeave * call clearmatches()
 
+" autocmd CursorHold Lspsaga show_line_diagnostics
+
+
 
 " -------------------------- "
 "          FUNCTIONS         "
@@ -169,8 +223,7 @@ autocmd BufWinLeave * call clearmatches()
 " Toggle showing extra characters and number/sign column with :NC
 "
 let s:my_noCharsState=1
-map Nc NC
-command! NC call MyToggleNoChars()
+map <Leader>n :call MyToggleNoChars()<cr>
 " END NC
 function! MyToggleNoChars()
 	if s:my_noCharsState
@@ -197,4 +250,13 @@ func! RetabIndents()
     execute '%s@^\( \{'.&ts.'}\)\+@\=repeat("\t", len(submatch(0))/'.&ts.')@'
     call winrestview(saved_view)
 endfunc
+
+" Load Lua LSP config
+lua require('lsp-config')
+
+" Load Lua formatting config
+lua require('formatting')
+
+" Load lualine theme
+lua require('evil_lualine')
 

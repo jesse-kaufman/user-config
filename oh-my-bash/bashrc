@@ -9,10 +9,10 @@ export OSH='/home/jkaufman/.oh-my-bash'
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="agnoster"
+OSH_THEME="agnoster2"
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -69,9 +69,11 @@ OMB_USE_SUDO=true
 # Example format: completions=(ssh git bundler gem pip pip3)
 # Add wisely, as too many completions slow down shell startup.
 completions=(
+	system
+	defaults
   git
   composer
-  ssh
+  gh
 )
 
 # Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
@@ -80,6 +82,10 @@ completions=(
 # Add wisely, as too many aliases slow down shell startup.
 aliases=(
   general
+  git
+  vim
+  core
+  ls
 )
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -88,7 +94,7 @@ aliases=(
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  bashmarks
+  xterm
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -117,12 +123,12 @@ source "$OSH"/oh-my-bash.sh
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-bash libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-bash
 # users are encouraged to define aliases within the OSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-source ~/.config/oh-my-bash/aliases.sh
-source ~/.config/oh-my-bash/env.sh
+
+alias luamake=/home/jkaufman/.config/nvim/lua-language-server/3rd/luamake/luamake

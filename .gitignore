@@ -1,10 +1,8 @@
 */autoload
-*/bundle
+# */bundle
 htop
 procps
 configstore/update-notifier-npm*
-*/composer*
-coc/extensions
-coc/list_history.dat
-coc/lists
+composer*
+nvim/lua-language-server
 *vendor*

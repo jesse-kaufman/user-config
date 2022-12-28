@@ -1,23 +1,6 @@
 -- Eviline config for lualine
--- Author: shadmansaleh
--- Credit: glepnir
+-- Author: glandix
 local lualine = require('lualine')
-
--- Color table for highlights
--- stylua: ignore
-local colors = {
-  bg       = '#202328',
-  fg       = '#bbc2cf',
-  yellow   = '#ECBE7B',
-  cyan     = '#008080',
-  darkblue = '#081633',
-  green    = '#98be65',
-  orange   = '#FF8800',
-  violet   = '#a9a1e1',
-  magenta  = '#c678dd',
-  blue     = '#51afef',
-  red      = '#ec5f67',
-}
 
 local conditions = {
   buffer_not_empty = function()
@@ -37,116 +20,157 @@ local conditions = {
 local config = {
   options = {
     -- Disable sections and component separators
-    component_separators = '',
-    section_separators = '',
+    component_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
+    icons_enabled = true,
     theme = {
-      -- We are going to use lualine_c an lualine_x as left and
-      -- right section. Both are highlighted by c theme .  So we
-      -- are just setting default looks o statusline
-      normal = { c = { fg = colors.fg, bg = colors.bg } },
-      inactive = { c = { fg = colors.fg, bg = colors.bg } },
+      normal = {
+        a = { bg = vim.g.glx_colors_ltgreen },
+        b = { bg = vim.g.glx_colors_lualine_bg },
+        c = { bg = vim.g.glx_colors_lualine_bg },
+        x = { bg = vim.g.glx_colors_lualine_bg },
+        y = { bg = vim.g.glx_colors_lualine_bg },
+        z = { bg = vim.g.glx_colors_lualine_bg }
+      },
     },
   },
+  extensions = {
+    'nerdtree'
+  },
   sections = {
-    -- these are to remove the defaults
-    lualine_a = {},
-    lualine_b = {},
-    lualine_y = {},
-    lualine_z = {},
-    -- These will be filled later
+    lualine_a = {
+      {
+        -- mode component
+        'mode',
+        fmt = function()
+          return ''
+        end,
+        separator = { right = '' },
+        color = function()
+          -- auto change color according to neovims mode
+          local mode_color = {
+            n      = vim.g.glx_colors_ltgreen,  -- Normal
+            no     = vim.g.glx_colors_yellow,   -- Operator pending
+            i      = vim.g.glx_colors_red,      -- Insert
+            ic     = vim.g.glx_colors_red,      -- Insert mode completion |compl-generic|
+            cv     = vim.g.glx_colors_red,      -- Vim Ex mode |gQ|
+            ce     = vim.g.glx_colors_red,      -- Normal Ex mode |Q|
+            v      = vim.g.glx_colors_blue,     -- Visual by character
+            V      = vim.g.glx_colors_blue,     -- Visual by line
+            [''] = vim.g.glx_colors_blue,     -- Visual blockwise
+            s      = vim.g.glx_colors_dkorange, -- Select by character
+            S      = vim.g.glx_colors_dkorange, -- Select by line
+            [''] = vim.g.glx_colors_dkorange, -- Select blockwise
+            R      = vim.g.glx_colors_orange,   -- Replace |R|
+            Rx     = vim.g.glx_colors_orange,   -- Replace mode |i_CTRL-X| completion
+            Rv     = vim.g.glx_colors_orange,   -- Virtual Replace |gR|
+            r      = vim.g.glx_colors_cyan,     -- Hit-enter prompt
+            rm     = vim.g.glx_colors_cyan,     -- The -- more -- prompt
+            ['r?'] = vim.g.glx_colors_cyan,     -- A |:confirm| query of some sort
+            ['!']  = vim.g.glx_colors_cyan,     -- Shell or external command is executing
+            t      = vim.g.glx_colors_cyan,     -- Terminal mode: keys go to the job
+            c      = vim.g.glx_colors_magenta,  -- Command-line editing
+          }
+          return { fg = vim.g.glx_colors_lualine_bg, bg = mode_color[vim.fn.mode()] }
+        end,
+        padding = { left = 3, right = 2 },
+      },
+    },
+    lualine_b = {
+      {
+        -- filename component
+        'filename',
+        cond = conditions.buffer_not_empty,
+        separator = { left = '' },
+        color = { fg = vim.g.glx_colors_magenta },
+      },
+      {
+        -- filesize component
+        'filesize',
+        cond = conditions.hide_in_width,
+        color = { fg = vim.g.glx_colors_ltgray },
+        padding = { left = 0, right = 1 }
+      },
+      {
+        'diagnostics',
+        sources = { 'nvim_diagnostic', },
+        symbols = { error = ' ', warn = ' ', info = ' ' },
+        diagnostics_color = {
+          color_error = { fg = vim.g.glx_colors_red },
+          color_warn = { fg = vim.g.glx_colors_yellow },
+          color_info = { fg = vim.g.glx_colors_cyan },
+        },
+        {
+          modified, color = { bg = vim.g.glx_colors_red }
+        },
+        {
+          '%w',
+          cond = function()
+            return vim.wo.previewwindow
+          end,
+        },
+        {
+          '%r',
+          cond = function()
+            return vim.bo.readonly
+          end,
+        },
+        {
+          '%q',
+          cond = function()
+            if vim.bo.buftype == 'quickfix' then
+              return ''
+            end
+          end,
+        },
+      },
+    },
     lualine_c = {},
     lualine_x = {},
+    lualine_y = {},
+    lualine_z = {},
   },
   inactive_sections = {
     -- these are to remove the defaults
-    lualine_a = {},
+    lualine_a = {
+    },
     lualine_b = {},
     lualine_y = {},
     lualine_z = {},
     lualine_c = {},
     lualine_x = {},
   },
+  tabline = {
+    lualine_a = {'tabs'},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  -- winbar = {
+  --   lualine_a = {},
+  --   lualine_b = {},
+  --   lualine_c = {'filename'},
+  --   lualine_x = {},
+  --   lualine_y = {},
+  --   lualine_z = {}
+  -- }
 }
 
--- Inserts a component in lualine_c at left section
-local function ins_left(component)
+-- Inserts a component in sections.lualine_c at left section
+local function ins_section_left(component)
   table.insert(config.sections.lualine_c, component)
 end
 
--- Inserts a component in lualine_x ot right section
-local function ins_right(component)
+-- Inserts a component in sections.lualine_x ot right section
+local function ins_section_right(component)
   table.insert(config.sections.lualine_x, component)
 end
 
-ins_left {
-  -- mode component
-  function()
-    return ''
-  end,
-  color = function()
-    -- auto change color according to neovims mode
-    local mode_color = {
-      n = colors.red,
-      i = colors.green,
-      v = colors.blue,
-      [''] = colors.blue,
-      V = colors.blue,
-      c = colors.magenta,
-      no = colors.red,
-      s = colors.orange,
-      S = colors.orange,
-      [''] = colors.orange,
-      ic = colors.yellow,
-      R = colors.violet,
-      Rv = colors.violet,
-      cv = colors.red,
-      ce = colors.red,
-      r = colors.cyan,
-      rm = colors.cyan,
-      ['r?'] = colors.cyan,
-      ['!'] = colors.red,
-      t = colors.red,
-    }
-    return { fg = mode_color[vim.fn.mode()] }
-  end,
-  padding = { left = 1, right = 1 },
-}
 
-ins_left {
-  -- filesize component
-  'filesize',
-  cond = conditions.buffer_not_empty,
-}
-
-ins_left {
-  'filename',
-  cond = conditions.buffer_not_empty,
-  color = { fg = colors.magenta, gui = 'bold' },
-}
-
-ins_left {
-  'diagnostics',
-  sources = { 'nvim_diagnostic', },
-  symbols = { error = ' ', warn = ' ', info = ' ' },
-  diagnostics_color = {
-    color_error = { fg = colors.red },
-    color_warn = { fg = colors.yellow },
-    color_info = { fg = colors.cyan },
-  },
-}
-
--- Insert mid section. You can make any number of sections in neovim :)
--- for lualine it's any number greater then 2
-ins_left {
-  function()
-    return '%='
-  end,
-}
-
-ins_left {
+ins_section_left {
   -- Lsp server name .
   function()
-    local msg = 'No Active Lsp'
+    local msg = 'none'
     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
     local clients = vim.lsp.get_active_clients()
     if next(clients) == nil then
@@ -161,72 +185,70 @@ ins_left {
     return msg
   end,
   icon = ' LSP:',
-  color = { fg = '#ffffff', gui = 'bold' },
+  color = { fg = '#525252' },
 }
-ins_left {
-	'lsp_progress',
-	-- display_components = { 'lsp_client_name', { 'title', 'percentage', 'message' }},
-	-- With spinner
-	display_components = { 'lsp_client_name', 'spinner', { 'title', 'percentage', 'message' }},
-	colors = {
-	  percentage  = colors.cyan,
-	  title  = colors.cyan,
-	  message  = colors.cyan,
-	  spinner = colors.cyan,
-	  lsp_client_name = colors.magenta,
-	  use = true,
-	},
-	separators = {
-		component = ' ',
-		progress = ' | ',
-		message = { pre = '(', post = ')'},
-		percentage = { pre = '', post = '%% ' },
-		title = { pre = '', post = ': ' },
-		lsp_client_name = { pre = '[', post = ']' },
-		spinner = { pre = '', post = '' },
-		message = { commenced = 'In Progress', completed = 'Completed' },
-	},
-	display_components = { 'lsp_client_name', 'spinner', { 'title', 'percentage', 'message' } },
-	timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 1000 },
-	spinner_symbols = { '🌑 ', '🌒 ', '🌓 ', '🌔 ', '🌕 ', '🌖 ', '🌗 ', '🌘 ' },
-}
+
+
+-- Insert mid section. You can make any number of sections in neovim :)
+-- for lualine it's any number greater then 2
+-- ins_section_left {
+--   function()
+--     return '%='
+--   end,
+-- }
+
 
 -- Add components to right sections
-ins_right { 'location' }
+ins_section_right { 'location' }
 
-ins_right { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+ins_section_right { 'progress', color = { fg = vim.g.glx_colors_lualine_fg } }
 
-ins_right {
-  'o:encoding', -- option component same as &encoding in viml
-  fmt = string.upper, -- I'm not sure why it's upper case either ;)
+-- ins_section_right {
+--   'o:encoding', -- option component same as &encoding in viml
+--   fmt = string.upper, -- I'm not sure why it's upper case either ;)
+--   cond = conditions.hide_in_width,
+--   color = { fg = vim.g.glx_colors_green },
+-- }
+
+ins_section_right {
+  'filetype',
+  icons_enabled = true,
   cond = conditions.hide_in_width,
-  color = { fg = colors.green, gui = 'bold' },
 }
 
-ins_right {
-  'fileformat',
-  fmt = string.upper,
-  icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-  color = { fg = colors.green, gui = 'bold' },
-}
-
-ins_right {
+ins_section_right {
   'branch',
-  icon = '',
-  color = { fg = colors.violet, gui = 'bold' },
+  icon = '',
+  color = { fg = vim.g.glx_colors_lavendar },
 }
 
-ins_right {
+ins_section_right {
   'diff',
   -- Is it me or the symbol for modified us really weird
-  symbols = { added = ' ', modified = '柳 ', removed = ' ' },
+  symbols = { added = ' ', modified = '柳', removed = ' ' },
+  -- symbols = { added = ' ', modified = ' ', removed = ' ' },
   diff_color = {
-    added = { fg = colors.green },
-    modified = { fg = colors.orange },
-    removed = { fg = colors.red },
+    added = { fg = vim.g.glx_colors_green },
+    modified = { fg = vim.g.glx_colors_orange },
+    removed = { fg = vim.g.glx_colors_red },
   },
   cond = conditions.hide_in_width,
 }
+
+--
+-- Now, setup tabline components
+--
+
+-- Inserts a component in tabline.lualine_c at left section
+local function ins_tabline_left(component)
+  table.insert(config.tabline.lualine_c, component)
+end
+
+-- Inserts a component in tabline.lualine_x at right section
+local function ins_tabline_right(component)
+  table.insert(config.tabline.lualine_x, component)
+end
+
 
 
 -- Now don't forget to initialize lualine
