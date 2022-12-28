@@ -3,7 +3,7 @@
 htop
 procps
 configstore/update-notifier-npm*
-composer/keys*
+*/composer*
 coc/extensions
 coc/list_history.dat
 coc/lists
