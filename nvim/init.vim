@@ -257,6 +257,8 @@ lua require('lsp-config')
 " Load Lua formatting config
 lua require('formatting')
 
+lua require('treesitter')
+
 " Load lualine theme
 lua require('evil_lualine')
 
