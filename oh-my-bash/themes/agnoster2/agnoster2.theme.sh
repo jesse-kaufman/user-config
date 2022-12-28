@@ -97,32 +97,63 @@ text_effect() {
 # to add colors, see
 # http://bitmote.com/index.php?post/2012/11/19/Using-ANSI-Color-Codes-to-Colorize-Your-Bash-Prompt-on-Linux
 # under the "256 (8-bit) Colors" section, and follow the example for orange below
+#
+# let g:glx_colors_black      = "#101010"
+# let g:glx_colors_ltblack    = "#262626"
+# let g:glx_colors_dkgray     = "#323232"
+# let g:glx_colors_gray       = "#525252"
+# let g:glx_colors_ltgray     = "#bfbfbf"
+# let g:glx_colors_white      = "#eaeaea"
+# let g:glx_colors_teal       = "#008080"
+# let g:glx_colors_ltcyan     = "#80e8ff"
+# let g:glx_colors_cyan       = "#56bbdc"
+# let g:glx_colors_blue       = "#3879d8"
+# let g:glx_colors_dkblue     = "#4a6fa5"
+# let g:glx_colors_lavendar   = "#a9a1e1"
+# let g:glx_colors_magenta    = "#c678dd"
+# let g:glx_colors_ltred      = "#ec5f67"
+# let g:glx_colors_red        = "#ef4335"
+# let g:glx_colors_dkorange   = "#fa5a1f"
+# let g:glx_colors_orange     = "#fc8a25"
+# let g:glx_colors_yellow     = "#fecb2f"
+# let g:glx_colors_green      = "#98be65"
+# let g:glx_colors_ltgreen    = "#1ea50b"
+# let g:glx_colors_lualine_bg = "#202328"
+# let g:glx_colors_lualine_fg = "#bbc2cf"
 fg_color() {
+    echo "38;2";
     case "$1" in
-        black)      echo 30;;
+        black)      echo 16\;16\;16;;
         red)        echo 31;;
         green)      echo 32;;
         yellow)     echo 33;;
-        blue)       echo 34;;
+        blue)       echo 56\;121\;216;;
         magenta)    echo 35;;
         cyan)       echo 36;;
         white)      echo 37;;
+        foreground) echo 187\;194\;207;;
+        background) echo 32\;35\;40;;
+        lavendar)   echo 169\;161\;225;;
         orange)     echo 38\;5\;166;;
     esac
 }
 
 bg_color() {
+    echo "48;2";
     case "$1" in
-        black)      echo 40;;
+        black)      echo 16\;16\;16;;
+        background) echo 32\;35\;40;;
+        foreground) echo 187\;194\;207;;
         red)        echo 41;;
         green)      echo 42;;
         yellow)     echo 43;;
-        blue)       echo 44;;
+        blue)       echo 56\;121\;216;;
         magenta)    echo 45;;
         cyan)       echo 46;;
         white)      echo 47;;
-        # orange)     echo 48\;5\;166;;
-        orange)     echo 252\;138\;37;;
+        lavendar)   echo 169\;161\;225;;
+        orange)     echo 48\;5\;166;;
+        # orange)     echo 252\;138\;37;;
     esac;
 }
 
@@ -142,13 +173,13 @@ ansi() {
         fi
         seq="${seq}${mycodes[$i]}"
     done
-    debug "ansi debug:" '\\[\\033['${seq}'m\\]'
-    echo -ne '\[\033['${seq}'m\]'
+    debug "ansi debug:" '\\[\\x1b['${seq}'m\\]'
+    echo -ne '\[\x1b['${seq}'m\]'
     # PR="$PR\[\033[${seq}m\]"
 }
 
 ansi_single() {
-    echo -ne '\[\033['$1'm\]'
+    echo -ne '\[\x1b['$1'm\]'
 }
 
 # Begin a segment
@@ -182,7 +213,8 @@ prompt_segment() {
     # declare -p codes
 
     if [[ $CURRENT_BG != NONE && $1 != $CURRENT_BG ]]; then
-        declare -a intermediate=($(fg_color $CURRENT_BG) $(bg_color $1))
+        # declare -a intermediate=($(fg_color $CURRENT_BG) $(bg_color $1))
+        declare -a intermediate=($(fg_color foreground) $(bg_color background))
         debug "pre prompt " $(ansi intermediate[@])
         PR="$PR $(ansi intermediate[@])$SEGMENT_SEPARATOR"
         debug "post prompt " $(ansi codes[@])
@@ -191,17 +223,18 @@ prompt_segment() {
         debug "no current BG, codes is $codes[@]"
         PR="$PR$(ansi codes[@]) "
     fi
-    CURRENT_BG=$1
+    CURRENT_BG=$(bg_color background)
     [[ -n $3 ]] && PR="$PR$3"
 }
 
 # End the prompt, closing any open segments
 prompt_end() {
-    if [[ -n $CURRENT_BG ]]; then
-        declare -a codes=($(text_effect reset) $(fg_color $CURRENT_BG))
-        PR="$PR $(ansi codes[@])$SEGMENT_SEPARATOR"
-    fi
     declare -a reset=($(text_effect reset))
+    PR="$PR $(ansi reset[@])"
+    if [[ -n $CURRENT_BG ]]; then
+        declare -a codes=($(fg_color background))
+        PR="$PR$(ansi codes[@])"
+    fi
     PR="$PR $(ansi reset[@])"
     CURRENT_BG=''
 }
@@ -231,14 +264,14 @@ prompt_context() {
     local user=$(whoami)
 
     if [[ $user != $DEFAULT_USER || -n $SSH_CLIENT ]]; then
-        prompt_segment black default "$user@\h"
+        prompt_segment background default "$user@\h"
     fi
 }
 
 # prints history followed by HH:MM, useful for remembering what
 # we did previously
 prompt_histdt() {
-    prompt_segment black default "\! [\A]"
+    prompt_segment background default "\! [\A]"
 }
 
 
@@ -255,7 +288,7 @@ prompt_git() {
         dirty=$(git_status_dirty)
         ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
         if [[ -n $dirty ]]; then
-            prompt_segment yellow black
+            prompt_segment background lavendar
         else
             prompt_segment green black
         fi
@@ -265,7 +298,7 @@ prompt_git() {
 
 # Dir: current working directory
 prompt_dir() {
-    prompt_segment blue black '\w'
+    prompt_segment background blue '\w'
 }
 
 # Status:
@@ -279,7 +312,9 @@ prompt_status() {
     [[ $UID -eq 0 ]] && symbols+="$(ansi_single $(fg_color yellow))⚡"
     [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="$(ansi_single $(fg_color cyan))⚙"
 
-    [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
+    [[ -n "$symbols" ]] && symbols+="$(ansi_single $(bg_color background))"
+
+    [[ -n "$symbols" ]] && prompt_segment background default "$symbols"
 }
 
 ######################################################################
@@ -320,8 +355,8 @@ ansi_r() {
         fi
         seq="${seq}${mycodes2[$i]}"
     done
-    debug "ansi debug:" '\\[\\033['${seq}'m\\]'
-    echo -ne '\033['${seq}'m'
+    debug "ansi debug:" '\\[\\x1b['${seq}'m\\]'
+    echo -ne '\x1b['${seq}'m'
     # PR="$PR\[\033[${seq}m\]"
 }
 
@@ -360,7 +395,7 @@ prompt_right_segment() {
     # if [[ $CURRENT_RBG != NONE && $1 != $CURRENT_RBG ]]; then
     #     $CURRENT_RBG=
     # fi
-    declare -a intermediate2=($(fg_color $1) $(bg_color $CURRENT_RBG) )
+    declare -a intermediate2=($(fg_color $1) $(bg_color background) )
     # PRIGHT="$PRIGHT---"
     debug "pre prompt " $(ansi_r intermediate2[@])
     PRIGHT="$PRIGHT$(ansi_r intermediate2[@])$RIGHT_SEPARATOR"
@@ -391,16 +426,11 @@ prompt_right_segment() {
 #               (add-hook 'comint-preoutput-filter-functions
 #                         'dirtrack-filter-out-pwd-prompt t t)))
 
-prompt_emacsdir() {
-    # no color or other setting... this will be deleted per above
-    PR="DIR \w DIR$PR"
-}
 
 ######################################################################
 ## Main prompt
 
 build_prompt() {
-    [[ ! -z ${AG_EMACS_DIR+x} ]] && prompt_emacsdir
     prompt_status
     #[[ -z ${AG_NO_HIST+x} ]] && prompt_histdt
     [[ -z ${AG_NO_CONTEXT+x} ]] && prompt_context
