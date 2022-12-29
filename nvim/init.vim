@@ -126,7 +126,13 @@ nmap <Enter> <Space>
 " -------------------------- "
 "        KEY MAPPINGS        "
 " -------------------------- "
-"
+
+" Map alt/command backspace
+inoremap <M-BS>  <C-W>
+cnoremap <M-BS>  <C-W>
+
+
+
 "
 " Make surround easier to use
 "
@@ -172,28 +178,20 @@ vmap < <gv
 vmap > >gv
 
 " pgup/pgdn
-noremap <PageUp> <C-u>
-noremap <PageDown> <C-d>
+nnoremap <PageUp> <C-u>
+nnoremap <PageDown> <C-d>
 inoremap <PageUp> <C-o><C-u>
 inoremap <PageDown> <C-o><C-d>
-cnoremap <PageUp> <C-u>
-cnoremap <PageDown> <C-d>
 
 " opt + left/right
-"map f e
-noremap <A-Left> b
-noremap <A-Right> e
-inoremap <A-Left> <C-o>b
-inoremap <A-Right> <C-o>w
-cnoremap <A-Right> e
+noremap <A-Left> <S-Left>
+noremap <A-Right> <S-Right>
 
 " shift + opt + left/right
-noremap <S-M-Right> E
-noremap <S-M-Left> B
+nnoremap <S-M-Right> E
+nnoremap <S-M-Left> B
 inoremap <S-M-Right> <C-o>W
 inoremap <S-M-Left> <C-o>B
-cnoremap <S-M-Right> E
-cnoremap <S-M-Left> B
 
 " home / end
 noremap <C-A> <Home>
@@ -203,19 +201,23 @@ inoremap <C-E> <End>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
-" shift+arrow selection
-nmap <S-Up> v<Up>
-nmap <S-Down> v<Down>
-nmap <S-Left> v<Left>
-nmap <S-Right> v<Right>
-vmap <S-Up> <Up>
-vmap <S-Down> <Down>
-vmap <S-Left> <Left>
-vmap <S-Right> <Right>
-imap <S-Up> <Esc>v<Up>
-imap <S-Down> <Esc>v<Down>
-imap <S-Left> <Esc>v<Left>
-imap <S-Right> <Esc>v<Right>
+" shift+up/dn select by line
+nnoremap <S-Up> V<Up>
+nnoremap <S-Down> V<Down>
+nnoremap <S-Up> V<Up>
+nnoremap <S-Down> V<Down>
+
+" shift+left/right select by character
+nnoremap <S-Left> v<Left>
+nnoremap <S-Right> v<Right>
+inoremap <S-Left> <Esc>v<Left>
+inoremap <S-Right> <Esc>v<Right>
+
+" shift+arrow works normally in visual mode
+vnoremap <S-Up> <Up>
+vnoremap <S-Down> <Down>
+vnoremap <S-Left> <Left>
+vnoremap <S-Right> <Right>
 
 
 " -------------------------- "
