@@ -87,15 +87,11 @@ set ttimeoutlen=1       " wait up to 0ms after Esc for special key
 let &showbreak='↪'      " wrap character
 let mapleader = " "     " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
-let &t_Cs = "\e[4:3m"
-let &t_Ce = "\e[4:0m"
 
-set guicursor=n-v-c:block-Cursor
-set guicursor+=i:ver100-iCursor
-set guicursor+=n-v-c:blinkon0
-set guicursor+=i:blinkwait10
-let &t_Cs = "\e[4:3m"
-let &t_Ce = "\e[4:0m"
+" set guicursor=n-v-c:block-Cursor
+" set guicursor+=i:ver100-iCursor
+" set guicursor+=n-v-c:blinkon0
+" set guicursor+=i:blinkwait10
 
 " supposedly help startup time
 let g:loaded_python_provier=1
@@ -104,8 +100,6 @@ let g:python_host_prog='/usr/bin/python2'
 let g:python3_host_prog='/usr/bin/python3'
 set pyxversion=3
 
-" set list listchars=tab:‣\ ,nbsp:␣,eol:¬,space:·,trail:,precedes:,extends: " special characters
-set list listchars=tab:‣\ ,nbsp:␣,eol:¬,space:·,trail:,precedes:,extends: " special characters
 set list listchars=tab:‣\ ,nbsp:␣,eol:¬,space:·,trail:,precedes:,extends: " special characters
 
 " Indent blankline (shows indent lines and context) settings.
