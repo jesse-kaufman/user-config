@@ -241,7 +241,8 @@ autocmd BufWinLeave * call clearmatches()
 
 autocmd CursorHold Lspsaga show_line_diagnostics
 
-
+" Automatically equalize splits when resizing window
+autocmd VimResized * wincmd =
 
 " -------------------------- "
 "          FUNCTIONS         "
