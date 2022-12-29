@@ -76,7 +76,7 @@ set scrolloff=4         " offset scroll from edge by 4 lines
 set noshowmatch           " show matching (), [], {}, etc
 set whichwrap=          " nothing wraps
 set termguicolors       " use full color
-set noswapfile          " no swap files
+" set noswapfile          " no swap files
 set nobackup            " no backups
 set nowritebackup       " no backups
 set signcolumn=number   " put diagnostic signs in number column to save space
@@ -87,11 +87,15 @@ set ttimeoutlen=1       " wait up to 0ms after Esc for special key
 let &showbreak='↪'      " wrap character
 let mapleader = " "     " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
+let &t_Cs = "\e[4:3m"
+let &t_Ce = "\e[4:0m"
 
 set guicursor=n-v-c:block-Cursor
 set guicursor+=i:ver100-iCursor
 set guicursor+=n-v-c:blinkon0
 set guicursor+=i:blinkwait10
+let &t_Cs = "\e[4:3m"
+let &t_Ce = "\e[4:0m"
 
 " supposedly help startup time
 let g:loaded_python_provier=1
