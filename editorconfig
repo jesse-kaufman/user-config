@@ -28,6 +28,6 @@ trim_trailing_whitespace = false
 [{*.txt,wp-config-sample.php}]
 end_of_line = crlf
 
-[{*.lua,.bashrc,*.sh}]
+[*.lua]
 indent_size = 2
 indent_style = space

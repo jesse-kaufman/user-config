@@ -1,4 +1,4 @@
-let data_dir = has('nvim') ? stdpath('config') : '~/.vim'
+let data_dir = has('nvim') ? stdpath('data') : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -7,49 +7,57 @@ endif
 call plug#begin("~/.vim/plugged")
 	" Plugin Section
 	Plug 'lukas-reineke/indent-blankline.nvim'
-"	Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
 
 	Plug 'nvim-lualine/lualine.nvim'
-	" Plug 'sheerun/vim-polyglot'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-commentary'
 	Plug 'tpope/vim-repeat'
-	Plug 'ap/vim-css-color'
 	Plug 'editorconfig/editorconfig-vim'
 	Plug 'pangloss/vim-javascript'
 	Plug 'othree/html5.vim'
 	Plug 'arkav/lualine-lsp-progress'
 	Plug 'nvim-tree/nvim-web-devicons'
 
+	" Load Mason for handling language servers
+	Plug 'williamboman/mason.nvim'
+	Plug 'williamboman/mason-lspconfig.nvim'
+
+	Plug 'sheerun/vim-polyglot'
 	Plug 'jesse-kaufman/vim-glandix'
 
 	" Improved syntax highlighting
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-	" LSP configuration helpers
+	Plug 'ap/vim-css-color'
+
+	" LSP configuration helpers -- must load after Mason
 	Plug 'neovim/nvim-lspconfig'
 	" Improved LSP interface
 	Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
-	" Autocomplete menus
+
+	" Autocomplete menu handler
 	Plug 'hrsh7th/cmp-nvim-lsp'
 	Plug 'hrsh7th/cmp-buffer'
 	Plug 'hrsh7th/cmp-path'
 	Plug 'hrsh7th/cmp-cmdline'
+	Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 	Plug 'hrsh7th/nvim-cmp'
-	" For ultisnips users.
+	Plug 'honza/vim-snippets'
+	Plug 'windwp/nvim-autopairs'
+
+
+	" Add support for UltiSnips in autocomplete menu
 	Plug 'SirVer/ultisnips'
 	Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
 	" Formatter integration
 	Plug 'mhartington/formatter.nvim'
-	" Icons for diagnostics popups
+	" Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
+
+
+	" Icons for LSP menus/popups
 	Plug 'onsails/lspkind.nvim'
-
-	let g:coc_global_extensions = [ 'coc-css', 'coc-highlight', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-syntax', 'coc-eslint' ]
 call plug#end()
-
-" -------------------------- "
-"     REQUIRED LUA FILES     "
-" -------------------------- "
 
 
 " -------------------------- "
@@ -65,7 +73,7 @@ set nomodeline          " don't allow config in file comments
 set filetype=on         " detect filetype
 set number              " show line numbers
 set scrolloff=4         " offset scroll from edge by 4 lines
-set showmatch           " show matching (), [], {}, etc
+set noshowmatch           " show matching (), [], {}, etc
 set whichwrap=          " nothing wraps
 set termguicolors       " use full color
 set noswapfile          " no swap files
@@ -211,7 +219,7 @@ autocmd InsertLeave * match ErrorMsg /\( \+\ze\t\)\+\ze/
 " Clear matches when exiting
 autocmd BufWinLeave * call clearmatches()
 
-" autocmd CursorHold Lspsaga show_line_diagnostics
+autocmd CursorHold Lspsaga show_line_diagnostics
 
 
 
@@ -219,12 +227,11 @@ autocmd BufWinLeave * call clearmatches()
 "          FUNCTIONS         "
 " -------------------------- "
 
-"
-" Toggle showing extra characters and number/sign column with :NC
-"
-let s:my_noCharsState=1
+" Make <Leader>n run MyToggleNoChars()
 map <Leader>n :call MyToggleNoChars()<cr>
-" END NC
+
+" Toggle showing extra characters and number/sign column with :NC
+let s:my_noCharsState=1
 function! MyToggleNoChars()
 	if s:my_noCharsState
 		set nonumber
@@ -235,13 +242,10 @@ function! MyToggleNoChars()
 		set number
 		set list
 		set signcolumn=number
-		let &showbreak = '» '
+		let &showbreak = '↪'
 	endif
 	let s:my_noCharsState = !s:my_noCharsState
 endfunction
-" END NC
-
-
 
 " Retab spaced file, but only indentation
 command! Retab call RetabIndents()
@@ -251,14 +255,42 @@ func! RetabIndents()
     call winrestview(saved_view)
 endfunc
 
-" Load Lua LSP config
-lua require('lsp-config')
 
-" Load Lua formatting config
-lua require('formatting')
 
-lua require('treesitter')
+" -------------------------- "
+"     REQUIRED LUA FILES     "
+" -------------------------- "
+lua << EOF
+-- Load Mason
+require("mason").setup({
+	ui = {
+		icons = {
+			-- The list icon to use for installed packages.
+			package_installed = "",
+			-- The list icon to use for packages that are installing, or queued for installation.
+			package_pending = "",
+			-- The list icon to use for packages that are not installed.
+			package_uninstalled = "",
+		},
+	}
+})
+require("mason-lspconfig").setup({
+	automatic_installation = true,
+})
 
-" Load lualine theme
-lua require('evil_lualine')
+-- Load LSP config -- must happen after Mason above
+require('lsp-config')
+require('lspsaga-config')
 
+-- Load formatting config
+require('formatter-config')
+
+-- Load treesitter settings
+require('treesitter-config')
+
+-- Load lualine theme
+require('evil_lualine')
+
+-- Load cmp
+require('cmp-config')
+EOF

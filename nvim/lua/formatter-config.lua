@@ -1,4 +1,3 @@
--- Put in ~/.vim/lua/formatting.lua
 -- Formatters
 -- Formatting can be run via :Format
 local formatter = require('formatter')
@@ -43,6 +42,17 @@ formatter.setup {
           args = {'--stdin-path=' .. vim.api.nvim_buf_get_name(0), '-'},
           stdin = true,
           ignore_exitcode = true,
+        }
+      end,
+      function ()
+        return {
+          exe = './vendor/bin/php-cs-fixer',
+          args = {
+            '--using-cache=no',
+            '--no-interaction',
+            'fix'
+          },
+          stdin = false,
         }
       end
     }
