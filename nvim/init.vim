@@ -120,24 +120,46 @@ sign define DiagnosticSignWarn text=  texthl=DiagnosticSignWarn
 sign define DiagnosticSignInfo text=  texthl=DiagnosticSignInfo
 sign define DiagnosticSignHint text=  texthl=DiagnosticSignHint
 
+nmap <F24> <Space>
+nmap <Enter> <Space>
 
 " -------------------------- "
 "        KEY MAPPINGS        "
 " -------------------------- "
 "
+"
 " Make surround easier to use
-nmap <Leader>"   ysiw"
+"
+
+" core 'quote' command in normal mode
+nmap <Leader>"   ysiw
+" quote current word with '' in normal mode
 nmap <Leader>'   ysiw'
-nmap <Leader>s   ysiw
-nmap <Leader>sr  ds
-nmap <Leader>sc  cs
-nmap <Leader>st  ysiw
-nmap <Leader>srt ds
-nmap <Leader>sct cs
+" quote current word with HTML tag in normal mode
+nmap <Leader><   ysiw<
+" quote current word with <> in normal mode
+nmap <Leader>>   ysiw>
+" quote current word with (<Space><Space>) in normal mode
+nmap <Leader>(   ysiw(
+" quote current word with () in normal mode
+nmap <Leader>)   ysiw)
+" remove/delete quote in normal mode
+nmap <Leader>"r  ds
+nmap <Leader>"d  ds
+" change quote in normal mode
+nmap <Leader>"c  cs
+
+" core 'quote' command in visual mode
+vmap <Leader>"   S
+" quote current word with '' in visual mode
+vmap <Leader>'   S'
+" quote current word with (<Space><Space>) in visual mode
+vmap <Leader>(   S(
+" quote current word with () in visual mode
+vmap <Leader>)   S)
 
 " toggle comments
 map <Leader>c gcc
-
 
 " Tab / Shift Tab to switch between tabs (:tabe <file>)
 nnoremap <Tab> :tabnext<CR>
