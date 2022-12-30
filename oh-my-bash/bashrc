@@ -130,5 +130,3 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # users are encouraged to define aliases within the OSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-
-alias luamake=/home/jkaufman/.config/nvim/lua-language-server/3rd/luamake/luamake
