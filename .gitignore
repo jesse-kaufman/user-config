@@ -4,7 +4,7 @@ htop
 procps
 composer
 *vendor*
-configstore/update-notifier-npm.json
+configstore/update-notifier-npm*
 nvim/lua-language-server
 iterm2
 karabiner/automatic_backups
