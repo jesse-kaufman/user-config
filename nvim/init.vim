@@ -71,18 +71,17 @@ set pumheight=10        " popup menu height
 set nomodeline          " don't allow config in file comments
 set filetype=on         " detect filetype
 set number              " show line numbers
-set scrolloff=4         " offset scroll from edge by 4 lines
-set noshowmatch           " show matching (), [], {}, etc
+set scrolloff=5         " offset scroll from edge by 4 lines
+set noshowmatch         " show matching (), [], {}, etc
 set whichwrap=          " nothing wraps
 set termguicolors       " use full color
-" set noswapfile          " no swap files
 set nobackup            " no backups
 set nowritebackup       " no backups
 set signcolumn=number   " put diagnostic signs in number column to save space
+set cursorline          " highlight current line
 set timeoutlen=1000
 set timeout
 set nottimeout
-set ttimeoutlen=1       " wait up to 0ms after Esc for special key
 let &showbreak='↪'      " wrap character
 let mapleader = " "     " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
@@ -105,13 +104,27 @@ set pyxversion=3
 
 set list listchars=tab:‣\ ,nbsp:␣,eol:¬,space:·,trail:,precedes:,extends: " special characters
 
-" Indent blankline (shows indent lines and context) settings.
+" -------------------------- "
+"      INDENT BLANKLINE      "
+" -------------------------- "
+
+" Highlight current context indent line.
 let g:indent_blankline_show_current_context = v:true
+
+" Highlight start of current contect.
 let g:indent_blankline_show_current_context_start = v:false
+
+" Hide trailing virtual spaces in indent lines.
 let g:indent_blankline_show_trailing_blankline_indent = v:false
-let g:indent_blankline_use_treesitter = v:true
+
+" Hide EOL on blank lines (and draw indent line instead)
 let g:indent_blankline_show_end_of_line = v:false
-let g:indent_blankline_disable_with_nolist = v:true
+
+" Enable indent lines even if nolist is set
+let g:indent_blankline_disable_with_nolist = v:false
+
+"let g:indent_blankline_use_treesitter = v:true
+
 
 
 " -------------------------- "
