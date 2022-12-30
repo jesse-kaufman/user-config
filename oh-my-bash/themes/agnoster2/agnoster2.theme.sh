@@ -185,6 +185,26 @@ ansi_single() {
     echo -ne '\[\x1b['$1'm\]'
 }
 
+set_colors() {
+    local bg fg
+    declare -a codes
+
+    codes=("${codes[@]}" $(text_effect reset))
+
+    if [[ -n $1 ]]; then
+        bg=$(bg_color $1)
+        codes=("${codes[@]}" $bg)
+        debug "Added $bg as background to codes"
+    fi
+    if [[ -n $2 ]]; then
+        fg=$(fg_color $2)
+        codes=("${codes[@]}" $fg)
+        debug "Added $fg as foreground to codes"
+    fi
+
+    PR="$PR$(ansi codes[@]) "
+}
+
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
 # rendering default background/foreground.
