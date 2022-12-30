@@ -300,7 +300,7 @@ prompt_histdt() {
 
 git_status_dirty() {
     dirty=$(git status -s 2> /dev/null | tail -n 1)
-    [[ -n $dirty ]] && echo " "
+    [[ -n $dirty ]] && echo ""
 }
 
 # Git: branch/detached head, dirty status
@@ -310,12 +310,12 @@ prompt_git() {
         ZSH_THEME_GIT_PROMPT_DIRTY='±'
         dirty=$(git_status_dirty)
         ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
+        prompt_segment background lavendar
+        PR="$PR${ref/refs\/heads\// }"
         if [[ -n $dirty ]]; then
-            prompt_segment background lavendar
-        else
-            prompt_segment background ltgreen
+            set_colors background orange
+            PR="$PR$dirty"
         fi
-        PR="$PR${ref/refs\/heads\// }$dirty"
     fi
 }
 
