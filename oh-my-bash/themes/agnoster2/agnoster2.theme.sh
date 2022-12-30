@@ -32,13 +32,13 @@
 # $ mkdir -p .bash/themes/agnoster-bash
 # $ git clone https://github.com/speedenator/agnoster-bash.git .bash/themes/agnoster-bash
 
-# then add the following to your .bashrc:
+export DEFAULT_USER=$(whoami)
 
-# export THEME=$HOME/.bash/themes/agnoster-bash/agnoster.bash
-# if [[ -f $THEME ]]; then
-#     export DEFAULT_USER=$(whoami)
-#     source $THEME
-# fi
+HOST=`hostname`
+
+if [[ "$HOST" -eq "re420" ]]; then
+    HOST_BG="ltgreen"
+fi
 
 #
 # # Goals
@@ -125,14 +125,15 @@ fg_color() {
     echo "38;2";
     case "$1" in
         black)      echo 16\;16\;16;;
-        red)        echo 31;;
+        red)        echo 239\;67\;53;;
         ltgreen)    echo 152\;190\;101;;
         green)      echo 30\;165\;11;;
         yellow)     echo 254\;203\;47;;
         blue)       echo 91\;141\;216;;
-        magenta)    echo 35;;
-        cyan)       echo 36;;
+        magenta)    echo 174\;80\;185;;
+        cyan)       echo 128\;232\;255;;
         white)      echo 191\;191\;191;;
+        gray)       echo 82\;82\;82;;
         foreground) echo 187\;194\;207;;
         background) echo 32\;35\;40;;
         lavendar)   echo 169\;161\;225;;
@@ -144,16 +145,17 @@ bg_color() {
     echo "48;2";
     case "$1" in
         black)      echo 16\;16\;16;;
-        background) echo 32\;35\;40;;
-        foreground) echo 187\;194\;207;;
-        red)        echo 41;;
+        red)        echo 239\;67\;53;;
         ltgreen)    echo 152\;190\;101;;
         green)      echo 30\;165\;11;;
         yellow)     echo 254\;203\;47;;
-        blue)       echo 56\;121\;216;;
-        magenta)    echo 45;;
-        cyan)       echo 46;;
+        blue)       echo 91\;141\;216;;
+        magenta)    echo 174\;80\;185;;
+        cyan)       echo 128\;232\;255;;
         white)      echo 191\;191\;191;;
+        gray)       echo 82\;82\;82;;
+        foreground) echo 187\;194\;207;;
+        background) echo 32\;35\;40;;
         lavendar)   echo 169\;161\;225;;
         orange)     echo 252\;138\;37;;
     esac;
@@ -177,7 +179,6 @@ ansi() {
     done
     debug "ansi debug:" '\\[\\x1b['${seq}'m\\]'
     echo -ne '\[\x1b['${seq}'m\]'
-    # PR="$PR\[\033[${seq}m\]"
 }
 
 ansi_single() {
@@ -205,21 +206,16 @@ set_colors() {
 }
 
 # Begin a segment
-# Takes two arguments, background and foreground. Both can be omitted,
+# Takes three arguments, background, foreground, and content. All can be omitted,
 # rendering default background/foreground.
 prompt_segment() {
-    local bg fg
+    local bg fg separator
     declare -a codes
 
     debug "Prompting $1 $2 $3"
 
-    # if commented out from kruton's original... I'm not clear
-    # if it did anything, but it messed up things like
-    # prompt_status - Erik 1/14/17
-
-    #    if [[ -z $1 || ( -z $2 && $2 != default ) ]]; then
     codes=("${codes[@]}" $(text_effect reset))
-    #    fi
+
     if [[ -n $1 ]]; then
         bg=$(bg_color $1)
         codes=("${codes[@]}" $bg)
@@ -236,7 +232,7 @@ prompt_segment() {
 
     if [[ $CURRENT_BG != NONE && $1 != $CURRENT_BG ]]; then
         # declare -a intermediate=($(fg_color $CURRENT_BG) $(bg_color $1))
-        declare -a intermediate=($(fg_color foreground) $(bg_color background))
+        declare -a intermediate=($(fg_color gray) $(bg_color background))
         debug "pre prompt " $(ansi intermediate[@])
         PR="$PR $(ansi intermediate[@])$SEGMENT_SEPARATOR"
         debug "post prompt " $(ansi codes[@])
@@ -253,11 +249,16 @@ prompt_segment() {
 prompt_end() {
     declare -a reset=($(text_effect reset))
     PR="$PR $(ansi reset[@])"
-    if [[ -n $CURRENT_BG ]]; then
-        declare -a codes=($(fg_color background))
-        PR="$PR$(ansi codes[@])"
-    fi
-    PR="$PR $(ansi reset[@])"
+
+    declare -a codes=($(fg_color background))
+    PR="$PR$(ansi codes[@])"
+
+    PR="${PR}\n"
+
+    declare -a codes=($(fg_color "${HOST_BG}"))
+    PR="$PR$(ansi codes[@])"
+
+    PR="${PR}└─$(ansi reset[@])"
     CURRENT_BG=''
 }
 
@@ -285,9 +286,18 @@ prompt_virtualenv() {
 prompt_context() {
     local user=$(whoami)
 
+    declare -a codes=($(fg_color "${HOST_BG}"))
+    PR="$PR$(ansi codes[@])┌"
+
+    declare -a codes=($(fg_color background) $(bg_color "${HOST_BG}"))
+    PR="$PR$(ansi codes[@]) "
     if [[ $user != $DEFAULT_USER || -n $SSH_CLIENT ]]; then
-        prompt_segment background default "$user@\h"
+        PR="$PR$user@"
     fi
+    PR="$PR\h "
+
+    declare -a codes=($(fg_color "${HOST_BG}") $(bg_color background))
+    PR="$PR$(ansi codes[@])"
 }
 
 # prints history followed by HH:MM, useful for remembering what
@@ -379,7 +389,6 @@ ansi_r() {
     done
     debug "ansi debug:" '\\[\\x1b['${seq}'m\\]'
     echo -ne '\x1b['${seq}'m'
-    # PR="$PR\[\033[${seq}m\]"
 }
 
 # Begin a segment on the right
@@ -392,13 +401,7 @@ prompt_right_segment() {
     debug "Prompt right"
     debug "Prompting $1 $2 $3"
 
-    # if commented out from kruton's original... I'm not clear
-    # if it did anything, but it messed up things like
-    # prompt_status - Erik 1/14/17
-
-    #    if [[ -z $1 || ( -z $2 && $2 != default ) ]]; then
     codes=("${codes[@]}" $(text_effect reset))
-    #    fi
     if [[ -n $1 ]]; then
         bg=$(bg_color $1)
         codes=("${codes[@]}" $bg)
@@ -411,68 +414,36 @@ prompt_right_segment() {
     fi
 
     debug "Right Codes: "
-    # declare -p codes
-
-    # right always has a separator
-    # if [[ $CURRENT_RBG != NONE && $1 != $CURRENT_RBG ]]; then
-    #     $CURRENT_RBG=
-    # fi
     declare -a intermediate2=($(fg_color $1) $(bg_color background) )
-    # PRIGHT="$PRIGHT---"
     debug "pre prompt " $(ansi_r intermediate2[@])
     PRIGHT="$PRIGHT$(ansi_r intermediate2[@])$RIGHT_SEPARATOR"
     debug "post prompt " $(ansi_r codes[@])
     PRIGHT="$PRIGHT$(ansi_r codes[@]) "
-    # else
-    #     debug "no current BG, codes is $codes[@]"
-    #     PRIGHT="$PRIGHT$(ansi codes[@]) "
-    # fi
     CURRENT_RBG=$1
     [[ -n $3 ]] && PRIGHT="$PRIGHT$3"
 }
-
-######################################################################
-## Emacs prompt --- for dir tracking
-# stick the following in your .emacs if you use this:
-
-# (setq dirtrack-list '(".*DIR *\\([^ ]*\\) DIR" 1 nil))
-# (defun dirtrack-filter-out-pwd-prompt (string)
-#   "dirtrack-mode doesn't remove the PWD match from the prompt.  This does."
-#   ;; TODO: support dirtrack-mode's multiline regexp.
-#   (if (and (stringp string) (string-match (first dirtrack-list) string))
-#       (replace-match "" t t string 0)
-#     string))
-# (add-hook 'shell-mode-hook
-#           #'(lambda ()
-#               (dirtrack-mode 1)
-#               (add-hook 'comint-preoutput-filter-functions
-#                         'dirtrack-filter-out-pwd-prompt t t)))
 
 
 ######################################################################
 ## Main prompt
 
 build_prompt() {
-    prompt_status
     #[[ -z ${AG_NO_HIST+x} ]] && prompt_histdt
     [[ -z ${AG_NO_CONTEXT+x} ]] && prompt_context
     prompt_virtualenv
+    prompt_status
     prompt_dir
     prompt_git
     prompt_end
 }
 
-# from orig...
-# export PS1='$(ansi_single $(text_effect reset)) $(build_prompt) '
-# this doesn't work... new model: create a prompt via a PR variable and
-# use that.
 
 _omb_theme_PROMPT_COMMAND() {
     RETVAL=$?
     PR=""
     PRIGHT=""
     CURRENT_BG=NONE
-    PR="$(ansi_single $(text_effect reset))"
+    PR="\n$(ansi_single $(text_effect reset))"
     build_prompt
 
     # uncomment below to use right prompt

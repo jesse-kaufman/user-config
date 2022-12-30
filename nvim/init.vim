@@ -59,7 +59,6 @@ call plug#begin("~/.vim/plugged")
 	Plug 'onsails/lspkind.nvim'
 call plug#end()
 
-
 " -------------------------- "
 "      VIM CONFIGURATION     "
 " -------------------------- "
@@ -87,11 +86,15 @@ set ttimeoutlen=1       " wait up to 0ms after Esc for special key
 let &showbreak='↪'      " wrap character
 let mapleader = " "     " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
+let g:UltiSnipsExpandTrigger="<c-tab>"
 
-" set guicursor=n-v-c:block-Cursor
-" set guicursor+=i:ver100-iCursor
-" set guicursor+=n-v-c:blinkon0
-" set guicursor+=i:blinkwait10
+augroup RestoreCursorShapeOnExit
+    autocmd!
+    autocmd VimLeave * set guicursor=a:hor20
+augroup END
+    set guicursor=a:hor100-iCursor,i-ci-ve:ver50-Cursor,r-cr:hor20,o:hor50
+                  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+                  \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 " supposedly help startup time
 let g:loaded_python_provier=1
