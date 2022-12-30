@@ -136,7 +136,7 @@ fg_color() {
         foreground) echo 187\;194\;207;;
         background) echo 32\;35\;40;;
         lavendar)   echo 169\;161\;225;;
-        orange)     echo 38\;5\;166;;
+        orange)     echo 252\;138\;37;;
     esac
 }
 
@@ -155,8 +155,7 @@ bg_color() {
         cyan)       echo 46;;
         white)      echo 191\;191\;191;;
         lavendar)   echo 169\;161\;225;;
-        orange)     echo 48\;5\;166;;
-        # orange)     echo 252\;138\;37;;
+        orange)     echo 252\;138\;37;;
     esac;
 }
 
