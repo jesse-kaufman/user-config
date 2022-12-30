@@ -7,4 +7,4 @@ composer
 configstore/update-notifier-npm.json
 nvim/lua-language-server
 iterm2
-karabiner/automatic-backups
+karabiner/automatic_backups
