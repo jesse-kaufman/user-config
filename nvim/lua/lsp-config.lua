@@ -120,9 +120,9 @@ nvim_lsp.tsserver.setup {
 -- LUA language server (sumneko_lua)
 nvim_lsp.sumneko_lua.setup {
   cmd = {
-    vim.fn.stdpath('config') .. "/lua-language-server/bin/lua-language-server",
+    vim.fn.stdpath('data') .. "/lua-language-server/bin/lua-language-server",
     "-E",
-    vim.fn.stdpath('config') .. "/lua-language-server/main.lua"
+    vim.fn.stdpath('data') .. "/lua-language-server/main.lua"
   },
   settings = {
     Lua = {
