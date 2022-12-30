@@ -258,7 +258,7 @@ prompt_end() {
     declare -a codes=($(fg_color "${HOST_BG}"))
     PR="$PR$(ansi codes[@])"
 
-    PR="${PR}└─$(ansi reset[@])"
+    PR="${PR}└─$(ansi reset[@]) "
     CURRENT_BG=''
 }
 
