@@ -1,8 +1,15 @@
 #! bash oh-my-bash.module
 #  ---------------------------------------------------------------------------
 
+# Use lsd instead of built-in ls if it's in our path
+if command -v lsd &> /dev/null
+then
+  alias ls='lsd'
+else
+  alias ls='ls -hF --color=auto' # base ls command that the rest inherit
+fi
+
 # Directory Listing aliases
-alias ls='ls -hF --color=auto' # base ls command that the rest inherit
 alias l='ls'                   # short, sort by default
 alias ll='ls -lA'              # long, show all files
 alias lr='ls -R'               # short, recursive ls
