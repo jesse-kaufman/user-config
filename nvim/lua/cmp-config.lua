@@ -4,7 +4,6 @@
 
 vim.o.completeopt = "menu,menuone,noselect"
 
-
 -- Set up nvim-cmp.
 local cmp = require'cmp'
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
@@ -18,7 +17,6 @@ cmp.setup({
   formatting = {
     fields = {'abbr', 'kind', 'menu'},
     format = require('lspkind').cmp_format({
-      -- defines how annotations are shown
       -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
       mode = 'symbol_text',
       preset = 'default', -- requires nerd-fonts font
@@ -52,34 +50,6 @@ cmp.setup({
         Operator = "",
         TypeParameter = "",
       }
-      -- override preset symbols
-      -- symbol_map = {
-      --   Text = "",
-      --   Method = "",
-      --   Function = "",
-      --   Constructor = "",
-      --   Field = "ﰠ",
-      --   Variable = "",
-      --   Class = "ﴯ",
-      --   Interface = "",
-      --   Module = "",
-      --   Property = "ﰠ",
-      --   Unit = "塞",
-      --   Value = "",
-      --   Enum = "",
-      --   Keyword = "",
-      --   Snippet = "",
-      --   Color = "",
-      --   File = "",
-      --   Reference = "",
-      --   Folder = "",
-      --   EnumMember = "",
-      --   Constant = "",
-      --   Struct = "פּ",
-      --   Event = "",
-      --   Operator = "",
-      --   TypeParameter = ""
-      -- },
     }),
   },
   snippet = {
