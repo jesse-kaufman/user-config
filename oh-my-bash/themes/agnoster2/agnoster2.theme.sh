@@ -107,6 +107,7 @@ text_effect() {
 # let g:glx_colors_teal       = "#008080"
 # let g:glx_colors_ltcyan     = "#80e8ff"
 # let g:glx_colors_cyan       = "#56bbdc"
+# let g:glx_colors_ltblue     = "#5b8dd8"
 # let g:glx_colors_blue       = "#3879d8"
 # let g:glx_colors_dkblue     = "#4a6fa5"
 # let g:glx_colors_lavendar   = "#a9a1e1"
@@ -125,12 +126,13 @@ fg_color() {
     case "$1" in
         black)      echo 16\;16\;16;;
         red)        echo 31;;
-        green)      echo 32;;
-        yellow)     echo 33;;
-        blue)       echo 56\;121\;216;;
+        ltgreen)    echo 152\;190\;101;;
+        green)      echo 30\;165\;11;;
+        yellow)     echo 254\;203\;47;;
+        blue)       echo 91\;141\;216;;
         magenta)    echo 35;;
         cyan)       echo 36;;
-        white)      echo 37;;
+        white)      echo 191\;191\;191;;
         foreground) echo 187\;194\;207;;
         background) echo 32\;35\;40;;
         lavendar)   echo 169\;161\;225;;
@@ -145,12 +147,13 @@ bg_color() {
         background) echo 32\;35\;40;;
         foreground) echo 187\;194\;207;;
         red)        echo 41;;
-        green)      echo 42;;
-        yellow)     echo 43;;
+        ltgreen)    echo 152\;190\;101;;
+        green)      echo 30\;165\;11;;
+        yellow)     echo 254\;203\;47;;
         blue)       echo 56\;121\;216;;
         magenta)    echo 45;;
         cyan)       echo 46;;
-        white)      echo 47;;
+        white)      echo 191\;191\;191;;
         lavendar)   echo 169\;161\;225;;
         orange)     echo 48\;5\;166;;
         # orange)     echo 252\;138\;37;;
@@ -251,8 +254,8 @@ prompt_virtualenv() {
         VENV_VERSION=$(echo $VERSION_OUTPUT | awk '{print $NF}')
 
         color=cyan
-        prompt_segment $color $PRIMARY_FG
-        prompt_segment $color white "$(basename $VENV_VERSION)"
+        prompt_segment $color foreground
+        prompt_segment $color foreground "$(basename $VENV_VERSION)"
     fi
 }
 
@@ -290,7 +293,7 @@ prompt_git() {
         if [[ -n $dirty ]]; then
             prompt_segment background lavendar
         else
-            prompt_segment green black
+            prompt_segment background orange
         fi
         PR="$PR${ref/refs\/heads\// }$dirty"
     fi
