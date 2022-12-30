@@ -293,7 +293,7 @@ prompt_git() {
         if [[ -n $dirty ]]; then
             prompt_segment background lavendar
         else
-            prompt_segment background orange
+            prompt_segment background ltgreen
         fi
         PR="$PR${ref/refs\/heads\// }$dirty"
     fi
