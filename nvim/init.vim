@@ -90,10 +90,16 @@ let g:UltiSnipsExpandTrigger="<c-tab>"
 augroup RestoreCursorShapeOnExit
     autocmd!
     autocmd VimLeave * set guicursor=a:hor20
+
+		autocmd VimLeave * set guicursor+=a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+		autocmd VimLeave * set guicursor+=sm:block-blinkwait175-blinkoff150-blinkon175
 augroup END
-    set guicursor=a:hor100-iCursor,i-ci-ve:ver50-Cursor,r-cr:hor20,o:hor50
-                  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-                  \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+set guicursor+=i:ver100-iCursor
+" set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
+set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
+" set guicursor+=sm:block-blinkwait175-blinkoff150-blinkon175
+"set guicursor+=sm:block-blinkwait0-blinkoff150-blinkon175
 
 " supposedly help startup time
 let g:loaded_python_provier=1
