@@ -27,7 +27,7 @@ call plug#begin("~/.vim/plugged")
 	Plug 'othree/html5.vim'
 
 	" Add LSP progress to lualine (not working)
-"	Plug 'arkav/lualine-lsp-progress'
+	Plug 'arkav/lualine-lsp-progress'
 
 	" Add devicons
 	Plug 'nvim-tree/nvim-web-devicons'
