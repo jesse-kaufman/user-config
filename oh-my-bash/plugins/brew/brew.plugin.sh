@@ -2,6 +2,9 @@
 # Homebrew support for OMB
 #
 
+# Hide hints.
+export HOMEBREW_NO_ENV_HINTS=1
+
 # Find Homebrew bin dir.
 if [ -d "/opt/homebrew" ]; then
   BREW_PATH="/opt/homebrew/bin"
@@ -33,3 +36,5 @@ for FILE in `ls -1 "${BREW_PATH}/"`; do
   alias `echo $FILE | sed 's/g//'`="${FILE}"
 done
 
+export PATH="/opt/homebrew/opt/php@7.4/bin:$PATH"
+export PATH="/opt/homebrew/opt/php@7.4/sbin:$PATH"

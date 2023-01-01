@@ -1,4 +1,7 @@
+#
 # vim/neovim aliases
+#
+
 alias nw='nvim ~/fo/inc/woocommerce.php'
 alias na='nvim ~/fo/inc/admin.php'
 alias nf='nvim ~/fo/functions.php'

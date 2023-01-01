@@ -1,5 +1,4 @@
 #! bash oh-my-bash.module
-#  ---------------------------------------------------------------------------
 
 # Directory Listing aliases
 alias l='ls'                   # short, sort by default
