@@ -1,8 +1,16 @@
 --
 -- Configure Lspsaga (handles showing LSP menus/popups)
 --
+
+local glx_icons = require('user.icons.glx-icons')
+
 require('lspsaga').init_lsp_saga({
-  diagnostic_header = { " ", " ", " ", " " },
+  diagnostic_header = {
+    glx_icons.bolt,
+    glx_icons.warn,
+    glx_icons.info,
+    glx_icons.hint,
+  },
   move_in_saga = {
     prev = '<C-p>',
     next = '<C-n>'
@@ -22,5 +30,5 @@ require('lspsaga').init_lsp_saga({
     sign_priority = 20,
     virtual_text = true
   },
-  code_action_icon = '',
+  code_action_icon = glx_icons.bolt,
 })

@@ -8,71 +8,102 @@ call plug#begin("~/.vim/plugged")
 	" Plugin Section
 	Plug 'lukas-reineke/indent-blankline.nvim'
 
+	" Custom status line.
 	Plug 'nvim-lualine/lualine.nvim'
+
+	" Surround text with quotes/tags/etc.
 	Plug 'tpope/vim-surround'
+
+	" Toggle comments quickly
 	Plug 'tpope/vim-commentary'
+
+	" Repeat more things (like toggle comments)
 	Plug 'tpope/vim-repeat'
-	Plug 'editorconfig/editorconfig-vim'
+
+	" Highlighting/indents for JavaScript
 	Plug 'pangloss/vim-javascript'
+
+	" Highlighting/indent support for HTML5
 	Plug 'othree/html5.vim'
-	Plug 'arkav/lualine-lsp-progress'
+
+	" Add LSP progress to lualine (not working)
+"	Plug 'arkav/lualine-lsp-progress'
+
+	" Add devicons
 	Plug 'nvim-tree/nvim-web-devicons'
 
-	" Load Mason for handling language servers
+	" Use Mason for handling installing/loading language server support.
 	Plug 'williamboman/mason.nvim'
 	Plug 'williamboman/mason-lspconfig.nvim'
 
+	" Use null-ls for external linters
+	Plug 'jose-elias-alvarez/null-ls.nvim'
+
+	" Integrate null-ls with Mason
+	Plug 'jay-babu/mason-null-ls.nvim'
+
+	" Required by null-ls
+	Plug 'nvim-lua/plenary.nvim'
+
+	" Advanced syntax highlighting.
 	Plug 'sheerun/vim-polyglot'
-	Plug 'jesse-kaufman/vim-glandix'
 
-	" Improved syntax highlighting
-	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
+	" Show colors in code.
 	Plug 'ap/vim-css-color'
 
-	" LSP configuration helpers -- must load after Mason
+	" Honor .editorconfig files
+	Plug 'gpanders/editorconfig.nvim'
+
+
+	"
+	" LSP / Diagnostics
+	"
+
+	" LSP configuration helpers -- must load after Mason.
 	Plug 'neovim/nvim-lspconfig'
-	" Improved LSP interface
+
+	" Improved LSP interface.
 	Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
-
-	" Autocomplete menu handler
-	Plug 'hrsh7th/cmp-nvim-lsp'
-	Plug 'hrsh7th/cmp-buffer'
-	Plug 'hrsh7th/cmp-path'
-	Plug 'hrsh7th/cmp-cmdline'
-	Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-	Plug 'hrsh7th/nvim-cmp'
-	Plug 'honza/vim-snippets'
-	Plug 'windwp/nvim-autopairs'
-
-
-	" Add support for UltiSnips in autocomplete menu
-	Plug 'SirVer/ultisnips'
-	Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-
-	" Formatter integration
-	Plug 'mhartington/formatter.nvim'
-	" Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
-
 
 	" Icons for LSP menus/popups
 	Plug 'onsails/lspkind.nvim'
+
+	" Colorscheme.
+	Plug 'jesse-kaufman/vim-glandix'
+
+	" Improved syntax highlighting.
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+	" Autocomplete menu handler.
+	Plug 'hrsh7th/nvim-cmp'      " Autocomplete plugin.
+	Plug 'hrsh7th/cmp-nvim-lsp'  " Autocomplete LSP items.
+	Plug 'hrsh7th/cmp-buffer'    " Autocomplete buffer items.
+	Plug 'hrsh7th/cmp-path'      " Autocomplete filesystem path items
+	Plug 'hrsh7th/cmp-cmdline'   " Autocomplete VIM command line items
+	Plug 'honza/vim-snippets'    " Autocomplete snippets
+	Plug 'windwp/nvim-autopairs' " Autocomplete (), [], and {}
+	Plug 'hrsh7th/cmp-nvim-lsp-signature-help' " Autocomplete signatures easily
+	Plug 'quangnguyen30192/cmp-nvim-ultisnips' " Add autocomplete support for ultisnips
+
+	" Required for UltiSnips in autocomplete menu
+	Plug 'SirVer/ultisnips'
+
 call plug#end()
 
 " -------------------------- "
 "      VIM CONFIGURATION     "
 " -------------------------- "
 
-colorscheme glandix     " Set color scheme
 set nocompatible        " Use Vim defaults (much better!)
 set bs=indent,eol,start " allow backspacing over everything in insert mode
 set showcmd             " show the command being typed
 set pumheight=10        " popup menu height
 set nomodeline          " don't allow config in file comments
+set noshowmode          " don't show mode in status line
 set filetype=on         " detect filetype
 set number              " show line numbers
 set scrolloff=5         " offset scroll from edge by 4 lines
-set noshowmatch         " show matching (), [], {}, etc
+set showmatch           " show matching (), [], {}, etc when typing
 set whichwrap=          " nothing wraps
 set termguicolors       " use full color
 set nobackup            " no backups
@@ -80,35 +111,31 @@ set nowritebackup       " no backups
 set signcolumn=number   " put diagnostic signs in number column to save space
 set cursorline          " highlight current line
 set timeoutlen=1000
-set timeout
-set nottimeout
+set notimeout
 let &showbreak='↪'      " wrap character
 let mapleader = " "     " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
 let g:UltiSnipsExpandTrigger="<c-tab>"
 
-augroup RestoreCursorShapeOnExit
-    autocmd!
-    autocmd VimLeave * set guicursor=a:hor20
+colorscheme glandix     " Set color scheme
 
-		autocmd VimLeave * set guicursor+=a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-		autocmd VimLeave * set guicursor+=sm:block-blinkwait175-blinkoff150-blinkon175
-augroup END
-
-set guicursor+=i:ver100-iCursor
-" set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
+" Make cursor blink
 set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
-" set guicursor+=sm:block-blinkwait175-blinkoff150-blinkon175
-"set guicursor+=sm:block-blinkwait0-blinkoff150-blinkon175
+" Make command/search use | cursor
+set guicursor+=c:ver50
 
-" supposedly help startup time
-let g:loaded_python_provier=1
+let g:loaded_python_provier=0
+let g:loaded_ruby_provider = 0
+let g:loaded_perl_provider = 0
 let g:python_host_skip_check = 1
-let g:python_host_prog='/usr/bin/python2'
-let g:python3_host_prog='/usr/bin/python3'
+"let g:python_host_prog='/usr/bin/python2'
+"let g:python3_host_prog='/usr/bin/python3'
 set pyxversion=3
 
+
 set list listchars=tab:‣\ ,nbsp:␣,eol:¬,space:·,trail:,precedes:,extends: " special characters
+
+
 
 " -------------------------- "
 "      INDENT BLANKLINE      "
@@ -126,10 +153,10 @@ let g:indent_blankline_show_trailing_blankline_indent = v:false
 " Hide EOL on blank lines (and draw indent line instead)
 let g:indent_blankline_show_end_of_line = v:false
 
-" Enable indent lines even if nolist is set
-let g:indent_blankline_disable_with_nolist = v:false
+" Disable indent lines if nolist is set
+let g:indent_blankline_disable_with_nolist = v:true
 
-"let g:indent_blankline_use_treesitter = v:true
+let g:indent_blankline_use_treesitter = v:false
 
 
 
@@ -142,8 +169,7 @@ sign define DiagnosticSignWarn text=  texthl=DiagnosticSignWarn
 sign define DiagnosticSignInfo text=  texthl=DiagnosticSignInfo
 sign define DiagnosticSignHint text=  texthl=DiagnosticSignHint
 
-nmap <F24> <Space>
-nmap <Enter> <Space>
+
 
 " -------------------------- "
 "        KEY MAPPINGS        "
@@ -152,6 +178,12 @@ nmap <Enter> <Space>
 " Map alt/command backspace
 inoremap <M-BS>  <C-W>
 cnoremap <M-BS>  <C-W>
+
+" Map F24 to space in normal mode (for leader key)
+nmap <F24> <Space>
+
+" Map Enter to space in normal mode (for leader key)
+nmap <Enter> <Space>
 
 
 
@@ -177,6 +209,11 @@ nmap <Leader>"d  ds
 " change quote in normal mode
 nmap <Leader>"c  cs
 
+" change quote from " to ' in normal mode
+nmap <Leader>"'   cs'"
+" change quote from ' to " in normal mode
+nmap <Leader>'"   cs"'
+
 " core 'quote' command in visual mode
 vmap <Leader>"   S
 " quote current word with '' in visual mode
@@ -190,8 +227,8 @@ vmap <Leader>)   S)
 map <Leader>c gcc
 
 " Tab / Shift Tab to switch between tabs (:tabe <file>)
-nnoremap <Tab> :tabnext<CR>
-nnoremap <S-Tab> :tabprevious<CR>
+" nnoremap <Tab> :tabnext<CR>
+" nnoremap <S-Tab> :tabprevious<CR>
 nnoremap <Leader><Tab> :tabnext<CR>
 nnoremap <Leader><S-Tab> :tabprevious<CR>
 
@@ -246,6 +283,13 @@ vnoremap <S-Right> <Right>
 "           AUTOCMD          "
 " -------------------------- "
 
+augroup RestoreCursorShapeOnExit
+    autocmd!
+    autocmd VimLeave * set guicursor=a:hor20
+
+		autocmd VimLeave * set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
+augroup END
+
 " remember cursor position
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
@@ -270,7 +314,7 @@ autocmd VimResized * wincmd =
 
 " -------------------------- "
 "          FUNCTIONS         "
-" -------------------------- "
+" --------------------------
 
 " Make <Leader>n run MyToggleNoChars()
 map <Leader>n :call MyToggleNoChars()<cr>
@@ -305,37 +349,4 @@ endfunc
 " -------------------------- "
 "     REQUIRED LUA FILES     "
 " -------------------------- "
-lua << EOF
--- Load Mason
-require("mason").setup({
-	ui = {
-		icons = {
-			-- The list icon to use for installed packages.
-			package_installed = "",
-			-- The list icon to use for packages that are installing, or queued for installation.
-			package_pending = "",
-			-- The list icon to use for packages that are not installed.
-			package_uninstalled = "",
-		},
-	}
-})
-require("mason-lspconfig").setup({
-	automatic_installation = true,
-})
-
--- Load LSP config -- must happen after Mason above
-require('lsp-config')
-require('lspsaga-config')
-
--- Load formatting config
-require('formatter-config')
-
--- Load treesitter settings
-require('treesitter-config')
-
--- Load lualine theme
-require('evil_lualine')
-
--- Load cmp
-require('cmp-config')
-EOF
+lua require('user.init')
