@@ -85,6 +85,7 @@ aliases=(
     git
     vim
     core
+	uncrustify
     ls
 )
 
