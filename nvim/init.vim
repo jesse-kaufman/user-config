@@ -239,24 +239,28 @@ vmap > >gv
 " pgup/pgdn
 nnoremap <PageUp> <C-u>
 nnoremap <PageDown> <C-d>
-inoremap <PageUp> <C-o><C-u>
-inoremap <PageDown> <C-o><C-d>
+inoremap <PageUp> <Esc><C-u>
+inoremap <PageDown> <Esc><C-d>
 
 " opt + left/right
 noremap <A-Left> <S-Left>
 noremap <A-Right> <S-Right>
+cnoremap <A-Left> <S-Left>
+cnoremap <A-Right> <S-Right>
+inoremap <A-Left> <Esc><S-Left>
+inoremap <A-Right> <Esc><S-Right>
 
 " shift + opt + left/right
-nnoremap <S-M-Right> E
-nnoremap <S-M-Left> B
-inoremap <S-M-Right> <C-o>W
-inoremap <S-M-Left> <C-o>B
+nnoremap <S-A-Right> E
+nnoremap <S-A-Left> B
+inoremap <S-A-Right> <Esc>W
+inoremap <S-A-Left> <Esc>B
 
 " home / end
 noremap <C-A> <Home>
 noremap <C-E> <End>
-inoremap <C-A> <Home>
-inoremap <C-E> <End>
+inoremap <C-A> <Esc><Home>
+inoremap <C-E> <Esc><End>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
