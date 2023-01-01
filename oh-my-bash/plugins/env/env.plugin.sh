@@ -7,3 +7,6 @@ fi
 if [[ ":$PATH:" != *":./vendor/bin:"* ]]; then
   export PATH=./vendor/bin:$PATH
 fi
+
+
+export PROMPT_DIRTRIM=6
