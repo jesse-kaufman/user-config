@@ -15,13 +15,17 @@ insert_final_newline = true
 indent_style = space
 indent_size = 2
 
-[*.yml]
+[{*.yml,*.yaml}]
 indent_style = space
 indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = false
 
-[{*.sh,.bashrc}]
+[{*.neon,*.neon.dist}]
+indent_size = 4
+indent_style = tab
+
+[{*.lua,*.sh,.bashrc,*bashrc*,*.vim}]
 indent_size = 4
 indent_style = space
