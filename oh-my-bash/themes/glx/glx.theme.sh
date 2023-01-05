@@ -34,7 +34,7 @@
 
 export DEFAULT_USER=$(whoami)
 
-HOST=`hostname`
+HOST=$(hostname)
 
 if [[ "$HOST" -eq "re420" ]]; then
     HOST_BG="ltgreen"
@@ -63,15 +63,11 @@ fi
 # ton of work, recommend going to zsh for now. If you know how to fix this,
 # would appreciate it!
 
-# note: requires bash v4+... Mac users - you often have bash3.
-# 'brew install bash' will set you free
-PROMPT_DIRTRIM=2 # bash4 and above
-
 ######################################################################
 DEBUG=0
 debug() {
     if [[ ${DEBUG} -ne 0 ]]; then
-        >&2 echo -e $*
+        echo >&2 -e $*
     fi
 }
 
@@ -88,9 +84,10 @@ RIGHT_SUBSEG=''
 
 text_effect() {
     case "$1" in
-        reset)      echo 0;;
-        bold)       echo 1;;
-        underline)  echo 4;;
+    reset) echo 0 ;;
+    bold) echo 1 ;;
+    italic) echo 3 ;;
+    underline) echo 4 ;;
     esac
 }
 
@@ -102,7 +99,8 @@ text_effect() {
 # let g:glx_colors_ltblack    = "#262626"
 # let g:glx_colors_dkgray     = "#323232"
 # let g:glx_colors_gray       = "#525252"
-# let g:glx_colors_ltgray     = "#bfbfbf"
+# let g:glx_colors_ltgray     = "#828282"
+# let g:glx_colors_dkwhite    = "#bfbfbf"
 # let g:glx_colors_white      = "#eaeaea"
 # let g:glx_colors_teal       = "#008080"
 # let g:glx_colors_ltcyan     = "#80e8ff"
@@ -122,43 +120,43 @@ text_effect() {
 # let g:glx_colors_lualine_bg = "#202328"
 # let g:glx_colors_lualine_fg = "#bbc2cf"
 fg_color() {
-    echo "38;2";
+    echo "38;2"
     case "$1" in
-        black)      echo 16\;16\;16;;
-        red)        echo 239\;67\;53;;
-        ltgreen)    echo 152\;190\;101;;
-        green)      echo 30\;165\;11;;
-        yellow)     echo 254\;203\;47;;
-        blue)       echo 91\;141\;216;;
-        magenta)    echo 174\;80\;185;;
-        cyan)       echo 128\;232\;255;;
-        white)      echo 191\;191\;191;;
-        gray)       echo 82\;82\;82;;
-        foreground) echo 187\;194\;207;;
-        background) echo 32\;35\;40;;
-        lavendar)   echo 169\;161\;225;;
-        orange)     echo 252\;138\;37;;
+    black) echo 16\;16\;16 ;;
+    red) echo 239\;67\;53 ;;
+    ltgreen) echo 152\;190\;101 ;;
+    green) echo 30\;165\;11 ;;
+    yellow) echo 254\;203\;47 ;;
+    blue) echo 91\;141\;216 ;;
+    magenta) echo 174\;80\;185 ;;
+    cyan) echo 128\;232\;255 ;;
+    white) echo 191\;191\;191 ;;
+    gray) echo 82\;82\;82 ;;
+    foreground) echo 187\;194\;207 ;;
+    background) echo 32\;35\;40 ;;
+    lavendar) echo 169\;161\;225 ;;
+    orange) echo 252\;138\;37 ;;
     esac
 }
 
 bg_color() {
-    echo "48;2";
+    echo "48;2"
     case "$1" in
-        black)      echo 16\;16\;16;;
-        red)        echo 239\;67\;53;;
-        ltgreen)    echo 152\;190\;101;;
-        green)      echo 30\;165\;11;;
-        yellow)     echo 254\;203\;47;;
-        blue)       echo 91\;141\;216;;
-        magenta)    echo 174\;80\;185;;
-        cyan)       echo 128\;232\;255;;
-        white)      echo 191\;191\;191;;
-        gray)       echo 82\;82\;82;;
-        foreground) echo 187\;194\;207;;
-        background) echo 32\;35\;40;;
-        lavendar)   echo 169\;161\;225;;
-        orange)     echo 252\;138\;37;;
-    esac;
+    black) echo 16\;16\;16 ;;
+    red) echo 239\;67\;53 ;;
+    ltgreen) echo 152\;190\;101 ;;
+    green) echo 30\;165\;11 ;;
+    yellow) echo 254\;203\;47 ;;
+    blue) echo 91\;141\;216 ;;
+    magenta) echo 174\;80\;185 ;;
+    cyan) echo 128\;232\;255 ;;
+    white) echo 191\;191\;191 ;;
+    gray) echo 82\;82\;82 ;;
+    foreground) echo 187\;194\;207 ;;
+    background) echo 32\;35\;40 ;;
+    lavendar) echo 169\;161\;225 ;;
+    orange) echo 252\;138\;37 ;;
+    esac
 }
 
 # TIL: declare is global not local, so best use a different name
@@ -286,7 +284,8 @@ prompt_virtualenv() {
 prompt_context() {
     local user=$(whoami)
 
-    declare -a codes=($(fg_color "${HOST_BG}"))
+    PR="\n$(ansi_single $(text_effect reset))"
+    declare -a codes=($(fg_color "${HOST_BG}") $(text_effect "italic") $(text_effect "bold"))
     PR="$PR$(ansi codes[@])┌"
 
     declare -a codes=($(fg_color background) $(bg_color "${HOST_BG}"))
@@ -306,9 +305,8 @@ prompt_histdt() {
     prompt_segment background default "\! [\A]"
 }
 
-
 git_status_dirty() {
-    dirty=$(git status -s 2> /dev/null | tail -n 1)
+    dirty=$(git status -s 2>/dev/null | tail -n 1)
     [[ -n $dirty ]] && echo ""
 }
 
@@ -318,7 +316,7 @@ prompt_git() {
     if git rev-parse --is-inside-work-tree &>/dev/null; then
         ZSH_THEME_GIT_PROMPT_DIRTY='±'
         dirty=$(git_status_dirty)
-        ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
+        ref=$(git symbolic-ref HEAD 2>/dev/null) || ref="➦ $(git show-ref --head -s --abbrev | head -n1 2>/dev/null)"
         prompt_segment background lavendar
         PR="$PR${ref/refs\/heads\// }"
         if [[ -n $dirty ]]; then
@@ -363,11 +361,11 @@ rightprompt() {
 __command_rprompt() {
     local times= n=$COLUMNS tz
     for tz in ZRH:Europe/Zurich PIT:US/Eastern \
-              MTV:US/Pacific TOK:Asia/Tokyo; do
+        MTV:US/Pacific TOK:Asia/Tokyo; do
         [ $n -gt 40 ] || break
         times="$times ${tz%%:*}\e[30;1m:\e[0;36;1m"
         times="$times$(TZ=${tz#*:} date +%H:%M)\e[0m"
-        n=$(( $n - 10 ))
+        n=$(($n - 10))
     done
     [ -z "$times" ] || printf "%${n}s$times\\r" ''
 }
@@ -391,39 +389,6 @@ ansi_r() {
     echo -ne '\x1b['${seq}'m'
 }
 
-# Begin a segment on the right
-# Takes two arguments, background and foreground. Both can be omitted,
-# rendering default background/foreground.
-prompt_right_segment() {
-    local bg fg
-    declare -a codes
-
-    debug "Prompt right"
-    debug "Prompting $1 $2 $3"
-
-    codes=("${codes[@]}" $(text_effect reset))
-    if [[ -n $1 ]]; then
-        bg=$(bg_color $1)
-        codes=("${codes[@]}" $bg)
-        debug "Added $bg as background to codes"
-    fi
-    if [[ -n $2 ]]; then
-        fg=$(fg_color $2)
-        codes=("${codes[@]}" $fg)
-        debug "Added $fg as foreground to codes"
-    fi
-
-    debug "Right Codes: "
-    declare -a intermediate2=($(fg_color $1) $(bg_color background) )
-    debug "pre prompt " $(ansi_r intermediate2[@])
-    PRIGHT="$PRIGHT$(ansi_r intermediate2[@])$RIGHT_SEPARATOR"
-    debug "post prompt " $(ansi_r codes[@])
-    PRIGHT="$PRIGHT$(ansi_r codes[@]) "
-    CURRENT_RBG=$1
-    [[ -n $3 ]] && PRIGHT="$PRIGHT$3"
-}
-
-
 ######################################################################
 ## Main prompt
 
@@ -437,7 +402,6 @@ build_prompt() {
     prompt_end
 }
 
-
 _omb_theme_PROMPT_COMMAND() {
     RETVAL=$?
     PR=""
@@ -446,8 +410,6 @@ _omb_theme_PROMPT_COMMAND() {
     PR="\n$(ansi_single $(text_effect reset))"
     build_prompt
 
-    # uncomment below to use right prompt
-    #     PS1='\[$(tput sc; printf "%*s" $COLUMNS "$PRIGHT"; tput rc)\]'$PR
     PS1=$PR
 }
 _omb_util_add_prompt_command _omb_theme_PROMPT_COMMAND

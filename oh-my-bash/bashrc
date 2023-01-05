@@ -1,7 +1,8 @@
+#!/usr/bin/env bash
 # Enable the subsequent settings only in interactive sessions
 case $- in
-    *i*) ;;
-    *) return ;;
+*i*) ;;
+*) return ;;
 esac
 
 # Path to your oh-my-bash installation.
@@ -9,7 +10,7 @@ export OSH=$HOME/.oh-my-bash
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="agnoster2"
+OSH_THEME="glx"
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -85,7 +86,7 @@ aliases=(
     git
     vim
     core
-	uncrustify
+    dev-tools
     ls
 )
 
@@ -94,11 +95,12 @@ aliases=(
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-    xterm
-    lsd
+    xterm # must be first
     brew
-    env # run this last
+    env # run this after brew
+    git
+    lsd
+    colors
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -127,7 +129,7 @@ source "$OSH"/oh-my-bash.sh
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-bash libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-bash

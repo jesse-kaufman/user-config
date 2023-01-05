@@ -1,4 +1,5 @@
-#
+# shellcheck shell=bash
+
 # Core aliases
 #
 
@@ -15,3 +16,14 @@ alias pw='pwd'
 alias cmp='composer'
 
 alias diff='diff --color=always'
+
+alias less='less -FRXc'
+
+if command -v editorconfig-checker &>/dev/null; then
+    alias ec='editorconfig-checker'
+elif command -v ec &>/dev/null; then
+    alias editorconfig-checker='ec'
+fi
+
+alias dev='ssh tgdev1.transitionsgroup.net'
+alias mws='ssh mws1.transitionsgroup.net'
