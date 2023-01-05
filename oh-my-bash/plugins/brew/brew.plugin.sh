@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 #
 # Homebrew support for OMB
 #
@@ -8,6 +10,8 @@ export HOMEBREW_NO_ENV_HINTS=1
 # Find Homebrew bin dir.
 if [ -d "/opt/homebrew" ]; then
     export BREW_PATH="/opt/homebrew/bin"
+elif [ -d "/home/linuxbrew/.linuxbrew/" ]; then
+    export BREW_PATH="/home/linuxbrew/.linuxbrew/bin"
 elif [ -d "/usr/local" ]; then
     export BREW_PATH="/usr/local/bin"
 fi
