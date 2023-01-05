@@ -1,27 +1,28 @@
-user: [191,191,191]
-group: [82,82,82]
+---
+user: [191, 191, 191]
+group: [82, 82, 82]
 permission:
-  read: [152,190,101]
-  write: [239,67,53]
-  exec: [252,138,37]
-  exec-sticky: [174,80,185]
-  no-access: [82,82,82]
-  octal: [254,203,47]
+  read: [152, 190, 101]
+  write: [239, 67, 53]
+  exec: [252, 138, 37]
+  exec-sticky: [174, 80, 185]
+  no-access: [82, 82, 82]
+  octal: [254, 203, 47]
   acl: dark_cyan
-  context: [128,232,255]
+  context: [128, 232, 255]
 date:
-  hour-old: [245,245,245]
-  day-old: [248,248,248]
-  older: [242,242,242]
+  hour-old: [245, 245, 245]
+  day-old: [248, 248, 248]
+  older: [242, 242, 242]
 size:
-  none: [191,191,191]
-  small: [152,190,101]
-  medium: [254,203,47]
-  large: [250,90,31]
+  none: [191, 191, 191]
+  small: [152, 190, 101]
+  medium: [254, 203, 47]
+  large: [250, 90, 31]
 inode:
   valid: 13
   invalid: 245
 links:
   valid: 13
   invalid: 245
-tree-edge: [50,50,50]
+tree-edge: [50, 50, 50]
