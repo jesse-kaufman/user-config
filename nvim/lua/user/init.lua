@@ -20,3 +20,5 @@ require("user.config.treesitter")
 
 -- Load cmp
 require("user.config.cmp")
+
+require("user.config.hlslens")

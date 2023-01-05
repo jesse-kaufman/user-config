@@ -1,105 +1,122 @@
+scriptencoding uft-8
 let data_dir = has('nvim') ? stdpath('data') : '~/.vim'
+let config_dir = has('nvim') ? stdpath('config') : '~/.vim'
+
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  augroup AU_NAME
+      autocmd!
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  augroup END
 endif
 
-call plug#begin("~/.vim/plugged")
-	" Plugin Section
-	Plug 'lukas-reineke/indent-blankline.nvim'
+call plug#begin('~/.vim/plugged')
+    " Plugin Section
+    Plug 'lukas-reineke/indent-blankline.nvim'
 
-	" Custom status line.
-	Plug 'nvim-lualine/lualine.nvim'
+    " Custom status line.
+    Plug 'nvim-lualine/lualine.nvim'
 
-	" Surround text with quotes/tags/etc.
-	Plug 'tpope/vim-surround'
+    " Surround text with quotes/tags/etc.
+    Plug 'tpope/vim-surround'
 
-	" Toggle comments quickly
-	Plug 'tpope/vim-commentary'
+    " Toggle comments quickly
+    Plug 'tpope/vim-commentary'
 
-	" Repeat more things (like toggle comments)
-	Plug 'tpope/vim-repeat'
+    " Repeat more things (like toggle comments)
+    Plug 'tpope/vim-repeat'
 
-	" Highlighting/indents for JavaScript
-	Plug 'pangloss/vim-javascript'
+    " Highlighting/indents for JavaScript
+    Plug 'pangloss/vim-javascript'
 
-	" Highlighting/indent support for HTML5
-	Plug 'othree/html5.vim'
+    " Highlighting/indent support for HTML5
+    Plug 'othree/html5.vim'
 
-	" Add LSP progress to lualine (not working)
-	Plug 'arkav/lualine-lsp-progress'
+    " Add LSP progress to lualine (not working)
+    Plug 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
 
-	" Add devicons
-	Plug 'nvim-tree/nvim-web-devicons'
+    " Add devicons
+    Plug 'nvim-tree/nvim-web-devicons'
 
-	" Use Mason for handling installing/loading language server support.
-	Plug 'williamboman/mason.nvim'
-	Plug 'williamboman/mason-lspconfig.nvim'
+    " Use Mason for handling installing/loading language server support.
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
 
-	" Use null-ls for external linters
-	Plug 'jose-elias-alvarez/null-ls.nvim'
+    " Use null-ls for external linters
+    Plug 'jose-elias-alvarez/null-ls.nvim'
 
-	" Integrate null-ls with Mason
-	Plug 'jay-babu/mason-null-ls.nvim'
+    " Integrate null-ls with Mason
+    Plug 'jay-babu/mason-null-ls.nvim'
 
-	" Required by null-ls
-	Plug 'nvim-lua/plenary.nvim'
+    " Required by null-ls
+    Plug 'nvim-lua/plenary.nvim'
 
-	" Advanced syntax highlighting.
-	Plug 'sheerun/vim-polyglot'
+    " Advanced syntax highlighting.
+    Plug 'sheerun/vim-polyglot'
 
-	" Show colors in code.
-	Plug 'ap/vim-css-color'
+    " LSP status
+    Plug 'nvim-lua/lsp-status.nvim'
 
-	" Honor .editorconfig files
-	Plug 'gpanders/editorconfig.nvim'
+    " Show colors in code.
+    Plug 'ap/vim-css-color'
+
+    " Honor .editorconfig files
+    Plug 'gpanders/editorconfig.nvim'
 
 
-	"
-	" LSP / Diagnostics
-	"
+    "
+    " LSP / Diagnostics
+    "
 
-	" LSP configuration helpers -- must load after Mason.
-	Plug 'neovim/nvim-lspconfig'
+    " LSP configuration helpers -- must load after Mason.
+    Plug 'neovim/nvim-lspconfig'
 
-	" Improved LSP interface.
-	Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+    " Improved LSP interface.
+    Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 
-	" Icons for LSP menus/popups
-	Plug 'onsails/lspkind.nvim'
+    " Icons for LSP menus/popups
+    Plug 'onsails/lspkind.nvim'
 
-	" Colorscheme.
-	Plug 'jesse-kaufman/vim-glandix'
+    " Colorscheme.
+    Plug 'jesse-kaufman/vim-glandix'
 
-	" Improved syntax highlighting.
-	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Improved syntax highlighting.
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-	" Autocomplete menu handler.
-	Plug 'hrsh7th/nvim-cmp'      " Autocomplete plugin.
-	Plug 'hrsh7th/cmp-nvim-lsp'  " Autocomplete LSP items.
-	Plug 'hrsh7th/cmp-buffer'    " Autocomplete buffer items.
-	Plug 'hrsh7th/cmp-path'      " Autocomplete filesystem path items
-	Plug 'hrsh7th/cmp-cmdline'   " Autocomplete VIM command line items
-	Plug 'honza/vim-snippets'    " Autocomplete snippets
-	Plug 'windwp/nvim-autopairs' " Autocomplete (), [], and {}
-	Plug 'hrsh7th/cmp-nvim-lsp-signature-help' " Autocomplete signatures easily
-	Plug 'quangnguyen30192/cmp-nvim-ultisnips' " Add autocomplete support for ultisnips
+    " Autocomplete menu handler.
+    Plug 'hrsh7th/nvim-cmp'      " Autocomplete plugin.
+    Plug 'hrsh7th/cmp-nvim-lsp'  " Autocomplete LSP items.
+    Plug 'hrsh7th/cmp-buffer'    " Autocomplete buffer items.
+    Plug 'hrsh7th/cmp-path'      " Autocomplete filesystem path items
+    Plug 'hrsh7th/cmp-cmdline'   " Autocomplete VIM command line items
+    Plug 'hrsh7th/cmp-nvim-lsp-signature-help' " Autocomplete signatures easily
+    Plug 'quangnguyen30192/cmp-nvim-ultisnips' " Add autocomplete support for ultisnips
 
-	" Required for UltiSnips in autocomplete menu
-	Plug 'SirVer/ultisnips'
+    Plug 'kevinhwang91/nvim-hlslens'
+
+    " Required for UltiSnips in autocomplete menu
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'    " Autocomplete snippets
+
+    Plug 'windwp/nvim-autopairs' " Autocomplete (), [], and {}
 
 call plug#end()
+
+colorscheme glandix     " Set color scheme
 
 " -------------------------- "
 "      VIM CONFIGURATION     "
 " -------------------------- "
 
 set nocompatible        " Use Vim defaults (much better!)
-set bs=indent,eol,start " allow backspacing over everything in insert mode
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set showcmd             " show the command being typed
-set pumheight=10        " popup menu height
+set pumheight=12        " popup menu height
 set nomodeline          " don't allow config in file comments
 set noshowmode          " don't show mode in status line
+set formatoptions=jcroqla1bw " formatting options
+" set nowildmenu
+
 set filetype=on         " detect filetype
 set number              " show line numbers
 set scrolloff=5         " offset scroll from edge by 4 lines
@@ -108,21 +125,32 @@ set whichwrap=          " nothing wraps
 set termguicolors       " use full color
 set nobackup            " no backups
 set nowritebackup       " no backups
-set signcolumn=number   " put diagnostic signs in number column to save space
+"set signcolumn=number   " put diagnostic signs in number column to save space
+set signcolumn=yes   " put diagnostic signs in number column to save space
 set cursorline          " highlight current line
-set timeoutlen=1000
-set notimeout
+" set timeoutlen=1000
+set notimeout           " don't timeout on leader key
+set colorcolumn=+1      " indicate 80 chars
+set textwidth=79
 let &showbreak='↪'      " wrap character
-let mapleader = " "     " set leader to space
+let mapleader=' '       " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
-let g:UltiSnipsExpandTrigger="<c-tab>"
 
-colorscheme glandix     " Set color scheme
-
+set laststatus=2
 " Make cursor blink
 set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
 " Make command/search use | cursor
 set guicursor+=c:ver50
+
+" UltiSnips Configuration
+let g:UltiSnipsSnippetDirectories=[data_dir.'/plugged/vim-snippets/UltiSnips',config_dir.'/ultisnips']
+let g:UltiSnipsJumpForwardTrigger='<Tab>' " Alt+Tab
+let g:UltiSnipsJumpBackwardTrigger='<S-Tab>' " Alt+Shift+Tab
+"let g:UltiSnipsExpandTrigger='<A-Tab>'
+let g:UltiSnipsListSnippets='<A-Tab>'
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit='vertical'
 
 let g:loaded_python_provier=0
 let g:loaded_ruby_provider = 0
@@ -132,9 +160,15 @@ let g:python_host_skip_check = 1
 "let g:python3_host_prog='/usr/bin/python3'
 set pyxversion=3
 
+let g:highlightedyank_highlight_duration = 1000
 
-set list listchars=tab:‣\ ,nbsp:␣,eol:¬,space:·,trail:,precedes:,extends: " special characters
-
+set list listchars=tab:‣\
+set list listchars+=nbsp:␣
+set list listchars+=eol:¬
+set list listchars+=space:·
+set list listchars+=trail:
+set list listchars+=precedes:
+set list listchars+=extends:
 
 
 " -------------------------- "
@@ -157,6 +191,35 @@ let g:indent_blankline_show_end_of_line = v:false
 let g:indent_blankline_disable_with_nolist = v:true
 
 let g:indent_blankline_use_treesitter = v:false
+
+
+" -------------------------- "
+"          NEOVIDE           "
+" -------------------------- "
+if exists('g:neovide')
+    set guifont=Hack\ Nerd\ Font:h16:#h-none
+    let g:neovide_transparency = 0.8
+    " let g:transparency = 0.8
+    " let g:neovide_background_color = '#151515'.printf('%x', float2nr(255 * g:transparency))
+    let g:neovide_floating_blur_amount_x = 60.0
+
+    let g:neovide_floating_blur_amount_y = 30.0
+    let g:neovide_cursor_trail_size = 0.3
+    let g:neovide_cursor_animation_length=0.05
+    let g:neovide_input_macos_alt_is_meta = v:true
+    let g:neovide_cursor_unfocused_outline_width = 0.05
+
+    let g:neovide_cursor_vfx_mode = 'ripple'
+    let g:neovide_remember_window_size = v:false
+    let g:neovide_underline_automatic_scaling = v:true
+
+
+    inoremap <D-v> <C-R>*
+    execute 'highlight Normal guibg=' . g:glx_c_black
+
+    let g:neovide_underline_automatic_scaling = v:false
+    let g:neovide_input_use_logo = v:true  " v:true on macOS
+endif
 
 
 
@@ -185,11 +248,19 @@ nmap <F24> <Space>
 " Map Enter to space in normal mode (for leader key)
 nmap <Enter> <Space>
 
+nmap <Leader>f  :Format<Cr>
 
 
-"
+
+" ====================================
 " Make surround easier to use
 "
+"
+" change quote from " to ' in normal mode
+nmap <Leader>""'   cs"'
+" change quote from ' to " in normal mode
+nmap <Leader>'""   cs'"
+
 
 " core 'quote' command in normal mode
 nmap <Leader>"   ysiw
@@ -209,11 +280,6 @@ nmap <Leader>"d  ds
 " change quote in normal mode
 nmap <Leader>"c  cs
 
-" change quote from " to ' in normal mode
-nmap <Leader>"'   cs'"
-" change quote from ' to " in normal mode
-nmap <Leader>'"   cs"'
-
 " core 'quote' command in visual mode
 vmap <Leader>"   S
 " quote current word with '' in visual mode
@@ -231,6 +297,7 @@ map <Leader>c gcc
 " nnoremap <S-Tab> :tabprevious<CR>
 nnoremap <Leader><Tab> :tabnext<CR>
 nnoremap <Leader><S-Tab> :tabprevious<CR>
+nnoremap <Leader>T :tabnew<CR>:Explore<CR>
 
 " Make indent/outdent keep selection
 vmap < <gv
@@ -291,64 +358,97 @@ augroup RestoreCursorShapeOnExit
     autocmd!
     autocmd VimLeave * set guicursor=a:hor20
 
-		autocmd VimLeave * set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
-augroup END
-
+        autocmd VimLeave * set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
 " remember cursor position
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup END
 
-" Show trailing spaces, but only when in normal mode
-autocmd BufWinEnter * match ErrorMsg /\s\+$/
-autocmd InsertEnter * match ErrorMsg /\s\+\%#\@<!$/
-autocmd InsertLeave * match ErrorMsg /\s\+$/
-autocmd InsertLeave * match ErrorMsg /\s\+$/
+highlight  link ExtraWhitespace ErrorMsg
 
-" Show spaces intermixed with tabs in insert and normal mode
-autocmd BufWinEnter * match ErrorMsg /\( \+\ze\t\)\+\ze/
-autocmd InsertEnter * match ErrorMsg /\( \+\ze\t\)\+\ze/
-autocmd InsertLeave * match ErrorMsg /\( \+\ze\t\)\+\ze/
+augroup HighlightSpacingErrors
+    autocmd!
+    " Show trailing spaces, but only when in normal mode
+    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 
-" Clear matches when exiting
-autocmd BufWinLeave * call clearmatches()
+    " Show spaces intermixed with tabs in insert and normal mode
+    autocmd BufWinEnter * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
+    autocmd InsertEnter * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
+    autocmd InsertLeave * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
+augroup END
 
-autocmd CursorHold Lspsaga show_line_diagnostics
 
-" Automatically equalize splits when resizing window
-autocmd VimResized * wincmd =
+function! DisableMatchesOnFloat()
+    lua vim.notify('here')
+    call clearmatches()
+endfunction
 
-" -------------------------- "
-"          FUNCTIONS         "
+augroup DisableMatchesOnFloatGroup
+    autocmd!
+    autocmd User FloatPreviewWinOpen call DisableMatchesOnFloat()
+augroup END
+
+
+augroup LspsagaHover
+    autocmd!
+    autocmd CursorHold Lspsaga show_line_diagnostics
+augroup END
+
+
+function! DisableExtras()
+  call nvim_win_set_option(g:float_preview#win, 'number', v:false)
+  call nvim_win_set_option(g:float_preview#win, 'relativenumber', v:false)
+  call nvim_win_set_option(g:float_preview#win, 'cursorline', v:false)
+  call nvim_win_set_option(g:float_preview#win, 'winhighlight', 'Normal:MyHighlight,FloatBorder:MyHighlight')
+  call nvim_win_set_option(g:float_preview#win, 'textwidth', '0')
+endfunction
+
+augroup DisableExtrasGroup
+    autocmd User FloatPreviewWinOpen call DisableExtras()
+augroup END
+
+
+augroup ResizeWindowGroup
+    autocmd!
+    " Automatically equalize splits when resizing window
+    autocmd VimResized * wincmd =
+augroup END
+
+
+" --------------------------
+"          FUNCTIONS
 " --------------------------
 
-" Make <Leader>n run MyToggleNoChars()
+" Make <Leader>n toggle anything I don't want
+" to copy when highlighting with a mouse
 map <Leader>n :call MyToggleNoChars()<cr>
 
 " Toggle showing extra characters and number/sign column with :NC
 let s:my_noCharsState=1
 function! MyToggleNoChars()
-	if s:my_noCharsState
-		set nonumber
-		set nolist
-		set signcolumn=no
-		let &showbreak = ''
-	else
-		set number
-		set list
-		set signcolumn=number
-		let &showbreak = '↪'
-	endif
-	let s:my_noCharsState = !s:my_noCharsState
+    if s:my_noCharsState
+        set nonumber
+        set nolist
+        set signcolumn=no
+        let &showbreak = ''
+    else
+        set number
+        set list
+        set signcolumn=number
+        let &showbreak = '↪'
+    endif
+    let s:my_noCharsState = !s:my_noCharsState
 endfunction
 
 " Retab spaced file, but only indentation
 command! Retab call RetabIndents()
 func! RetabIndents()
     let saved_view = winsaveview()
-    execute '%s@^\( \{'.&ts.'}\)\+@\=repeat("\t", len(submatch(0))/'.&ts.')@'
+    execute '%s@^\( \{'.&tabstop.'}\)\+@\=repeat("\t", len(submatch(0))/'.&tabstop.')@'
     call winrestview(saved_view)
 endfunc
-
-
 
 " -------------------------- "
 "     REQUIRED LUA FILES     "

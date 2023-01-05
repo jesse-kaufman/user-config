@@ -7,7 +7,7 @@ if not cmp_status_ok then
 	return
 end
 
-vim.o.completeopt = "menuone,noselect"
+-- vim.o.completeopt = "menu,menuone,noselect"
 
 -- Set up nvim-cmp.
 local glx_icons = require("user.icons.glx-icons")
@@ -18,23 +18,23 @@ local glx_icons = require("user.icons.glx-icons")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-
 cmp.setup({
 	formatting = {
-		fields = { "abbr", "menu" },
-		-- format = require("lspkind").cmp_format({
-		-- 	-- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-		-- 	mode = "symbol_text",
-		-- 	preset = "default", -- requires nerd-fonts font
-		-- 	menu = {
-		-- 		nvim_lsp = glx_icons.gear,
-		-- 		nvim_lsp_signature_help = glx_icons.gear,
-		-- 		ultisnips = glx_icons.bolt,
-		-- 		cmp_git = glx_icons.git_icon,
-		-- 		buffer = glx_icons.file,
-		-- 	},
-		-- 	symbol_map = glx_icons.kind_icons,
-		-- }),
+		fields = { "abbr", "kind", "menu" },
+		format = require("lspkind").cmp_format({
+			-- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+			mode = "symbol_text",
+			preset = "default", -- requires nerd-fonts font
+			menu = {
+				nvim_lsp = glx_icons.gear,
+				nvim_lsp_signature_help = glx_icons.gear,
+				ultisnips = glx_icons.bolt,
+				cmp_git = glx_icons.git_icon,
+				buffer = glx_icons.file,
+				cmdline = glx_icons.bash,
+			},
+			symbol_map = glx_icons.kind_icons,
+		}),
 	},
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
@@ -62,22 +62,25 @@ cmp.setup({
 		{ name = "ultisnips" },
 		{ name = "buffer" },
 	}),
+	experimental = {
+		ghost_text = {
+			hl_group = "CmpGhostText",
+		},
+	},
 })
 
 --
 -- Set configuration for specific filetype.
 --
 cmp.setup.filetype("gitcommit", {
-	sources = cmp.config.sources(
-		{ { name = "cmp_git" } }, -- You can specify the `cmp_git` source if you were installed it.
-		{ { name = "buffer" } }
-	),
+	sources = cmp.config.sources({ { name = "cmp_git" } }, { { name = "buffer" } }),
 })
 
 --
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't
+-- work anymore).
 --
-cmp.setup.cmdline({ "/", "?" }, {
+cmp.setup.cmdline("/", {
 	formatting = {
 		fields = { "abbr" },
 	},
@@ -90,31 +93,17 @@ cmp.setup.cmdline({ "/", "?" }, {
 --
 -- Enable autocomplete in command line
 --
-cmp.setup.cmdline(":", {
-	formatting = {
-		fields = { "abbr" },
-	},
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = "path" },
-	}),
-})
 -- cmp.setup.cmdline(":", {
 -- 	formatting = {
 -- 		fields = { "abbr" },
 -- 	},
 -- 	mapping = cmp.mapping.preset.cmdline(),
 -- 	sources = cmp.config.sources({
--- 		{
--- 			name = "cmdline",
--- 			option = {
--- 				ignore_cmds = {
--- 					"Man",
--- 					"!",
--- 				},
--- 			},
+-- 		{ name = "path" },
+-- 	}, {
+-- 		{ name = "cmdline" },
+-- 		option = {
+-- 			ignore_cmds = { "Man", "!" },
 -- 		},
 -- 	}),
 -- })
-
-

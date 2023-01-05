@@ -33,24 +33,27 @@ local mason_config = {
 	},
 }
 
-local mason_null_ls_config = {
-	ensure_installed = {
-		-- "stylua",
-		-- "cssmodules_ls",
-	},
-	automatic_installation = true,
-	automatic_setup = true,
-}
-
 -- Load Mason
 mason.setup(mason_config)
 
+local null_ls_ensure_installed = {}
+local lspconfig_ensure_installed = {
+	-- "stylua",
+	-- "cssmodules_ls",
+}
+
 -- Load Mason-null-ls
-mason_null_ls.setup(mason_null_ls_config)
+mason_null_ls.setup({
+	ensure_installed = null_ls_ensure_installed,
+	automatic_installation = true,
+	automatic_setup = true,
+})
 
 -- Load Mason-lspconfig
 mason_lspconfig.setup({
+	ensure_installed = lspconfig_ensure_installed,
 	automatic_installation = true,
+	automatic_setup = true,
 })
 
 -- we'll need to call lspconfig to pass our server to the native neovim lspconfig.
@@ -59,11 +62,8 @@ if not lspconfig_status_ok then
 	return
 end
 
-local opts = {}
-
--- loop through the required packages
-for _, server in pairs(mason_null_ls_config.ensure_installed) do
-	opts = {
+local function setup_server(server)
+	local opts = {
 		-- getting "on_attach" and capabilities from handlers
 		on_attach = require("user.src.lsp-handler").on_attach,
 		capabilities = require("user.src.lsp-handler").capabilities(),
@@ -74,4 +74,14 @@ for _, server in pairs(mason_null_ls_config.ensure_installed) do
 
 	-- pass them to lspconfig
 	lspconfig[server].setup(opts)
+end
+
+-- loop through the required packages
+for _, server in pairs(null_ls_ensure_installed) do
+	setup_server(server)
+end
+
+-- loop through the required packages
+for _, server in pairs(lspconfig_ensure_installed) do
+	setup_server(server)
 end

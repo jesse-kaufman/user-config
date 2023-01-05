@@ -76,7 +76,6 @@ K.setup_diag_maps = function(bufnr)
 	-- vim.api.nvim_buf_set_keymap("n", "<A-d>", "<cmd>Lspsaga open_floaterm lazygit<CR>", opts)
 	-- close floaterm
 	-- vim.api.nvim_buf_set_keymap(bufnr, "t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
-	vim.notify('diag keymaps')
 end
 
 

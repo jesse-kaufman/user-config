@@ -2,46 +2,46 @@
 -- Author: glandix
 
 -- bg color for file section
-local file_bg_color = vim.g.glx_colors_black
+local file_bg_color = vim.g.glx_c_black
 local glx_icons = require("user.icons.glx-icons")
 
 -- auto change color according to neovims mode
 local function mode_color()
 	local mode_colors = {
 		-- NORMAL MODE
-		n = vim.g.glx_colors_ltgreen, -- Normal
+		n = vim.g.glx_c_ltgreen, -- Normal
 
 		-- INSERT MODE
-		i = vim.g.glx_colors_red, -- Insert
-		ic = vim.g.glx_colors_red, -- Insert mode completion |compl-generic|
-		cv = vim.g.glx_colors_red, -- Vim Ex mode |gQ|
-		ce = vim.g.glx_colors_red, -- Normal Ex mode |Q|
+		i = vim.g.glx_c_red, -- Insert
+		ic = vim.g.glx_c_red, -- Insert mode completion |compl-generic|
+		cv = vim.g.glx_c_red, -- Vim Ex mode |gQ|
+		ce = vim.g.glx_c_red, -- Normal Ex mode |Q|
 
 		-- REPLACE MODE
-		R = vim.g.glx_colors_orange, -- Replace |R|
-		Rx = vim.g.glx_colors_orange, -- Replace mode |i_CTRL-X| completion
-		Rv = vim.g.glx_colors_orange, -- Virtual Replace |gR|
+		R = vim.g.glx_c_orange, -- Replace |R|
+		Rx = vim.g.glx_c_orange, -- Replace mode |i_CTRL-X| completion
+		Rv = vim.g.glx_c_orange, -- Virtual Replace |gR|
 
 		-- SELECT/VISUAL MODE
-		v = vim.g.glx_colors_blue, -- Visual by character
-		V = vim.g.glx_colors_blue, -- Visual by line
-		[""] = vim.g.glx_colors_blue, -- Visual blockwise
-		s = vim.g.glx_colors_blue, -- Select by character
-		S = vim.g.glx_colors_blue, -- Select by line
-		[""] = vim.g.glx_colors_blue, -- Select blockwise
+		v = vim.g.glx_c_blue, -- Visual by character
+		V = vim.g.glx_c_blue, -- Visual by line
+		[""] = vim.g.glx_c_blue, -- Visual blockwise
+		s = vim.g.glx_c_blue, -- Select by character
+		S = vim.g.glx_c_blue, -- Select by line
+		[""] = vim.g.glx_c_blue, -- Select blockwise
 
 		-- WAITING ON USER INPUT
-		r = vim.g.glx_colors_cyan, -- Hit-enter prompt
-		rm = vim.g.glx_colors_cyan, -- The -- more -- prompt
-		["r?"] = vim.g.glx_colors_cyan, -- A |:confirm| query of some sort
-		no = vim.g.glx_colors_cyan, -- Operator pending
+		r = vim.g.glx_c_cyan, -- Hit-enter prompt
+		rm = vim.g.glx_c_cyan, -- The -- more -- prompt
+		["r?"] = vim.g.glx_c_cyan, -- A |:confirm| query of some sort
+		no = vim.g.glx_c_cyan, -- Operator pending
 
 		-- OTHER MODES
-		["!"] = vim.g.glx_colors_teal, -- Shell or external command is executing
-		t = vim.g.glx_colors_teal, -- Terminal mode: keys go to the job
-		c = vim.g.glx_colors_magenta, -- Command-line editing
+		["!"] = vim.g.glx_c_teal, -- Shell or external command is executing
+		t = vim.g.glx_c_teal, -- Terminal mode: keys go to the job
+		c = vim.g.glx_c_magenta, -- Command-line editing
 	}
-	return { fg = vim.g.glx_colors_lualine_bg, bg = mode_colors[vim.fn.mode()] }
+	return { fg = vim.g.glx_c_lualine_bg, bg = mode_colors[vim.fn.mode()] }
 end
 
 local conditions = {
@@ -68,33 +68,33 @@ local config = {
 			-- Initial background colors
 			normal = {
 				a = {
-					fg = vim.g.glx_colors_lualine_bg,
-					bg = vim.g.glx_colors_ltgreen,
+					fg = vim.g.glx_c_lualine_bg,
+					bg = vim.g.glx_c_ltgreen,
 				},
 				b = {
-					fg = vim.g.glx_colors_gray,
-					bg = vim.g.glx_colors_lualine_bg,
+					fg = vim.g.glx_c_gray,
+					bg = vim.g.glx_c_lualine_bg,
 				},
 				c = {
-					fg = vim.g.glx_colors_gray,
-					bg = vim.g.glx_colors_lualine_bg,
+					fg = vim.g.glx_c_gray,
+					bg = vim.g.glx_c_lualine_bg,
 				},
 				x = {
-					fg = vim.g.glx_colors_gray,
-					bg = vim.g.glx_colors_lualine_bg,
+					fg = vim.g.glx_c_gray,
+					bg = vim.g.glx_c_lualine_bg,
 				},
 				y = {
-					fg = vim.g.glx_colors_gray,
-					bg = vim.g.glx_colors_lualine_bg,
+					fg = vim.g.glx_c_gray,
+					bg = vim.g.glx_c_lualine_bg,
 				},
 				z = {
-					fg = vim.g.glx_colors_gray,
-					bg = vim.g.glx_colors_lualine_bg,
+					fg = vim.g.glx_c_gray,
+					bg = vim.g.glx_c_lualine_bg,
 				},
 				visual = {
 					z = {
-						fg = vim.g.glx_colors_gray,
-						bg = vim.g.glx_colors_lualine_bg,
+						fg = vim.g.glx_c_gray,
+						bg = vim.g.glx_c_lualine_bg,
 					},
 				},
 			},
@@ -131,11 +131,11 @@ local config = {
 					local is_modified = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(0), "modified")
 
 					if is_modified == true then
-						return { fg = vim.g.glx_colors_orange, bg = file_bg_color }
+						return { fg = vim.g.glx_c_orange, bg = file_bg_color }
 					elseif is_readonly == true then
-						return { fg = vim.g.glx_colors_red, bg = file_bg_color }
+						return { fg = vim.g.glx_c_red, bg = file_bg_color }
 					else
-						return { fg = vim.g.glx_colors_magenta, bg = file_bg_color }
+						return { fg = vim.g.glx_c_magenta, bg = file_bg_color }
 					end
 				end,
 				file_status = true, -- Displays file status (readonly status, modified status)
@@ -176,9 +176,9 @@ local config = {
 				sources = { "nvim_diagnostic" },
 				symbols = { error = " ", warn = " ", info = " " },
 				diagnostics_color = {
-					color_error = { fg = vim.g.glx_colors_red },
-					color_warn = { fg = vim.g.glx_colors_yellow },
-					color_info = { fg = vim.g.glx_colors_cyan },
+					color_error = { fg = vim.g.glx_c_red },
+					color_warn = { fg = vim.g.glx_c_yellow },
+					color_info = { fg = vim.g.glx_c_cyan },
 				},
 				{
 					"%w",
@@ -201,26 +201,52 @@ local config = {
 					end,
 				},
 			},
+
+			-- LSP NAME (only used when there is no LSP client)
+			{
+				function()
+					if next(vim.lsp.get_active_clients()) == nil then
+						return "No LSP"
+					end
+					return vim.lsp.get_active_clients()[1].name
+				end,
+				icon = glx_icons.gear,
+			},
 			{
 				"lsp_progress",
-				-- With spinner
-				display_components = { "lsp_client_name", { "percentage", "message" } },
+				display_components = {
+					-- "lsp_client_name",
+					{
+						"title",
+						"percentage",
+						"message",
+					},
+				},
+				timer = {
+					progress_enddelay = 500,
+					spinner = 500,
+					lsp_client_name_enddelay = 1000,
+				},
 				colors = {
-					percentage = vim.g.glx_colors_cyan,
-					title = vim.g.glx_colors_cyan,
-					message = vim.g.glx_colors_lualine_fg,
-					spinner = vim.g.glx_colors_cyan,
-					lsp_client_name = vim.g.glx_colors_magenta,
-					use = false,
+					percentage = vim.g.glx_c_lualine_fg,
+					message = vim.g.glx_c_gray,
+					title = vim.g.glx_c_yellow,
+					lsp_client_name = vim.g.glx_c_lualine_fg,
+					use = true,
 				},
 				separators = {
 					progress = " | ",
-					message = { pre = "(", post = ")" },
-					percentage = { pre = "[", post = "%%] " },
+					percentage = { pre = "[", post = "%%]" },
+					messages = {
+						commenced = "In Progress",
+						completed = "Completed",
+					},
 					lsp_client_name = { pre = glx_icons.gear .. " ", post = "" },
-					message = { commenced = "In Progress", completed = "Completed" },
+					message = {
+						pre = " - ",
+						post = "",
+					},
 				},
-				timer = { progress_enddelay = 100, spinner = 1000, lsp_client_name_enddelay = 200 },
 				cond = conditions.hide_in_width,
 			},
 		},
@@ -234,11 +260,11 @@ local config = {
 			{ "searchcount" },
 			{
 				"progress",
-				color = { fg = vim.g.glx_colors_lualine_fg },
+				color = { fg = vim.g.glx_c_lualine_fg },
 			},
 			{
 				"location",
-				color = { fg = vim.g.glx_colors_lualine_fg },
+				color = { fg = vim.g.glx_c_lualine_fg },
 			},
 		},
 
@@ -247,10 +273,10 @@ local config = {
 			{
 				"filetype",
 				icons_enabled = true,
-				"o:encoding", -- option component same as &encoding in viml
-				fmt = string.upper, -- I'm not sure why it's upper case either ;)
+				"o:encoding",
+				fmt = string.upper,
 				cond = conditions.hide_in_width,
-				color = { fg = vim.g.glx_colors_lualine_fg },
+				color = { fg = vim.g.glx_c_lualine_fg },
 			},
 		},
 
@@ -261,19 +287,19 @@ local config = {
 				icon = "",
 				separator = "",
 				padding = { left = 1, right = 1 },
-				color = { fg = vim.g.glx_colors_lavendar, bg = vim.g.glx_colors_lualine_bg },
+				color = { fg = vim.g.glx_c_lavendar, bg = vim.g.glx_c_lualine_bg },
 			},
 			{
 				"diff",
 				-- symbols = { added = ' ', modified = '柳', removed = ' ' },
 				symbols = { added = " ", modified = " ", removed = " " },
 				diff_color = {
-					added = { fg = vim.g.glx_colors_ltgreen },
-					modified = { fg = vim.g.glx_colors_orange },
-					removed = { fg = vim.g.glx_colors_red },
+					added = { fg = vim.g.glx_c_ltgreen },
+					modified = { fg = vim.g.glx_c_orange },
+					removed = { fg = vim.g.glx_c_red },
 				},
 				cond = conditions.hide_in_width,
-				color = { bg = vim.g.glx_colors_lualine_bg },
+				color = { bg = vim.g.glx_c_lualine_bg },
 			},
 		},
 	},
@@ -292,15 +318,15 @@ local config = {
 		lualine_y = {},
 		lualine_z = {},
 	},
-	-- winbar = {
-	--   lualine_a = {},
-	--   lualine_b = {},
-	--   lualine_c = {},
-	--   lualine_x = {},
-	--   lualine_y = {},
-	--   lualine_z = {}
-	-- }
+	winbar = {
+		lualine_a = {},
+		-- lualine_b = {},
+		-- lualine_c = {},
+		-- lualine_x = {},
+		-- lualine_y = {},
+		-- lualine_z = {}
+	},
 }
 
--- LOAD THEME
+-- LOAD lualine
 require("lualine").setup(config)
