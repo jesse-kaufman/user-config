@@ -9,7 +9,7 @@ export HOMEBREW_NO_ENV_HINTS=1
 if [ -d "/opt/homebrew" ]; then
     export BREW_PATH="/opt/homebrew/bin"
 elif [ -d "/usr/local" ]; then
-    export BREW_PATH="/opt/homebrew/bin"
+    export BREW_PATH="/usr/local/bin"
 fi
 
 # Add Homebrew bin dir to path (if it isn't already).
