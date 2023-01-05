@@ -46,8 +46,6 @@ if [[ ":$PATH:" != *":./vendor/bin:"* ]]; then
     GLX_PATHS="./vendor/bin:$GLX_PATHS"
 fi
 
-echo "$GLX_PATHS"
-
 #
 # Prepend our paths to $PATH
 #
