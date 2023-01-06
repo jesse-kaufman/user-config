@@ -2,7 +2,7 @@
 
 # Core aliases
 #
-
+alias sudo='sudo '
 alias cdp='cd ~/plugins/'
 alias cdf='cd ~/fo/'
 alias cdi='cd ~/fo/inc/'
