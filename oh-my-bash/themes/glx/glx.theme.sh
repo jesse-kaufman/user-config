@@ -256,14 +256,17 @@ prompt_end() {
     declare -a codes=($(fg_color "${HOST_BG}"))
     PR="$PR$(ansi codes[@])"
 
-    PR="${PR}└─"
-
+    PR="${PR}└─"
 
     if [[ $RETVAL -ne 0 ]]; then
-        symbols="${symbols}$(ansi_single $(fg_color red))"
+        PR="${PR}$(ansi_single $(fg_color red))"
+    else
+        PR="${PR}$(ansi_single $(fg_color ltgreen))"
     fi
+    PR="${PR}"
+
     # echo "$(fg_color red)"
-    if [[ $UID -eq 0 ]]; then
+    if [[ $(whoami) == "root" ]]; then
         symbols="${symbols}$(ansi_single $(fg_color yellow))⚡"
     fi
 
@@ -277,7 +280,11 @@ prompt_end() {
         PR="${PR}${symbols}"
     fi
 
-    PR="${PR}$(ansi reset[@]) "
+    if [[ $(whoami) == "root" ]]; then
+        PR="${PR}$(ansi reset[@]) "
+    else
+        PR="${PR}$(ansi reset[@]) "
+    fi
     CURRENT_BG=''
 }
 
