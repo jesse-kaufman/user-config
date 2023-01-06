@@ -1,4 +1,5 @@
-#! bash oh-my-bash.module
+#!/usr/bin/env bash
+# oh-my-bash.module
 # vim: ft=bash ts=2 sw=2 sts=2
 #
 # agnoster's Theme - https://gist.github.com/3712874
@@ -36,32 +37,13 @@ export DEFAULT_USER=$(whoami)
 
 HOST=$(hostname)
 
-if [[ "$HOST" -eq "re420" ]]; then
+if [[ "$HOST" = "re420" ]]; then
     HOST_BG="ltgreen"
+elif [[ "$HOST" = "tgdev1" ]]; then
+    HOST_BG="blue"
+elif [[ "$HOST" = "mws1" ]]; then
+    HOST_BG="ltred"
 fi
-
-#
-# # Goals
-#
-# The aim of this theme is to only show you *relevant* information. Like most
-# prompts, it will only show git information when in a git working directory.
-# However, it goes a step further: everything from the current user and
-# hostname to whether the last call exited with an error to whether background
-# jobs are running in this shell will all be displayed automatically when
-# appropriate.
-
-# Generally speaking, this script has limited support for right
-# prompts (ala powerlevel9k on zsh), but it's pretty problematic in Bash.
-# The general pattern is to write out the right prompt, hit \r, then
-# write the left. This is problematic for the following reasons:
-# - Doesn't properly resize dynamically when you resize the terminal
-# - Changes to the prompt (like clearing and re-typing, super common) deletes the prompt
-# - Getting the right alignment via columns / tput cols is pretty problematic (and is a bug in this version)
-# - Bash prompt escapes (like \h or \w) don't get interpolated
-#
-# all in all, if you really, really want right-side prompts without a
-# ton of work, recommend going to zsh for now. If you know how to fix this,
-# would appreciate it!
 
 ######################################################################
 DEBUG=0
