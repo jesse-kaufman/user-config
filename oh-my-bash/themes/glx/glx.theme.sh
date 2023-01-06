@@ -116,7 +116,7 @@ fg_color() {
     ltgray) echo 130\;130\;130 ;;
     gray) echo 82\;82\;82 ;;
     foreground) echo 187\;194\;207 ;;
-    background) echo 32\;35\;40 ;;
+    background) echo 42\;45\;50 ;;
     lavendar) echo 169\;161\;225 ;;
     orange) echo 252\;138\;37 ;;
     dkorange) echo 250\;90\;31 ;;
@@ -139,7 +139,7 @@ bg_color() {
     ltgray) echo 130\;130\;130 ;;
     gray) echo 82\;82\;82 ;;
     foreground) echo 187\;194\;207 ;;
-    background) echo 32\;35\;40 ;;
+    background) echo 42\;45\;50 ;;
     lavendar) echo 169\;161\;225 ;;
     orange) echo 252\;138\;37 ;;
     dkorange) echo 250\;90\;31 ;;
@@ -253,10 +253,8 @@ prompt_end() {
     PR="${PR}\n"
 
     # shellcheck disable=2034
-    declare -a codes=($(fg_color "${HOST_BG}"))
-    PR="$PR$(ansi codes[@])"
-
-    PR="${PR}└─"
+    declare -a codes=($(fg_color gray))
+    PR="${PR}$(ansi codes[@])└─"
 
     if [[ $RETVAL -ne 0 ]]; then
         symbols="$(ansi_single $(fg_color yellow))⚡"
@@ -310,8 +308,10 @@ prompt_context() {
 
     # shellcheck disable=2046
     PR="\n$(ansi_single $(text_effect reset))"
+    PR="$PR$(ansi_single $(fg_color gray) codes[@])┌"
+
     declare -a codes=($(fg_color "${HOST_BG}") $(text_effect "italic") $(text_effect "bold"))
-    PR="$PR$(ansi codes[@])┌"
+    PR="$PR$(ansi codes[@])"
 
     declare -a codes=($(fg_color background) $(bg_color "${HOST_BG}"))
     PR="$PR$(ansi codes[@]) "
@@ -352,7 +352,7 @@ prompt_git() {
 
 # Dir: current working directory
 prompt_dir() {
-    prompt_segment background blue '\w'
+    prompt_segment background foreground '\w'
 }
 
 # Status:
