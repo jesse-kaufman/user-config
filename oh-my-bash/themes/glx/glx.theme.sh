@@ -254,18 +254,12 @@ prompt_end() {
     declare -a codes=($(fg_color "${HOST_BG}"))
     PR="$PR$(ansi codes[@])"
 
-    PR="${PR}└─"
+    PR="${PR}└─"
 
     if [[ $RETVAL -ne 0 ]]; then
-        PR="${PR}$(ansi_single $(fg_color red))"
+        symbols="$(ansi_single $(fg_color yellow))⚡"
     else
-        PR="${PR}$(ansi_single $(fg_color ltgreen))"
-    fi
-    PR="${PR}"
-
-    # echo "$(fg_color red)"
-    if [[ $USER == "root" ]]; then
-        symbols="${symbols}$(ansi_single $(fg_color yellow))⚡"
+        symbols="$(ansi_single $(fg_color ltgreen))⚡"
     fi
 
     jobs=$(jobs -sl | wc -l | xargs)
@@ -278,8 +272,9 @@ prompt_end() {
         PR="${PR}${symbols}"
     fi
 
+
     if [[ "$USER" == "root" ]]; then
-        PR="${PR}$(ansi_single "$(fg_color_red)") "
+        PR="${PR}$(ansi_single $(fg_color red)) "
     else
         PR="${PR}$(ansi reset[@]) "
     fi
