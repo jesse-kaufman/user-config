@@ -115,6 +115,7 @@ fg_color() {
     magenta) echo 174\;80\;185 ;;
     cyan) echo 128\;232\;255 ;;
     white) echo 191\;191\;191 ;;
+    ltgray) echo 130\;130\;130 ;;
     gray) echo 82\;82\;82 ;;
     foreground) echo 187\;194\;207 ;;
     background) echo 32\;35\;40 ;;
@@ -136,6 +137,7 @@ bg_color() {
     magenta) echo 174\;80\;185 ;;
     cyan) echo 128\;232\;255 ;;
     white) echo 191\;191\;191 ;;
+    ltgray) echo 130\;130\;130 ;;
     gray) echo 82\;82\;82 ;;
     foreground) echo 187\;194\;207 ;;
     background) echo 32\;35\;40 ;;
@@ -258,15 +260,21 @@ prompt_end() {
 
 
     if [[ $RETVAL -ne 0 ]]; then
-        PR="${PR}$(ansi_single $(fg_color red))✘"
+        symbols="${symbols}$(ansi_single $(fg_color red))"
     fi
     # echo "$(fg_color red)"
     if [[ $UID -eq 0 ]]; then
-        PR="${PR}$(ansi_single $(fg_color yellow))⚡"
+        symbols="${symbols}$(ansi_single $(fg_color yellow))⚡"
     fi
 
-    if [[ $(jobs -l | wc -l) -eq 0 ]]; then
-        PR="${PR}$(ansi_single $(fg_color cyan))⚙"
+    jobs=$(jobs -sl | wc -l | xargs)
+
+    if [[ $jobs -gt 0 ]]; then
+        symbols="${symbols}$(ansi_single $(fg_color ltgray))${jobs}$(ansi_single $(fg_color gray)) "
+    fi
+
+    if [[ -n "$symbols" ]]; then
+        PR="${PR}${symbols}"
     fi
 
     PR="${PR}$(ansi reset[@]) "
