@@ -33,8 +33,6 @@
 # $ mkdir -p .bash/themes/agnoster-bash
 # $ git clone https://github.com/speedenator/agnoster-bash.git .bash/themes/agnoster-bash
 
-DEFAULT_USER=$(whoami)
-export DEFAULT_USER
 
 HOST=$(hostname)
 
@@ -266,7 +264,7 @@ prompt_end() {
     PR="${PR}"
 
     # echo "$(fg_color red)"
-    if [[ $(whoami) == "root" ]]; then
+    if [[ $user == "root" ]]; then
         symbols="${symbols}$(ansi_single $(fg_color yellow))⚡"
     fi
 
@@ -280,11 +278,13 @@ prompt_end() {
         PR="${PR}${symbols}"
     fi
 
-    if [[ $(whoami) == "root" ]]; then
-        PR="${PR}$(ansi reset[@]) "
+    if [[ $user == "root" ]]; then
+        PR="${PR}$(ansi_single "$(fg_color_red)") "
     else
         PR="${PR}$(ansi reset[@]) "
     fi
+
+    PR="${PR}$(ansi reset[@])"
     CURRENT_BG=''
 }
 
@@ -310,8 +310,6 @@ prompt_virtualenv() {
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
-    local user
-    user=$(whoami)
 
     # shellcheck disable=2046
     PR="\n$(ansi_single $(text_effect reset))"
@@ -320,9 +318,9 @@ prompt_context() {
 
     declare -a codes=($(fg_color background) $(bg_color "${HOST_BG}"))
     PR="$PR$(ansi codes[@]) "
-    if [[ "$user" != "$DEFAULT_USER" || -n $SSH_CLIENT ]]; then
-        PR="$PR$user@"
-    fi
+    # if [[ "$user" != "$DEFAULT_USER" || -n $SSH_CLIENT ]]; then
+    #     PR="$PR$user@"
+    # fi
     PR="$PR\h "
 
     declare -a codes=($(fg_color "${HOST_BG}") $(bg_color background))
