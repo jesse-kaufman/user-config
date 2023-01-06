@@ -353,7 +353,8 @@ prompt_git() {
 # Dir: current working directory
 prompt_dir() {
     local path
-    path=$(echo $PWD | sed s#"$HOME"#\ #)
+    path=$(echo $PWD | sed s#^"$HOME\(/\)*"#\ # | sed s/\ $//)
+
     prompt_segment background foreground "$path"
 }
 
