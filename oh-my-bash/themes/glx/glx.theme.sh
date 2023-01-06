@@ -124,6 +124,7 @@ fg_color() {
     case "$1" in
     black) echo 16\;16\;16 ;;
     red) echo 239\;67\;53 ;;
+    ltred) echo 236\;95\;103;;
     ltgreen) echo 152\;190\;101 ;;
     green) echo 30\;165\;11 ;;
     yellow) echo 254\;203\;47 ;;
@@ -143,6 +144,7 @@ bg_color() {
     echo "48;2"
     case "$1" in
     black) echo 16\;16\;16 ;;
+    ltred) echo 236\;95\;103;;
     red) echo 239\;67\;53 ;;
     ltgreen) echo 152\;190\;101 ;;
     green) echo 30\;165\;11 ;;
