@@ -33,7 +33,8 @@
 # $ mkdir -p .bash/themes/agnoster-bash
 # $ git clone https://github.com/speedenator/agnoster-bash.git .bash/themes/agnoster-bash
 
-export DEFAULT_USER=$(whoami)
+DEFAULT_USER=$(whoami)
+export DEFAULT_USER
 
 HOST=$(hostname)
 
@@ -49,7 +50,7 @@ fi
 DEBUG=0
 debug() {
     if [[ ${DEBUG} -ne 0 ]]; then
-        echo >&2 -e $*
+        echo >&2 -e "$*"
     fi
 }
 
@@ -58,11 +59,11 @@ debug() {
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
 CURRENT_BG='NONE'
-CURRENT_RBG='NONE'
+# CURRENT_RBG='NONE'
 SEGMENT_SEPARATOR=''
-RIGHT_SEPARATOR=''
-LEFT_SUBSEG=''
-RIGHT_SUBSEG=''
+# RIGHT_SEPARATOR=''
+# LEFT_SUBSEG=''
+# RIGHT_SUBSEG=''
 
 text_effect() {
     case "$1" in
@@ -102,7 +103,7 @@ text_effect() {
 # let g:glx_colors_lualine_bg = "#202328"
 # let g:glx_colors_lualine_fg = "#bbc2cf"
 fg_color() {
-    echo "38;2"
+    echo -ne "38;2;"
     case "$1" in
     black) echo 16\;16\;16 ;;
     red) echo 239\;67\;53 ;;
@@ -123,7 +124,7 @@ fg_color() {
 }
 
 bg_color() {
-    echo "48;2"
+    echo -ne "48;2;"
     case "$1" in
     black) echo 16\;16\;16 ;;
     ltred) echo 236\;95\;103;;
@@ -174,11 +175,13 @@ set_colors() {
     codes=("${codes[@]}" $(text_effect reset))
 
     if [[ -n $1 ]]; then
+        # shellcheck disable=2086
         bg=$(bg_color $1)
         codes=("${codes[@]}" $bg)
         debug "Added $bg as background to codes"
     fi
     if [[ -n $2 ]]; then
+        # shellcheck disable=2086
         fg=$(fg_color $2)
         codes=("${codes[@]}" $fg)
         debug "Added $fg as foreground to codes"
@@ -191,20 +194,25 @@ set_colors() {
 # Takes three arguments, background, foreground, and content. All can be omitted,
 # rendering default background/foreground.
 prompt_segment() {
-    local bg fg separator
+    local bg fg
     declare -a codes
 
     debug "Prompting $1 $2 $3"
 
+    # shellcheck disable=2207
     codes=("${codes[@]}" $(text_effect reset))
 
     if [[ -n $1 ]]; then
+        # shellcheck disable=2086
         bg=$(bg_color $1)
+        # shellcheck disable=2206
         codes=("${codes[@]}" $bg)
         debug "Added $bg as background to codes"
     fi
     if [[ -n $2 ]]; then
+        # shellcheck disable=2086
         fg=$(fg_color $2)
+        # shellcheck disable=2206
         codes=("${codes[@]}" $fg)
         debug "Added $fg as foreground to codes"
     fi
@@ -212,15 +220,16 @@ prompt_segment() {
     debug "Codes: "
     # declare -p codes
 
-    if [[ $CURRENT_BG != NONE && $1 != $CURRENT_BG ]]; then
-        # declare -a intermediate=($(fg_color $CURRENT_BG) $(bg_color $1))
+    if [[ $CURRENT_BG != NONE && $1 != "$CURRENT_BG" ]]; then
+        # shellcheck disable=2034
         declare -a intermediate=($(fg_color gray) $(bg_color background))
-        debug "pre prompt " $(ansi intermediate[@])
+        debug "pre prompt " "$(ansi intermediate[@])"
         PR="$PR $(ansi intermediate[@])$SEGMENT_SEPARATOR"
-        debug "post prompt " $(ansi codes[@])
+        debug "post prompt " "$(ansi codes[@])"
         PR="$PR$(ansi codes[@]) "
     else
-        debug "no current BG, codes is $codes[@]"
+        # shellcheck disable=2145
+        debug "no current BG, codes is ${codes[@]}"
         PR="$PR$(ansi codes[@]) "
     fi
     CURRENT_BG=$(bg_color background)
@@ -229,18 +238,38 @@ prompt_segment() {
 
 # End the prompt, closing any open segments
 prompt_end() {
+    local symbols
+
+    # shellcheck disable=2034
     declare -a reset=($(text_effect reset))
     PR="$PR $(ansi reset[@])"
 
+    # shellcheck disable=2034
     declare -a codes=($(fg_color background))
     PR="$PR$(ansi codes[@])"
 
     PR="${PR}\n"
 
+    # shellcheck disable=2034
     declare -a codes=($(fg_color "${HOST_BG}"))
     PR="$PR$(ansi codes[@])"
 
-    PR="${PR}└─$(ansi reset[@]) "
+    PR="${PR}└─"
+
+
+    if [[ $RETVAL -ne 0 ]]; then
+        PR="${PR}$(ansi_single $(fg_color red))✘"
+    fi
+    # echo "$(fg_color red)"
+    if [[ $UID -eq 0 ]]; then
+        PR="${PR}$(ansi_single $(fg_color yellow))⚡"
+    fi
+
+    if [[ $(jobs -l | wc -l) -eq 0 ]]; then
+        PR="${PR}$(ansi_single $(fg_color cyan))⚙"
+    fi
+
+    PR="${PR}$(ansi reset[@]) "
     CURRENT_BG=''
 }
 
@@ -266,15 +295,17 @@ prompt_virtualenv() {
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
-    local user=$(whoami)
+    local user
+    user=$(whoami)
 
+    # shellcheck disable=2046
     PR="\n$(ansi_single $(text_effect reset))"
     declare -a codes=($(fg_color "${HOST_BG}") $(text_effect "italic") $(text_effect "bold"))
     PR="$PR$(ansi codes[@])┌"
 
     declare -a codes=($(fg_color background) $(bg_color "${HOST_BG}"))
     PR="$PR$(ansi codes[@]) "
-    if [[ $user != $DEFAULT_USER || -n $SSH_CLIENT ]]; then
+    if [[ "$user" != "$DEFAULT_USER" || -n $SSH_CLIENT ]]; then
         PR="$PR$user@"
     fi
     PR="$PR\h "
@@ -298,7 +329,6 @@ git_status_dirty() {
 prompt_git() {
     local ref dirty
     if git rev-parse --is-inside-work-tree &>/dev/null; then
-        ZSH_THEME_GIT_PROMPT_DIRTY='±'
         dirty=$(git_status_dirty)
         ref=$(git symbolic-ref HEAD 2>/dev/null) || ref="➦ $(git show-ref --head -s --abbrev | head -n1 2>/dev/null)"
         prompt_segment background lavendar
@@ -322,56 +352,15 @@ prompt_dir() {
 prompt_status() {
     local symbols
     symbols=()
-    [[ $RETVAL -ne 0 ]] && symbols+="$(ansi_single $(fg_color red))✘"
-    [[ $UID -eq 0 ]] && symbols+="$(ansi_single $(fg_color yellow))⚡"
-    [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="$(ansi_single $(fg_color cyan))⚙"
+    [[ $RETVAL -ne 0 ]] && symbols+="$(ansi_single "$(fg_color red)")✘"
+    [[ $UID -eq 0 ]] && symbols+="$(ansi_single "$(fg_color yellow)")⚡"
+    [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="$(ansi_single "$(fg_color cyan)")⚙"
 
-    [[ -n "$symbols" ]] && symbols+="$(ansi_single $(bg_color background))"
+    [[ -n "$symbols" ]] && symbols+="$(ansi_single "$(bg_color background)")"
 
     [[ -n "$symbols" ]] && prompt_segment background default "$symbols"
 }
 
-######################################################################
-#
-# experimental right prompt stuff
-# requires setting prompt_foo to use PRIGHT vs PR
-# doesn't quite work per above
-
-rightprompt() {
-    printf "%*s" $COLUMNS "$PRIGHT"
-}
-
-# quick right prompt I grabbed to test things.
-__command_rprompt() {
-    local times= n=$COLUMNS tz
-    for tz in ZRH:Europe/Zurich PIT:US/Eastern \
-        MTV:US/Pacific TOK:Asia/Tokyo; do
-        [ $n -gt 40 ] || break
-        times="$times ${tz%%:*}\e[30;1m:\e[0;36;1m"
-        times="$times$(TZ=${tz#*:} date +%H:%M)\e[0m"
-        n=$(($n - 10))
-    done
-    [ -z "$times" ] || printf "%${n}s$times\\r" ''
-}
-# _omb_util_add_prompt_command __command_rprompt
-
-# this doens't wrap code in \[ \]
-ansi_r() {
-    local seq
-    declare -a mycodes2=("${!1}")
-
-    debug "ansi: ${!1} all: $* aka ${mycodes2[@]}"
-
-    seq=""
-    for ((i = 0; i < ${#mycodes2[@]}; i++)); do
-        if [[ -n $seq ]]; then
-            seq="${seq};"
-        fi
-        seq="${seq}${mycodes2[$i]}"
-    done
-    debug "ansi debug:" '\\[\\x1b['${seq}'m\\]'
-    echo -ne '\x1b['${seq}'m'
-}
 
 ######################################################################
 ## Main prompt
@@ -380,7 +369,7 @@ build_prompt() {
     #[[ -z ${AG_NO_HIST+x} ]] && prompt_histdt
     [[ -z ${AG_NO_CONTEXT+x} ]] && prompt_context
     prompt_virtualenv
-    prompt_status
+    # prompt_status
     prompt_dir
     prompt_git
     prompt_end
@@ -391,6 +380,7 @@ _omb_theme_PROMPT_COMMAND() {
     PR=""
     PRIGHT=""
     CURRENT_BG=NONE
+    # shellcheck disable=2046
     PR="\n$(ansi_single $(text_effect reset))"
     build_prompt
 
