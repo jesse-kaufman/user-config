@@ -119,6 +119,7 @@ fg_color() {
     background) echo 32\;35\;40 ;;
     lavendar) echo 169\;161\;225 ;;
     orange) echo 252\;138\;37 ;;
+    dkorange) echo 250\;90\;31 ;;
     esac
 }
 
@@ -141,6 +142,7 @@ bg_color() {
     background) echo 32\;35\;40 ;;
     lavendar) echo 169\;161\;225 ;;
     orange) echo 252\;138\;37 ;;
+    dkorange) echo 250\;90\;31 ;;
     esac
 }
 
@@ -274,7 +276,7 @@ prompt_end() {
 
 
     if [[ "$USER" == "root" ]]; then
-        PR="${PR}$(ansi_single $(fg_color red)) "
+        PR="${PR}$(ansi_single $(fg_color dkorange)) "
     else
         PR="${PR}$(ansi reset[@]) "
     fi
