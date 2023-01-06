@@ -40,9 +40,9 @@ HOST=$(hostname)
 if [[ "$HOST" = "re420" ]]; then
     HOST_BG="ltgreen"
 elif [[ "$HOST" = "tgdev1" ]]; then
-    HOST_BG="blue"
+    HOST_BG="lavendar"
 elif [[ "$HOST" = "mws1" ]]; then
-    HOST_BG="ltred"
+    HOST_BG="orange"
 fi
 
 ######################################################################
