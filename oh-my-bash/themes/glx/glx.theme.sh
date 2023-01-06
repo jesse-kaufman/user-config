@@ -264,7 +264,7 @@ prompt_end() {
     PR="${PR}"
 
     # echo "$(fg_color red)"
-    if [[ $user == "root" ]]; then
+    if [[ $USER == "root" ]]; then
         symbols="${symbols}$(ansi_single $(fg_color yellow))⚡"
     fi
 
@@ -278,7 +278,7 @@ prompt_end() {
         PR="${PR}${symbols}"
     fi
 
-    if [[ "$user" == "root" ]]; then
+    if [[ "$USER" == "root" ]]; then
         PR="${PR}$(ansi_single "$(fg_color_red)") "
     else
         PR="${PR}$(ansi reset[@]) "
