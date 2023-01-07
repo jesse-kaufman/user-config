@@ -174,18 +174,18 @@ set_colors() {
     local bg fg
     declare -a codes
 
-    codes=("${codes[@]}" $(text_effect reset))
+    codes=(${codes[@]} $(text_effect reset))
 
     if [[ -n $1 ]]; then
         # shellcheck disable=2086
         bg=$(bg_color $1)
-        codes=("${codes[@]}" $bg)
+        codes=(${codes[@]} $bg)
         debug "Added $bg as background to codes"
     fi
     if [[ -n $2 ]]; then
         # shellcheck disable=2086
         fg=$(fg_color $2)
-        codes=("${codes[@]}" $fg)
+        codes=(${codes[@]} $fg)
         debug "Added $fg as foreground to codes"
     fi
 
@@ -353,9 +353,28 @@ prompt_git() {
 # Dir: current working directory
 prompt_dir() {
     local path
-    path=$(echo $PWD | sed s#^"$HOME\(/\)*"#\ # | sed s/\ $//)
+    pwd_length=60
+    pwd_symbol=""
+    # pwd_symbol="…"
+    # pwd_symbol=""
+    # pwd_symbol="⋯"
 
-    prompt_segment background foreground "$path"
+    path="${PWD/$HOME/}"
+    if [ $(echo -n $path | wc -c | tr -d " ") -gt $pwd_length ]
+    then
+        path=$(echo -n $path | awk -F '/' '{print $1 "/" $2 "/$pwd_symbol/" $(NF-1) "/" $(NF)}')
+    fi
+
+    path=$path
+
+    IFS='/' read -ra path_item <<< "$path"
+    for path_item in "${path_item[@]}"; do
+        if [[ "$path_item" == '$pwd_symbol' ]]; then
+            prompt_segment background gray "$path_item"
+        else
+            prompt_segment background foreground "$path_item"
+        fi
+    done
 }
 
 # Status:
