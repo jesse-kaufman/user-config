@@ -3,13 +3,21 @@ scriptencoding uft-8
 let data_dir = has('nvim') ? stdpath('data') : '~/.vim'
 let config_dir = has('nvim') ? stdpath('config') : '~/.vim'
 
-if empty(glob(config_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.config_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+augroup VimPlug
+    autocmd!
+    if empty(glob(config_dir . '/autoload/plug.vim'))
+        silent execute '!curl -fLo '.config_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+augroup END
 
 call plug#begin('~/.vim/plugged')
     " Plugin Section
+
+    " Colorscheme.
+    Plug 'jesse-kaufman/vim-glandix'
+
+    " Show context/indent lines.
     Plug 'lukas-reineke/indent-blankline.nvim'
 
     " Custom status line.
@@ -75,13 +83,10 @@ call plug#begin('~/.vim/plugged')
     " Icons for LSP menus/popups
     Plug 'onsails/lspkind.nvim'
 
-    " Colorscheme.
-    Plug 'jesse-kaufman/vim-glandix'
-
     " Improved syntax highlighting.
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-    " Autocomplete menu handler.
+    " Autocomplete plugins
     Plug 'hrsh7th/nvim-cmp'      " Autocomplete plugin.
     Plug 'hrsh7th/cmp-nvim-lsp'  " Autocomplete LSP items.
     Plug 'hrsh7th/cmp-buffer'    " Autocomplete buffer items.
@@ -89,15 +94,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'hrsh7th/cmp-cmdline'   " Autocomplete VIM command line items
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help' " Autocomplete signatures easily
     Plug 'quangnguyen30192/cmp-nvim-ultisnips' " Add autocomplete support for ultisnips
+    Plug 'SirVer/ultisnips'           " UltiSnips snippets
+    Plug 'honza/vim-snippets'         " Autocomplete snippets
+    Plug 'windwp/nvim-autopairs'      " Autocomplete (), [], and {}
 
-    Plug 'kevinhwang91/nvim-hlslens'
-
-    " Required for UltiSnips in autocomplete menu
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'    " Autocomplete snippets
-
-    Plug 'windwp/nvim-autopairs' " Autocomplete (), [], and {}
-
+    Plug 'kevinhwang91/nvim-hlslens'  " Show better info when searching
 call plug#end()
 
 colorscheme glandix     " Set color scheme
@@ -379,7 +380,6 @@ augroup END
 
 
 function! DisableMatchesOnFloat()
-    lua vim.notify('here')
     call clearmatches()
 endfunction
 
@@ -395,16 +395,14 @@ augroup LspsagaHover
 augroup END
 
 
-function! DisableExtras()
-  call nvim_win_set_option(g:float_preview#win, 'number', v:false)
-  call nvim_win_set_option(g:float_preview#win, 'relativenumber', v:false)
-  call nvim_win_set_option(g:float_preview#win, 'cursorline', v:false)
-  call nvim_win_set_option(g:float_preview#win, 'winhighlight', 'Normal:MyHighlight,FloatBorder:MyHighlight')
-  call nvim_win_set_option(g:float_preview#win, 'textwidth', '0')
-endfunction
+function! DisableExtrasOnFloats()
+    call nvim_win_set_option(g:float_preview#win, 'cursorline', v:false)
+    call nvim_win_set_option(g:float_preview#win, 'winhighlight', 'Normal:MyHighlight,FloatBorder:MyHighlight')
+    call nvim_win_set_option(g:float_preview#win, 'textwidth', '0')
+endfunctio
 
 augroup DisableExtrasGroup
-    autocmd User FloatPreviewWinOpen call DisableExtras()
+    autocmd User FloatPreviewWinOpen call DisableExtrasOnFloats()
 augroup END
 
 

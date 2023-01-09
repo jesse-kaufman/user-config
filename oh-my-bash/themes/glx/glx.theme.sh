@@ -354,21 +354,18 @@ prompt_git() {
 prompt_dir() {
     local path
     pwd_length=60
+    # shellcheck disable=2034
     pwd_symbol=""
-    # pwd_symbol="…"
-    # pwd_symbol=""
-    # pwd_symbol="⋯"
 
     path="${PWD/$HOME/}"
-    if [ $(echo -n $path | wc -c | tr -d " ") -gt $pwd_length ]
+    if [ "$(echo -n "$path" | wc -c | tr -d " ")" -gt $pwd_length ]
     then
-        path=$(echo -n $path | awk -F '/' '{print $1 "/" $2 "/$pwd_symbol/" $(NF-1) "/" $(NF)}')
+        path="$(echo -n "$path" | awk -F '/' '{print $1 "/" $2 "/$pwd_symbol/" $(NF-1) "/" $(NF)}')"
     fi
-
-    path=$path
 
     IFS='/' read -ra path_item <<< "$path"
     for path_item in "${path_item[@]}"; do
+        # shellcheck disable=2016
         if [[ "$path_item" == '$pwd_symbol' ]]; then
             prompt_segment background gray "$path_item"
         else
