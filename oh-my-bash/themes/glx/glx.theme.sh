@@ -300,6 +300,9 @@ prompt_context() {
     # fi
     PR="$PR$ICON\h "
 
+    # Reset font style
+    PR="$(ansi_single $(text_effect reset))"
+
     declare -a codes=($(fg_color "${HOST_BG}") $(bg_color background))
     PR="$PR$(ansi codes[@])"
 }
