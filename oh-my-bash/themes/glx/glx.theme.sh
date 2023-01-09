@@ -290,10 +290,10 @@ prompt_context() {
     PR="\n$(ansi_single $(text_effect reset))"
     PR="$PR$(ansi_single $(fg_color gray) codes[@])┌"
 
-    declare -a codes=($(fg_color "${HOST_BG}") $(text_effect "italic") $(text_effect "bold"))
+    declare -a codes=($(fg_color "${HOST_BG}"))
     PR="$PR$(ansi codes[@])"
 
-    declare -a codes=($(fg_color background) $(bg_color "${HOST_BG}"))
+    declare -a codes=($(fg_color background) $(bg_color "${HOST_BG}") $(text_effect "bold") $(text_effect "italic"))
     PR="$PR$(ansi codes[@]) "
     # if [[ "$user" != "$DEFAULT_USER" || -n $SSH_CLIENT ]]; then
     #     PR="$PR$user@"
