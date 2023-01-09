@@ -270,7 +270,6 @@ nnoremap <Leader><Tab> :tabnext<CR>
 nnoremap <Leader><S-Tab> :tabprevious<CR>
 nnoremap <Leader>t :tabnew<CR>:Explore<CR>
 nnoremap <Leader>o :tabnew<CR>:Explore<CR>
-nnoremap <Leader>n :tabnew<CR>
 nnoremap <Leader>e :Explore<CR>
 " Make surround easier to use
 
@@ -440,7 +439,6 @@ function! MyToggleNoChars()
         set list
         set signcolumn=number
         let &showbreak = '↪'
-        call OverLength()
         lua vim.diagnostic.config({virtual_text = true})
     endif
     let s:my_noCharsState = !s:my_noCharsState
