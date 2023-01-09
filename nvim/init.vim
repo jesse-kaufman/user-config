@@ -429,11 +429,15 @@ function! MyToggleNoChars()
         set nolist
         set signcolumn=no
         let &showbreak = ''
+        call clearmatches()
+        lua vim.diagnostic.config({virtual_text = false})
     else
         set number
         set list
         set signcolumn=number
         let &showbreak = '↪'
+        call OverLength()
+        lua vim.diagnostic.config({virtual_text = true})
     endif
     let s:my_noCharsState = !s:my_noCharsState
 endfunction
