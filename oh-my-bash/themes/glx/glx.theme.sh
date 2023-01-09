@@ -1,42 +1,19 @@
 #!/usr/bin/env bash
 # oh-my-bash.module
 # vim: ft=bash ts=2 sw=2 sts=2
-#
-# agnoster's Theme - https://gist.github.com/3712874
-# A Powerline-inspired theme for BASH
-#
-# (Converted from ZSH theme by Kenny Root)
-# https://gist.github.com/kruton/8345450
-#
-# Updated & fixed by Erik Selberg erik@selberg.org 1/14/17
-# Tested on MacOSX, Ubuntu, Amazon Linux
-# Bash v3 and v4
-#
-# # README
-#
-# In order for this theme to render correctly, you will need a
-# [Powerline-patched font](https://gist.github.com/1595572).
-# I recommend: https://github.com/powerline/fonts.git
-# > git clone https://github.com/powerline/fonts.git fonts
-# > cd fonts
-# > install.sh
 
-# In addition, I recommend the
-# [Solarized theme](https://github.com/altercation/solarized/) and, if you're
-# using it on Mac OS X, [iTerm 2](http://www.iterm2.com/) over Terminal.app -
-# it has significantly better color fidelity.
-
-# Install:
-
-# I recommend the following:
-# $ cd home
-# $ mkdir -p .bash/themes/agnoster-bash
-# $ git clone https://github.com/speedenator/agnoster-bash.git .bash/themes/agnoster-bash
+#
+# GLX Oh-My-Bash theme
+# An agnoster-inspired (which is a Powerline-inspired) theme for BASH
+#
 
 
 HOST=$(hostname)
 
 if [[ "$HOST" = "re420" ]]; then
+    HOST_BG="magenta"
+    ICON=" "
+elif [[ "$HOST" = "re710" ]]; then
     HOST_BG="ltgreen"
     ICON=" "
 elif [[ "$HOST" = "tgdev1" ]]; then
