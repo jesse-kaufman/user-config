@@ -247,20 +247,37 @@ nmap <F24> <Space>
 " Map Enter to space in normal mode (for leader key)
 nmap <Enter> <Space>
 
-nmap <Leader>f  :Format<Cr>
-
 
 
 " ====================================
+" LEADERS COMMANDS
+" ====================================
+
+" Format file.
+nmap <Leader>f  :Format<Cr>
+
+" toggle comments
+map <Leader>c gcc
+
+" Make <Leader>n toggle extra characters so copying text highlighted with the
+" mouse in terminal makes sense
+map <Leader>n :call MyToggleNoChars()<cr>
+
+" Tab / Shift Tab to switch between tabs (:tabe <file>)
+" nnoremap <Tab> :tabnext<CR>
+" nnoremap <S-Tab> :tabprevious<CR>
+nnoremap <Leader><Tab> :tabnext<CR>
+nnoremap <Leader><S-Tab> :tabprevious<CR>
+nnoremap <Leader>t :tabnew<CR>:Explore<CR>
+nnoremap <Leader>o :tabnew<CR>:Explore<CR>
+nnoremap <Leader>n :tabnew<CR>
+nnoremap <Leader>e :Explore<CR>
 " Make surround easier to use
-"
-"
+
 " change quote from " to ' in normal mode
 nmap <Leader>""'   cs"'
 " change quote from ' to " in normal mode
 nmap <Leader>'""   cs'"
-
-
 " core 'quote' command in normal mode
 nmap <Leader>"   ysiw
 " quote current word with '' in normal mode
@@ -278,7 +295,6 @@ nmap <Leader>"r  ds
 nmap <Leader>"d  ds
 " change quote in normal mode
 nmap <Leader>"c  cs
-
 " core 'quote' command in visual mode
 vmap <Leader>"   S
 " quote current word with '' in visual mode
@@ -288,15 +304,6 @@ vmap <Leader>(   S(
 " quote current word with () in visual mode
 vmap <Leader>)   S)
 
-" toggle comments
-map <Leader>c gcc
-
-" Tab / Shift Tab to switch between tabs (:tabe <file>)
-" nnoremap <Tab> :tabnext<CR>
-" nnoremap <S-Tab> :tabprevious<CR>
-nnoremap <Leader><Tab> :tabnext<CR>
-nnoremap <Leader><S-Tab> :tabprevious<CR>
-nnoremap <Leader>T :tabnew<CR>:Explore<CR>
 
 " Make indent/outdent keep selection
 vmap < <gv
@@ -417,9 +424,6 @@ augroup END
 "          FUNCTIONS
 " --------------------------
 
-" Make <Leader>n toggle anything I don't want
-" to copy when highlighting with a mouse
-map <Leader>n :call MyToggleNoChars()<cr>
 
 " Toggle showing extra characters and number/sign column with :NC
 let s:my_noCharsState=1
