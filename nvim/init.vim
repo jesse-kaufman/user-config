@@ -125,7 +125,7 @@ set termguicolors       " use full color
 set nobackup            " no backups
 set nowritebackup       " no backups
 "set signcolumn=number   " put diagnostic signs in number column to save space
-set signcolumn=yes   " put diagnostic signs in number column to save space
+set signcolumn=yes:2   " put diagnostic signs in number column to save space
 set cursorline          " highlight current line
 " set timeoutlen=1000
 set notimeout           " don't timeout on leader key
