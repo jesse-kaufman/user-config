@@ -27,3 +27,5 @@ fi
 
 alias dev='ssh tgdev1.transitionsgroup.net'
 alias mws='ssh mws1.transitionsgroup.net'
+
+alias tic='tic -sx'
