@@ -288,12 +288,14 @@ prompt_context() {
 
     # shellcheck disable=2046
     PR="\n$(ansi_single $(text_effect reset))"
-    PR="$PR$(ansi_single $(fg_color gray) codes[@])┌"
+    PR="$PR$(ansi_single $(fg_color gray))┌"
 
     declare -a codes=($(fg_color "${HOST_BG}"))
-    PR="$PR$(ansi codes[@])"
+    PR="$PR$(ansi_single $(fg_color "${HOST_BG}"))"
 
-    declare -a codes=($(fg_color background) $(bg_color "${HOST_BG}") $(text_effect "bold") $(text_effect "italic"))
+    declare -a codes=($(fg_color background) $(bg_color "${HOST_BG}"))
+    PR="$PR$(ansi_single $(text_effect "bold"))"
+    # PR="$PR$(ansi_single $(text_effect "italic"))"
     PR="$PR$(ansi codes[@]) "
     # if [[ "$user" != "$DEFAULT_USER" || -n $SSH_CLIENT ]]; then
     #     PR="$PR$user@"
@@ -303,7 +305,8 @@ prompt_context() {
     # Reset font style
     PR="$PR$(ansi_single $(text_effect reset))"
 
-    declare -a codes=($(fg_color "${HOST_BG}") $(bg_color background))
+    declare -a codes=($(fg_color "${HOST_BG}") $(bg_color "background"))
+
     PR="$PR$(ansi codes[@])"
 }
 
