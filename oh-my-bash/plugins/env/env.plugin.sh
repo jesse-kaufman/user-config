@@ -5,7 +5,10 @@
 # Copyright © 2023 Jesse Kaufman. All rights reserved.
 #
 
-# Local variable for paths to prepend to PATH
+# Don't ignore any history items when recalling.
+HISTIGNORE=
+
+# Local variable for paths to prepend to PATH.
 GLX_PATHS=""
 
 #
