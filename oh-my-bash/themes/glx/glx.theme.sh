@@ -36,13 +36,16 @@
 
 HOST=$(hostname)
 
-if [[ "$HOST" = "re420" ]]; then
-    HOST_BG="ltgreen"
-elif [[ "$HOST" = "tgdev1" ]]; then
-    HOST_BG="lavendar"
-elif [[ "$HOST" = "mws1" ]]; then
+# if [[ "$HOST" = "re420" ]]; then
+#     HOST_BG="ltgreen"
+#     ICON=" "
+# elif [[ "$HOST" = "tgdev1" ]]; then
+    # HOST_BG="lavendar"
+    # ICON="ﭧ "
+# elif [[ "$HOST" = "mws1" ]]; then
     HOST_BG="orange"
-fi
+    ICON=" "
+# fi
 
 ######################################################################
 DEBUG=0
@@ -318,7 +321,7 @@ prompt_context() {
     # if [[ "$user" != "$DEFAULT_USER" || -n $SSH_CLIENT ]]; then
     #     PR="$PR$user@"
     # fi
-    PR="$PR\h "
+    PR="$PR$ICON\h "
 
     declare -a codes=($(fg_color "${HOST_BG}") $(bg_color background))
     PR="$PR$(ansi codes[@])"
