@@ -12,7 +12,7 @@ HISTIGNORE=
 GLX_PATHS=""
 
 #
-# Add Homebrew to path (if it isn't already).
+# Add Homebrew to path
 #
 
 # Variable is set.
@@ -39,7 +39,7 @@ if [[ ":$BREW_PATH:" != "::" ]] && \
 fi
 
 #
-# Add global Cargo to path (if it isn't already).
+# Add global Cargo to path
 #
 CARGO_PATH="$HOME/.cargo/bin"
 # Check if directory exists.
@@ -51,7 +51,15 @@ if [[ -d $CARGO_PATH ]]; then
 fi
 
 #
-# Add global composer to path (if it isn't already)
+# Add Mason-vim bin dir to path
+#
+MASON_PATH="$HOME/.local/share/nvim/mason/bin"
+if [[ ":$PATH:" != *":$MASON_PATH:"* ]]; then
+    GLX_PATHS="$MASON_PATH:$GLX_PATHS"
+fi
+
+#
+# Add global composer to path
 #
 if [[ -d "$HOME/.composer/vendor/bin" ]]; then
     G_COMPOSER_PATH="$HOME/.composer/vendor/bin"
@@ -66,7 +74,7 @@ if [[ ":$G_COMPOSER_PATH:" != "::" ]]; then
 fi
 
 #
-# Add local composer to path (if it isn't already)
+# Add local composer to path
 #
 if [[ ":$PATH:" != *":./vendor/bin:"* ]]; then
     GLX_PATHS="./vendor/bin:$GLX_PATHS"
