@@ -7,10 +7,11 @@
 # Software Foundation, either version 3 of the License, or (at your option) any
 # later version.
 
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of
 #
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero
+# General Public License for more details.
 
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
@@ -33,11 +34,41 @@
 # OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH
 # HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 #
+#
+
+# let g:glx_c_black      = "#121212"
+# let g:glx_c_ltblack    = "#262626"
+# let g:glx_c_dkgray     = "#323232"
+# let g:glx_c_gray       = "#525252"
+# let g:glx_c_ltgray     = "#828282"
+# let g:glx_c_dkwhite    = "#bfbfbf"
+# let g:glx_c_white      = "#eaeaea"
+# let g:glx_c_teal       = "#008080"
+# let g:glx_c_ltcyan     = "#80e8ff"
+# let g:glx_c_cyan       = "#56bbdc"
+# let g:glx_c_ltblue     = "#5b8dd8"
+# let g:glx_c_blue       = "#3879d8"
+# let g:glx_c_dkblue     = "#4a6fa5"
+# let g:glx_c_lavendar   = "#a9a1e1"
+# let g:glx_c_magenta    = "#c678dd"
+# let g:glx_c_ltred      = "#ec5f67"
+# let g:glx_c_red        = "#ef4335"
+# let g:glx_c_dkorange   = "#fa5a1f"
+# let g:glx_c_orange     = "#fc8a25"
+# let g:glx_c_yellow     = "#fecb2f"
+# let g:glx_c_ltgreen    = "#98be65"
+# let g:glx_c_green      = "#1ea50b"
+# let g:glx_c_dkgreen    = "#157108"
+
+# let g:glx_c_lualine_bg = "#202328"
+# let g:glx_c_lualine_fg = "#bbc2cf"
+
 colors:
   background_color: "282c34"
   white: "828997"
   red: "e06c75"
-  green: "98c379"
+  ltgreen: "98c379"
+  green: "1ea50b"
   yellow: "e5c07b"
   blue: "61afef"
   pink: "ff6ac1"
@@ -83,7 +114,7 @@ core:
   other_writable: {}
   sticky: {}
   executable_file:
-    foreground: red
+    foreground: green
     font-style: bold
 text:
   special:
@@ -101,11 +132,11 @@ markup:
   foreground: yellow
 programming:
   source:
-    foreground: green
+    foreground: ltgreen
   tooling:
-    foreground: green
+    foreground: ltgreen
     continuous-integration:
-      foreground: green
+      foreground: ltgreen
 media:
   foreground: pink
 office:
@@ -114,7 +145,7 @@ archives:
   foreground: cyan
   font-style: underline
 executable:
-  foreground: red
+  foreground: green
   font-style: bold
 unimportant:
   foreground: darkgray
