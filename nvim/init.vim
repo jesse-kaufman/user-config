@@ -141,8 +141,6 @@ set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
 " Make command/search use | cursor
 set guicursor+=c:ver50
 
-let g:loaded_editorconfig = 1
-
 " UltiSnips Configuration
 let g:UltiSnipsSnippetDirectories=[data_dir.'/plugged/vim-snippets/UltiSnips',config_dir.'/ultisnips']
 let g:UltiSnipsJumpForwardTrigger='<Tab>' " Alt+Tab
@@ -163,8 +161,7 @@ set pyxversion=3
 
 let g:highlightedyank_highlight_duration = 1000
 
-set list listchars=tab:‣\
-set list listchars+=nbsp:␣
+set list listchars=tab:‣\ ,nbsp:␣
 set list listchars+=eol:¬
 set list listchars+=space:·
 set list listchars+=trail:
@@ -243,8 +240,8 @@ sign define DiagnosticSignHint text=  texthl=DiagnosticSignHint
 inoremap <M-BS>  <C-W>
 cnoremap <M-BS>  <C-W>
 
-" Map F24 to space in normal mode (for leader key)
-nmap <F24> <Space>
+" Map F24 to ^w (for window controls)
+nmap <F24> <C-W>
 
 " Map Enter to space in normal mode (for leader key)
 nmap <Enter> <Space>
