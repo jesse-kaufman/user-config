@@ -8,7 +8,7 @@ end
 
 local b = null_ls.builtins
 
-null_ls.setup({
+null_ls.setup {
     debug = true,
     sources = {
         -- Diagnostics/Linters
@@ -20,9 +20,12 @@ null_ls.setup({
         b.diagnostics.yamllint,
         b.diagnostics.vint,
         b.diagnostics.shellcheck,
-        b.diagnostics.editorconfig_checker.with({
+        b.diagnostics.editorconfig_checker.with {
             command = "editorconfig-checker",
-        }),
+            extra_args = {
+                "-ignore-defaults",
+            },
+        },
         b.diagnostics.dotenv_linter,
 
         -- Hover Providers
@@ -32,22 +35,22 @@ null_ls.setup({
         b.code_actions.shellcheck,
 
         -- Formatters
-        b.formatting.stylua.with({
-            extra_args = {
-        "-c",
-        os.getenv("HOME") .. '/.config/stylua.lua'}}),
-        b.formatting.phpcbf,
+        b.formatting.stylua,
         b.formatting.prettierd,
         b.formatting.shfmt,
         b.formatting.sqlformat,
         b.formatting.autopep8,
-        b.formatting.uncrustify.with({
+        b.formatting.uncrustify.with {
             extra_args = {
                 "-c",
-                os.getenv("HOME") .. "/.config/uncrustify.cfg",
+                os.getenv "HOME" .. "/.config/uncrustify.cfg",
             },
-        }),
+        },
     },
     on_attach = require("user.src.lsp-handler").on_attach,
     capabilities = require("user.src.lsp-handler").get_capabilities(),
-})
+}
+
+if (vim.bo.filetype ~= 'log') then
+    null_ls.disable('editorconfig')
+end

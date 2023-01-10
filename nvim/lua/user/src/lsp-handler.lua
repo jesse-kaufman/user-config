@@ -41,15 +41,15 @@ M.on_attach = function(client, bufnr)
     -- the statusline and the current function.
     -- NOTE: on_attach is called with the client object, which is the "client" parameter below
 
-    local lsp_status = require("lsp-status")
-    lsp_status.on_attach(client)
+    -- local lsp_status = require("lsp-status")
+    -- lsp_status.on_attach(client)
 
-    if client.supports_method("textDocument/formatting") then
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre,BufEnter,BufNewFile", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
+    -- if client.supports_method("textDocument/formatting") then
+    --     vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    --     vim.api.nvim_create_autocmd("BufWritePre,BufEnter,BufNewFile", {
+    --         group = augroup,
+    --         buffer = bufnr,
+    --         callback = function()
                 -- Here we let the LSP prioritize null-ls formatters. Why?
                 -- Normally when we install a separate formatter or linter
                 -- in null-ls we want to use just them.
@@ -66,9 +66,9 @@ M.on_attach = function(client, bufnr)
                 --     end,
                 --     bufnr = bufnr,
                 -- })
-            end,
-        })
-    end
+            -- end,
+        -- })
+    -- end
 
     require("user.config.lsp-keymaps").setup_format_maps(bufnr)
     require("user.config.lsp-keymaps").setup_diag_maps(bufnr)

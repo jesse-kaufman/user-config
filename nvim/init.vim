@@ -124,8 +124,8 @@ set whichwrap=          " nothing wraps
 set termguicolors       " use full color
 set nobackup            " no backups
 set nowritebackup       " no backups
-"set signcolumn=number   " put diagnostic signs in number column to save space
-set signcolumn=yes:2   " put diagnostic signs in number column to save space
+" set noautoread          " don't read changed files
+set signcolumn=yes:1    " 1-char sign column
 set cursorline          " highlight current line
 " set timeoutlen=1000
 set notimeout           " don't timeout on leader key
@@ -140,6 +140,8 @@ set laststatus=2
 set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
 " Make command/search use | cursor
 set guicursor+=c:ver50
+
+let g:loaded_editorconfig = 1
 
 " UltiSnips Configuration
 let g:UltiSnipsSnippetDirectories=[data_dir.'/plugged/vim-snippets/UltiSnips',config_dir.'/ultisnips']
@@ -437,7 +439,7 @@ function! MyToggleNoChars()
     else
         set number
         set list
-        set signcolumn=number
+        set signcolumn=yes:1
         let &showbreak = '↪'
         lua vim.diagnostic.config({virtual_text = true})
     endif
