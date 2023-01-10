@@ -10,19 +10,6 @@
 
 HOST=$(hostname)
 
-if [[ "$HOST" = "re420" ]]; then
-    HOST_BG="magenta"
-    ICON=" "
-elif [[ "$HOST" = "re710" ]]; then
-    HOST_BG="ltgreen"
-    ICON=" "
-elif [[ "$HOST" = "tgdev1" ]]; then
-    HOST_BG="lavendar"
-    ICON="ﭧ "
-elif [[ "$HOST" = "mws1" ]]; then
-    HOST_BG="orange"
-    ICON=" "
-fi
 
 ######################################################################
 DEBUG=0
@@ -70,6 +57,8 @@ text_effect() {
 # let g:glx_colors_blue       = "#3879d8"
 # let g:glx_colors_dkblue     = "#4a6fa5"
 # let g:glx_colors_lavendar   = "#a9a1e1"
+# let g:glx_colors_purple     = "#7158C0"
+# let g:glx_colors_dkpurple   = "#4e3d86"
 # let g:glx_colors_magenta    = "#c678dd"
 # let g:glx_colors_ltred      = "#ec5f67"
 # let g:glx_colors_red        = "#ef4335"
@@ -78,21 +67,28 @@ text_effect() {
 # let g:glx_colors_yellow     = "#fecb2f"
 # let g:glx_colors_green      = "#98be65"
 # let g:glx_colors_ltgreen    = "#1ea50b"
+# let g:glx_colors_dkgreen    = "#157108"
+# let g:glx_colors_leaf    = "#157108"
 # let g:glx_colors_lualine_bg = "#202328"
 # let g:glx_colors_lualine_fg = "#bbc2cf"
-fg_color() {
-    echo -ne "38;2;"
+
+my_color() {
     case "$1" in
     black) echo 16\;16\;16 ;;
     red) echo 239\;67\;53 ;;
     ltred) echo 236\;95\;103;;
     ltgreen) echo 152\;190\;101 ;;
+    dkgreen) echo 21\;113\;8 ;;
+    leaf) echo 16\;79\;6 ;;
+    purple) echo 113\;88\;192 ;;
+    dkpurple) echo 78\;61\;134 ;;
     green) echo 30\;165\;11 ;;
     yellow) echo 254\;203\;47 ;;
     blue) echo 91\;141\;216 ;;
     magenta) echo 174\;80\;185 ;;
     cyan) echo 128\;232\;255 ;;
     white) echo 191\;191\;191 ;;
+    ltwhite) echo 245\;245\;245 ;;
     ltgray) echo 130\;130\;130 ;;
     gray) echo 82\;82\;82 ;;
     foreground) echo 187\;194\;207 ;;
@@ -103,27 +99,14 @@ fg_color() {
     esac
 }
 
+fg_color() {
+    echo -ne "38;2;"
+    my_color "$1"
+}
+
 bg_color() {
     echo -ne "48;2;"
-    case "$1" in
-    black) echo 16\;16\;16 ;;
-    ltred) echo 236\;95\;103;;
-    red) echo 239\;67\;53 ;;
-    ltgreen) echo 152\;190\;101 ;;
-    green) echo 30\;165\;11 ;;
-    yellow) echo 254\;203\;47 ;;
-    blue) echo 91\;141\;216 ;;
-    magenta) echo 174\;80\;185 ;;
-    cyan) echo 128\;232\;255 ;;
-    white) echo 191\;191\;191 ;;
-    ltgray) echo 130\;130\;130 ;;
-    gray) echo 82\;82\;82 ;;
-    foreground) echo 187\;194\;207 ;;
-    background) echo 42\;45\;50 ;;
-    lavendar) echo 169\;161\;225 ;;
-    orange) echo 252\;138\;37 ;;
-    dkorange) echo 250\;90\;31 ;;
-    esac
+    my_color "$1"
 }
 
 # TIL: declare is global not local, so best use a different name
@@ -285,6 +268,19 @@ prompt_virtualenv() {
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
+if [[ "$HOST" = "re710" ]]; then
+    HOST_BG="dkpurple"
+    ICON="$(ansi_single $(fg_color green)) $(ansi_single $(fg_color ltwhite))"
+elif [[ "$HOST" = "re420" ]]; then
+    HOST_BG="green"
+    ICON="$(ansi_single $(fg_color dkpurple)) $(ansi_single $(fg_color black))"
+elif [[ "$HOST" = "tgdev1" ]]; then
+    HOST_BG="lavendar"
+    ICON="ﭧ "
+elif [[ "$HOST" = "mws1" ]]; then
+    HOST_BG="orange"
+    ICON=" "
+fi
 
     # shellcheck disable=2046
     PR="\n$(ansi_single $(text_effect reset))"
