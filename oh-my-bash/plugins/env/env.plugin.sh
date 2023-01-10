@@ -52,9 +52,16 @@ fi
 #
 # Add global composer to path (if it isn't already)
 #
-G_COMPOSER_PATH="$HOME/.composer/vendor/bin"
-if [[ ":$PATH:" != *":$G_COMPOSER_PATH:"* ]]; then
-    GLX_PATHS="$G_COMPOSER_PATH:$GLX_PATHS"
+if [[ -d "$HOME/.composer/vendor/bin" ]]; then
+    G_COMPOSER_PATH="$HOME/.composer/vendor/bin"
+elif [[ -d "$HOME/.config/composer/vendor/bin" ]]; then
+    G_COMPOSER_PATH="$HOME/.config/composer/vendor/bin"
+fi
+
+if [[ ":$G_COMPOSER_PATH:" != "::" ]]; then
+    if [[ ":$PATH:" != *":$G_COMPOSER_PATH:"* ]]; then
+        GLX_PATHS="$G_COMPOSER_PATH:$GLX_PATHS"
+    fi
 fi
 
 #
@@ -68,3 +75,6 @@ fi
 # Prepend our paths to $PATH
 #
 export PATH="${GLX_PATHS}${PATH}"
+
+# Don't autocomplete vars for cd
+shopt -u cdable_vars
