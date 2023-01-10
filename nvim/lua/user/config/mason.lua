@@ -33,30 +33,9 @@ local mason_config = {
     },
 }
 
--- Load Mason
-mason.setup(mason_config)
-
-local null_ls_ensure_installed = {}
-local lspconfig_ensure_installed = {
-    "vimls",
-    -- "cssmodules_ls",
-}
-
--- Load Mason-null-ls
-mason_null_ls.setup {
-    ensure_installed = null_ls_ensure_installed,
-    automatic_installation = true,
-    automatic_setup = true,
-}
-
--- Load Mason-lspconfig
-mason_lspconfig.setup {
-    ensure_installed = lspconfig_ensure_installed,
-    automatic_installation = true,
-    automatic_setup = true,
-}
-
--- we'll need to call lspconfig to pass our server to the native neovim lspconfig.
+--
+-- we'll need to call lspconfig to pass our server to the native neovim
+-- lspconfig.
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status_ok then
     return
@@ -76,12 +55,28 @@ local function setup_server(server)
     lspconfig[server].setup(opts)
 end
 
--- loop through the required packages
-for _, server in pairs(null_ls_ensure_installed) do
-    setup_server(server)
-end
+--
+-- Load Mason
+--
+mason.setup(mason_config)
 
--- loop through the required packages
+local lspconfig_ensure_installed = require("user.config.lsp").get_ensure_installed()
+
+-- Setup Mason-null-ls
+mason_null_ls.setup {
+    ensure_installed = require("user.config.null-ls").get_ensure_installed(),
+    automatic_installation = true,
+    automatic_setup = true,
+}
+
+-- Load Mason-lspconfig
+mason_lspconfig.setup {
+    ensure_installed = lspconfig_ensure_installed,
+    automatic_installation = true,
+    automatic_setup = true,
+}
+
+-- loop through the required lspconfig packages
 for _, server in pairs(lspconfig_ensure_installed) do
     setup_server(server)
 end
