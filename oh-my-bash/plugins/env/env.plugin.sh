@@ -24,6 +24,7 @@ if [[ ":$BREW_PATH:" != "::" ]] && \
         if [[ ":$PATH:" != *":$BREW_PATH/bin:"* ]]; then \
             # Prepend bin dir to local var of paths
             GLX_PATHS="$BREW_PATH/bin:$GLX_PATHS"
+            GLX_PATHS="$BREW_PATH/sbin:$GLX_PATHS"
         fi
 
         php_path="$BREW_PATH/php@7.4" # TODO: Remove hardcoded ver
