@@ -8,7 +8,7 @@ if not status_cmp_ok then
     return
 end
 
--- is this needed?
+-- adds capabilities to list
 M.get_capabilities = function()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = cmp_nvim_lsp.default_capabilities(capabilities)

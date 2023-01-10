@@ -2,7 +2,6 @@
 # */bundle
 htop
 procps
-composer
 *vendor*
 configstore/update-notifier-npm*
 nvim/lua-language-server
