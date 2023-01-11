@@ -1,10 +1,8 @@
----
 cmdargs:
   severity: style_problem
-  color: true
-  env:
-    neovim: true
-
+color: true
+env:
+  neovim: true
 policies:
   ProhibitUnusedVariable:
     enabled: false
