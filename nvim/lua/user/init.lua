@@ -21,3 +21,11 @@ require "user.config.treesitter"
 
 -- Load cmp
 require "user.config.cmp"
+
+require("trouble").setup {
+    auto_preview = true,
+    auto_open = true,
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+}

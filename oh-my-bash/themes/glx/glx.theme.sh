@@ -220,9 +220,9 @@ prompt_end() {
     PR="${PR}$(ansi codes[@])└─"
 
     if [[ $RETVAL -ne 0 ]]; then
-        symbols="$(ansi_single $(fg_color yellow))⚡"
+        symbols="$(ansi_single $(fg_color yellow))⚡ "
     else
-        symbols="$(ansi_single $(fg_color ltgreen))⚡"
+        symbols="$(ansi_single $(fg_color ltgreen))⚡ "
     fi
 
     jobs=$(jobs -sl | wc -l | xargs)

@@ -87,3 +87,4 @@ export PATH="${GLX_PATHS}${PATH}"
 
 # Don't autocomplete vars for cd
 shopt -u cdable_vars
+
