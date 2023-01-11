@@ -39,9 +39,18 @@ K.setup_diag_maps = function(bufnr)
     -- Show cursor diagnostics
     vim.api.nvim_buf_set_keymap(bufnr, "n", "dc", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
 
+    -- local WIN_WIDTH = vim.fn.winwidth(0)
+    -- local max_width = math.floor(WIN_WIDTH * 0.7)
     -- Diagnostic jump can use `<c-o>` to jump back
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "dp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "dn", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, "n", "dp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "dp", "<cmd>lua require'lspsaga.diagnostic'.goto_prev()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "n",
+        "dn",
+        "<cmd>lua require'lspsaga.diagnostic'.goto_next({width = 30})<CR>",
+        opts
+    )
 
     -- Only jump to error
     vim.api.nvim_buf_set_keymap(
@@ -79,12 +88,11 @@ K.setup_diag_maps = function(bufnr)
     -- vim.api.nvim_buf_set_keymap(bufnr, "t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
 end
 
-
 K.setup_format_maps = function(bufnr)
     local opts = { noremap = true, silent = true }
 
-    vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()' ]])
-    vim.cmd("command! LspToggleAutoFormat execute 'lua require(\"user.src.lsp-handler\").toggle_format_on_save()'")
+    vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format()' ]]
+    vim.cmd "command! LspToggleAutoFormat execute 'lua require(\"user.src.lsp-handler\").toggle_format_on_save()'"
 end
 
 return K

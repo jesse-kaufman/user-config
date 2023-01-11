@@ -23,17 +23,17 @@ null_ls.setup {
         b.diagnostics.cpplint,
         b.diagnostics.php,
         b.diagnostics.phpcs,
-        b.diagnostics.phpstan.with{
-            extra_args = {
-                "--memory-limit",
-                "512M",
-            }
-        },
         b.diagnostics.yamllint.with {
             extra_args = {
                 "-c",
-                os.getenv "HOME" .. "/.config/yamlfmt.yaml",
-            }
+                os.getenv "HOME" .. "/.config/yamllint.yml",
+            },
+        },
+        b.diagnostics.phpstan.with {
+            extra_args = {
+                "--memory-limit",
+                "512M",
+            },
         },
         b.diagnostics.vint,
         b.diagnostics.shellcheck,
@@ -54,11 +54,16 @@ null_ls.setup {
         -- Formatters
         b.formatting.stylua,
         b.formatting.phpcbf,
-        b.formatting.prettierd,
+        -- b.formatting.prettierd,
         b.formatting.tidy,
         b.formatting.shfmt,
         b.formatting.sqlformat,
-        -- b.formatting.yamlfmt,
+        b.formatting.yamlfmt.with {
+            extra_args = {
+                "-conf",
+                "$HOME/.config/yamlfmt.yml",
+            },
+        },
         b.formatting.autopep8,
         b.formatting.uncrustify.with {
             extra_args = {
@@ -78,7 +83,6 @@ end
 if vim.fn.line "$" >= 1000 then
     null_ls.disable "phpstan"
 end
-
 
 local M = {}
 

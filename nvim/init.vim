@@ -79,6 +79,7 @@ call plug#begin('~/.vim/plugged')
 
     " Improved LSP interface.
     Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+    Plug 'folke/trouble.nvim'
 
     " Icons for LSP menus/popups
     Plug 'onsails/lspkind.nvim'

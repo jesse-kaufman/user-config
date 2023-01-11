@@ -2,15 +2,9 @@
 -- Configure Lspsaga (handles showing LSP menus/popups)
 --
 
-local glx_icons = require("user.icons.glx-icons")
+local glx_icons = require "user.icons.glx-icons"
 
-require("lspsaga").init_lsp_saga({
-    diagnostic_header = {
-        -- glx_icons.bolt,
-        -- glx_icons.warn,
-        -- glx_icons.info,
-        -- glx_icons.hint,
-    },
+require("lspsaga").init_lsp_saga {
     move_in_saga = {
         prev = "<C-p>",
         next = "<C-n>",
@@ -29,5 +23,23 @@ require("lspsaga").init_lsp_saga({
         update_time = 150,
         virtual_text = true,
     },
+    show_outline = {
+        win_position = "right",
+        win_with = "",
+        win_width = 30,
+        auto_enter = false,
+        auto_preview = true,
+        virt_text = "┃",
+        jump_key = "o",
+        auto_refresh = true,
+    },
+    hover_action_quit = "<Esc>",
     code_action_icon = glx_icons.bolt,
-})
+    preview_lines_above = 2,
+    max_preview_lines = 15,
+    code_action_keys = {
+        quit = "<Esc>",
+        exec = "<CR>",
+    },
+    finder_request_timeout = 1500,
+}
