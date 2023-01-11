@@ -23,7 +23,12 @@ null_ls.setup {
         b.diagnostics.cpplint,
         b.diagnostics.php,
         b.diagnostics.phpcs,
-        b.diagnostics.phpstan,
+        b.diagnostics.phpstan.with{
+            extra_args = {
+                "--memory-limit",
+                "512M",
+            }
+        },
         b.diagnostics.yamllint.with {
             extra_args = {
                 "-c",
@@ -53,7 +58,7 @@ null_ls.setup {
         b.formatting.tidy,
         b.formatting.shfmt,
         b.formatting.sqlformat,
-        b.formatting.yamlfmt,
+        -- b.formatting.yamlfmt,
         b.formatting.autopep8,
         b.formatting.uncrustify.with {
             extra_args = {
