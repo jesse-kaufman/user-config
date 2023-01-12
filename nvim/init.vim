@@ -81,6 +81,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
     Plug 'folke/trouble.nvim'
 
+    " Better colorcolumn.
+    Plug 'xiyaowong/virtcolumn.nvim'
+
     " Icons for LSP menus/popups
     Plug 'onsails/lspkind.nvim'
 
@@ -114,7 +117,7 @@ set showcmd             " show the command being typed
 set pumheight=12        " popup menu height
 set nomodeline          " don't allow config in file comments
 set noshowmode          " don't show mode in status line
-set formatoptions=jcroqla1bw " formatting options
+set formatoptions=jroqla1bw " formatting options
 " set nowildmenu
 
 set filetype=on         " detect filetype
@@ -130,8 +133,8 @@ set signcolumn=yes:1    " 1-char sign column
 set cursorline          " highlight current line
 " set timeoutlen=1000
 set notimeout           " don't timeout on leader key
-set colorcolumn=+1      " indicate 80 chars
-set textwidth=79
+setlocal colorcolumn=+1      " indicate 80 chars
+setlocal textwidth=79
 let &showbreak='↪'      " wrap character
 let mapleader=' '       " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
