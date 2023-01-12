@@ -65,7 +65,7 @@ local lspconfig_ensure_installed = require("user.config.lsp").get_ensure_install
 -- Setup Mason-null-ls
 mason_null_ls.setup {
     ensure_installed = require("user.config.null-ls").get_ensure_installed(),
-    automatic_installation = true,
+    automatic_installation = { exclude = { "vint" } },
     automatic_setup = true,
 }
 
