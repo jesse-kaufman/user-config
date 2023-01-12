@@ -29,12 +29,12 @@ null_ls.setup {
                 os.getenv "HOME" .. "/.config/yamllint.yml",
             },
         },
-        b.diagnostics.phpstan.with {
-            extra_args = {
-                "--memory-limit",
-                "512M",
-            },
-        },
+        -- b.diagnostics.phpstan.with {
+        --     extra_args = {
+        --         "--memory-limit",
+        --         "512M",
+        --     },
+        -- },
         b.diagnostics.vint,
         b.diagnostics.shellcheck,
         b.diagnostics.editorconfig_checker.with {
