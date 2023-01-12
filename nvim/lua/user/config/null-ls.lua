@@ -22,19 +22,23 @@ null_ls.setup {
         b.diagnostics.luacheck,
         b.diagnostics.cpplint,
         b.diagnostics.php,
-        b.diagnostics.phpcs,
+        b.diagnostics.phpcs.with {
+            extra_args = {
+                "--severity=1",
+            },
+        },
         b.diagnostics.yamllint.with {
             extra_args = {
                 "-c",
                 os.getenv "HOME" .. "/.config/yamllint.yml",
             },
         },
-        b.diagnostics.phpstan.with {
-            extra_args = {
-                "--memory-limit",
-                "512M",
-            },
-        },
+        -- b.diagnostics.phpstan.with {
+        --     extra_args = {
+        --         "--memory-limit",
+        --         "512M",
+        --     },
+        -- },
         b.diagnostics.vint,
         b.diagnostics.shellcheck,
         b.diagnostics.editorconfig_checker.with {
