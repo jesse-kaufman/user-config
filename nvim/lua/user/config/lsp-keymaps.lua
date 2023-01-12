@@ -72,7 +72,7 @@ K.setup_diag_maps = function(bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "do", "<cmd>Lspsaga outline<CR>", opts)
 
     -- Hover Doc
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
 
     -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
