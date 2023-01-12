@@ -17,4 +17,5 @@ alias yamllint="yamllint -c \$HOME/.config/yamllint.yml"
 
 alias phpstan='phpstan --memory-limit=512M'
 
-alias phpcs='phpcs --config-set installed_paths ./vendor/phpcompatibility/php-compatibility,./vendor/phpcsstandards/phpcsdevtools,./vendor/phpcsstandards/phpcsextra,./vendor/phpcsstandards/phpcsutils,./vendor/wp-coding-standards/wpcs,/Users/glandix/.composer/vendor/phpcompatibility/php-compatibility,/Users/glandix/.composer/vendor/phpcsstandards/phpcsdevtools,/Users/glandix/.composer/vendor/phpcsstandards/phpcsextra,/Users/glandix/.composer/vendor/phpcsstandards/phpcsutils,/Users/glandix/.composer/vendor/wp-coding-standards/wpcs,'
+alias phpcs='phpcs --severity=1'
+
