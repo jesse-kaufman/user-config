@@ -7,6 +7,8 @@ alias cdp='cd ~/plugins/'
 alias cdf='cd ~/fo/'
 alias cdi='cd ~/fo/inc/'
 alias c='cd'
+unalias mv
+alias mv='mv -i'
 alias grep='grep --exclude-dir=".git" --color=auto'
 alias grepr='grep -R --exclude-dir=".git"'
 alias grepv='grep -v'
