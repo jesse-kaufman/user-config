@@ -200,7 +200,7 @@ let g:indent_blankline_use_treesitter = v:false
 " -------------------------- "
 if exists('g:neovide')
     set guifont=Hack\ Nerd\ Font:h16:#h-none
-    let g:neovide_transparency = 0.8
+    let g:neovide_transparency = 0.95
     " let g:transparency = 0.8
     " let g:neovide_background_color = '#151515'.printf('%x', float2nr(255 * g:transparency))
     let g:neovide_floating_blur_amount_x = 60.0
