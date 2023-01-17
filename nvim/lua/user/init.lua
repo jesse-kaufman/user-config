@@ -32,14 +32,13 @@ require("trouble").setup {
     mode = "workspace_diagnostics",
 
     position = "bottom", -- position of the list can be: bottom, top, left, right
-    height = 8, -- height of the trouble list when position is top or bottom
-    width = 50, -- width of the list when position is left or right
+    height = 4, -- height of the trouble list when position is top or bottom
     icons = true, -- use devicons for filenames
 
     fold_open = "", -- icon used for open folds
     fold_closed = "", -- icon used for closed folds
     group = true, -- group results by file
-    -- padding = true, -- add an extra new line on top of the list
+    padding = false, -- add an extra new line on top of the list
     action_keys = { -- key mappings for actions in the trouble list
         --
         -- map to {} to remove a mapping, for example:
