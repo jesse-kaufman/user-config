@@ -61,7 +61,9 @@ local conditions = {
 -- Config
 local config = {
     options = {
-        section_separators = { left = glx_icons.arrow_right_filled, right = glx_icons.separator },
+        globalstatus = true,
+        always_divide_middle = false,
+        section_separators = { left = '', right = glx_icons.separator },
         component_separators = { left = glx_icons.separator, right = glx_icons.separator },
         icons_enabled = true,
         theme = {
@@ -268,7 +270,49 @@ local config = {
             },
         },
 
-        -- FILETYPE
+        lualine_y = {},
+        lualine_z = {},
+    },
+    tabline = {
+        lualine_a = {
+            {
+                "buffers",
+                separator = { left = "L", right = "R" },
+                show_filename_only = true, -- Shows shortened relative path when set to false.
+                hide_filename_extension = false, -- Hide filename extension when set to true.
+                show_modified_status = true, -- Shows indicator when the buffer is modified.
+                mode = 0, -- 0: Shows buffer name
+                -- 1: Shows buffer index
+                -- 2: Shows buffer name + buffer index
+                -- 3: Shows buffer number
+                -- 4: Shows buffer name + buffer number
+
+                max_length = vim.o.columns * 2 / 3, -- Maximum width of buffers component,
+                filetype_names = {
+                    TelescopePrompt = "Telescope",
+                    dashboard = "Dashboard",
+                    packer = "Packer",
+                    fzf = "FZF",
+                    alpha = "Alpha",
+                }, -- Shows specific buffer name for that filetype ( { `filetype` = `buffer_name`, ... } )
+
+                buffers_color = {
+                    -- Same values as the general color option can be used here.
+                    -- active = mode_color,
+                    active = { fg = vim.g.glx_c_lualine_fg, bg = vim.g.glx_c_black }, -- Color for inactive buffer.
+                    inactive = { fg = vim.g.glx_c_gray, bg = vim.g.glx_c_lualine_bg }, -- Color for inactive buffer.
+                },
+
+                symbols = {
+                    modified = ' ' .. glx_icons.dot, -- Text to show when the buffer is modified
+                    alternate_file = "#", -- Text to show to identify the alternate file
+                    directory = glx_icons.directory, -- Text to show when the buffer is a directory
+                },
+            },
+        },
+        lualine_b = {},
+        -- lualine_c = {},
+        -- lualine_x = {},
         lualine_y = {
             {
                 "filetype",
@@ -279,8 +323,6 @@ local config = {
                 color = { fg = vim.g.glx_c_lualine_fg },
             },
         },
-
-        -- GIT
         lualine_z = {
             {
                 "branch",
@@ -302,21 +344,6 @@ local config = {
                 color = { bg = vim.g.glx_c_lualine_bg },
             },
         },
-    },
-    inactive_sections = {
-        -- these are to remove the defaults
-        lualine_a = {},
-        lualine_b = {},
-        lualine_y = {},
-        lualine_z = {},
-        lualine_c = {},
-        lualine_x = {},
-    },
-    tabline = {
-        lualine_a = { "tabs" },
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = {},
     },
     winbar = {
         lualine_a = {},

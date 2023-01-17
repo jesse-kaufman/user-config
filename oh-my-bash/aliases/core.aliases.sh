@@ -21,6 +21,14 @@ alias diff='diff --color=always'
 
 alias less='less -FRXc'
 
+colortail="$(which multitail)"
+
+if [[ "${colortail}X" != "X" ]]; then
+    alias ctail="colortail -k \$HOME/.config/colortail/default.conf"
+else
+    alias ctail='tail'
+fi
+
 if command -v editorconfig-checker &>/dev/null; then
     alias ec='editorconfig-checker'
 elif command -v ec &>/dev/null; then

@@ -133,8 +133,8 @@ set signcolumn=yes:1    " 1-char sign column
 set cursorline          " highlight current line
 " set timeoutlen=1000
 set notimeout           " don't timeout on leader key
-setlocal colorcolumn=+1      " indicate 80 chars
-setlocal textwidth=79
+execute 'setlocal colorcolumn=80,120'
+setlocal textwidth=80
 let &showbreak='↪'      " wrap character
 let mapleader=' '       " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
