@@ -143,7 +143,7 @@ set cursorline          " highlight current line
 " set timeoutlen=1000
 set notimeout           " don't timeout on leader key
 execute 'setlocal colorcolumn=80,120'
-setlocal textwidth=80
+setlocal textwidth=120
 let &showbreak='↪'      " wrap character
 let mapleader=' '       " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
