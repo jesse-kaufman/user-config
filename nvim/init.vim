@@ -116,7 +116,17 @@ set showcmd             " show the command being typed
 set pumheight=12        " popup menu height
 set nomodeline          " don't allow config in file comments
 set noshowmode          " don't show mode in status line
-set formatoptions=jroqla1bw " formatting options
+set formatoptions+=c    " auto-wrap comments
+set formatoptions+=r    " insert comment leader on enter in insert mode
+set formatoptions-=o    " do not insert comment leader on 'o'/'O' in normal mode
+set formatoptions+=q    " allow formatting of comments with "gq"
+set formatoptions+=w    " trailing whitespace indicates paragraph continues
+set formatoptions+=n    " recognize numbered lists
+set formatoptions+=1    " do not break after 1-character words
+set formatoptions+=l    " if line is longer before insert, don't reformat during insert
+set formatoptions+=b    " only break line you have entered during current insert
+set formatoptions+=j    " remove comment leader when joining comment lines
+
 " set nowildmenu
 
 set filetype=on         " detect filetype
