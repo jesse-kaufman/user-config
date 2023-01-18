@@ -7,7 +7,7 @@ if not cmp_status_ok then
     return
 end
 
--- vim.o.completeopt = "menu,menuone,noselect"
+vim.o.completeopt = "menu,menuone,noselect"
 
 -- Set up nvim-cmp.
 local glx_icons = require "user.icons.glx-icons"
