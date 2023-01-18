@@ -407,12 +407,6 @@ augroup DisableMatchesOnFloatGroup
 augroup END
 
 
-augroup LspsagaHover
-    autocmd!
-    autocmd CursorHold Lspsaga show_line_diagnostics
-augroup END
-
-
 function! DisableExtrasOnFloats()
     call nvim_win_set_option(g:float_preview#win, 'cursorline', v:false)
     call nvim_win_set_option(g:float_preview#win, 'winhighlight', 'Normal:MyHighlight,FloatBorder:MyHighlight')
