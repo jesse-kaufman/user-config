@@ -38,48 +38,17 @@ call plug#begin('~/.vim/plugged')
     " Highlighting/indent support for HTML5
     Plug 'othree/html5.vim'
 
-    " Add LSP progress to lualine (not working)
-    Plug 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
-
     " Add devicons
     Plug 'nvim-tree/nvim-web-devicons'
 
-    " Use Mason for handling installing/loading language server support.
-    Plug 'williamboman/mason.nvim'
-    Plug 'williamboman/mason-lspconfig.nvim'
-
-    " Use null-ls for external linters
-    Plug 'jose-elias-alvarez/null-ls.nvim'
-
-    " Integrate null-ls with Mason
-    Plug 'jay-babu/mason-null-ls.nvim'
-
-    " Required by null-ls
-    Plug 'nvim-lua/plenary.nvim'
-
     " Advanced syntax highlighting.
     Plug 'sheerun/vim-polyglot'
-
-    " LSP status
-    Plug 'nvim-lua/lsp-status.nvim'
 
     " Show colors in code.
     Plug 'ap/vim-css-color'
 
     " Honor .editorconfig files
     Plug 'gpanders/editorconfig.nvim'
-
-
-    "
-    " LSP / Diagnostics
-    "
-
-    " LSP configuration helpers -- must load after Mason.
-    Plug 'neovim/nvim-lspconfig'
-
-    " Improved LSP interface.
-    Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
-    Plug 'folke/trouble.nvim'
 
     " Better colorcolumn.
     Plug 'xiyaowong/virtcolumn.nvim'
@@ -91,18 +60,48 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     " Autocomplete plugins
-    Plug 'hrsh7th/nvim-cmp'      " Autocomplete plugin.
     Plug 'hrsh7th/cmp-nvim-lsp'  " Autocomplete LSP items.
     Plug 'hrsh7th/cmp-buffer'    " Autocomplete buffer items.
     Plug 'hrsh7th/cmp-path'      " Autocomplete filesystem path items
     Plug 'hrsh7th/cmp-cmdline'   " Autocomplete VIM command line items
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help' " Autocomplete signatures easily
     Plug 'quangnguyen30192/cmp-nvim-ultisnips' " Add autocomplete support for ultisnips
+    Plug 'hrsh7th/nvim-cmp'      " Autocomplete plugin.
     Plug 'SirVer/ultisnips'           " UltiSnips snippets
     Plug 'honza/vim-snippets'         " Autocomplete snippets
     Plug 'windwp/nvim-autopairs'      " Autocomplete (), [], and {}
 
     Plug 'kevinhwang91/nvim-hlslens'  " Show better info when searching
+
+    "
+    " LSP / Diagnostics
+    "
+
+    " Add LSP progress to lualine
+    Plug 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
+
+    " Use null-ls for external linters
+    Plug 'jose-elias-alvarez/null-ls.nvim'
+
+    " Integrate null-ls with Mason
+    Plug 'jay-babu/mason-null-ls.nvim'
+
+    " Required by null-ls
+    Plug 'nvim-lua/plenary.nvim'
+
+    " LSP status
+    Plug 'nvim-lua/lsp-status.nvim'
+
+    " Use Mason for handling installing/loading language server support.
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
+
+    " LSP configuration helpers -- must load after Mason.
+    Plug 'neovim/nvim-lspconfig'
+
+    " Improved LSP interface.
+    Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+    Plug 'folke/trouble.nvim'
 call plug#end()
 
 colorscheme glandix     " Set color scheme
