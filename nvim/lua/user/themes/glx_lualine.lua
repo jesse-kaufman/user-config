@@ -58,12 +58,13 @@ local conditions = {
     end,
 }
 
+
 -- Config
 local config = {
     options = {
         globalstatus = true,
         always_divide_middle = false,
-        section_separators = { left = '', right = glx_icons.separator },
+        section_separators = { left = "", right = glx_icons.separator },
         component_separators = { left = glx_icons.separator, right = glx_icons.separator },
         icons_enabled = true,
         theme = {
@@ -143,7 +144,7 @@ local config = {
                 file_status = true, -- Displays file status (readonly status, modified status)
                 newfile_status = true, -- Display new file status (new file means no write after created)
                 symbols = {
-                    modified = glx_icons.dot, -- Text to show when the file is modified.
+                    modified = glx_icons.smdot, -- Text to show when the file is modified.
                     readonly = glx_icons.lock, -- Text to show when the file is non-modifiable or readonly.
                     unnamed = "[No Name]", -- Text to show for unnamed buffers.
                     newfile = "[New]", -- Text to show for new created file before first writting
@@ -276,8 +277,26 @@ local config = {
     tabline = {
         lualine_a = {
             {
+                "tabs",
+                separator = { left = glx_icons.arrow_right_filled, right = "R" },
+                color = { bg = vim.g.glx_c_teal },
+                tabs_color = {
+                    -- Same values as the general color option can be used here.
+                    active = mode_color,
+                    -- Color for inactive buffer.
+                    inactive = {
+                        fg = vim.g.glx_c_ltgray,
+                        bg = vim.g.glx_c_lualine_bg,
+                    }, -- Color for inactive buffer.
+                },
+            },
+            {
                 "buffers",
                 separator = { left = "L", right = "R" },
+                color = {
+                    fg = vim.g.glx_c_lualine_fg,
+                    bg = vim.g.glx_c_lualine_bg,
+                },
                 show_filename_only = true, -- Shows shortened relative path when set to false.
                 hide_filename_extension = false, -- Hide filename extension when set to true.
                 show_modified_status = true, -- Shows indicator when the buffer is modified.
@@ -289,6 +308,7 @@ local config = {
 
                 max_length = vim.o.columns * 2 / 3, -- Maximum width of buffers component,
                 filetype_names = {
+                    Trouble = ' DIAGNOSTICS',
                     TelescopePrompt = "Telescope",
                     dashboard = "Dashboard",
                     packer = "Packer",
@@ -298,14 +318,20 @@ local config = {
 
                 buffers_color = {
                     -- Same values as the general color option can be used here.
-                    -- active = mode_color,
-                    active = { fg = vim.g.glx_c_lualine_fg, bg = vim.g.glx_c_black }, -- Color for inactive buffer.
-                    inactive = { fg = vim.g.glx_c_gray, bg = vim.g.glx_c_lualine_bg }, -- Color for inactive buffer.
+                    active = {
+                        fg = vim.g.glx_c_lualine_fg,
+                        bg = vim.g.glx_c_black,
+                        gui = "bold",
+                    }, -- Color for inactive buffer.
+                    inactive = {
+                        fg = vim.g.glx_c_ltgray,
+                        bg = vim.g.glx_c_lualine_bg,
+                    }, -- Color for inactive buffer.
                 },
 
                 symbols = {
-                    modified = ' ' .. glx_icons.dot, -- Text to show when the buffer is modified
-                    alternate_file = "#", -- Text to show to identify the alternate file
+                    modified = glx_icons.smdot, -- Text to show when the buffer is modified
+                    alternate_file = " ", -- Text to show to identify the alternate file
                     directory = glx_icons.directory, -- Text to show when the buffer is a directory
                 },
             },
@@ -329,12 +355,12 @@ local config = {
                 icon = "",
                 separator = "",
                 padding = { left = 1, right = 1 },
-                color = { fg = vim.g.glx_c_lavendar, bg = vim.g.glx_c_lualine_bg },
+                color = { fg = vim.g.glx_c_lavendar, bg = vim.g.glx_c_black },
             },
             {
                 "diff",
                 -- symbols = { added = ' ', modified = '柳', removed = ' ' },
-                symbols = { added = " ", modified = " ", removed = " " },
+                symbols = { added = " ", modified = " ", removed = " " },
                 diff_color = {
                     added = { fg = vim.g.glx_c_ltgreen },
                     modified = { fg = vim.g.glx_c_orange },
@@ -346,12 +372,12 @@ local config = {
         },
     },
     winbar = {
-        lualine_a = {},
+        -- lualine_a = {'filename'},
         -- lualine_b = {},
         -- lualine_c = {},
         -- lualine_x = {},
         -- lualine_y = {},
-        -- lualine_z = {}
+        -- lualine_z = { 'nerdtree' }
     },
 }
 
