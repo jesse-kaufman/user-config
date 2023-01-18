@@ -10,10 +10,20 @@ end
 
 -- adds capabilities to list
 M.get_capabilities = function()
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+    -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+    -- local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    capabilities = vim.tbl_extend("keep", capabilities or {}, require("lsp-status").capabilities)
+    -- print(require('user.util.lsp').print_r(capabilities))
+    -- print('=====================')
+    -- capabilities = vim.lsp.protocol.make_client_capabilities()
+    -- print(require('user.util.lsp').print_r(capabilities))
+
+    local capabilities =
+        vim.tbl_extend("keep", vim.lsp.protocol.make_client_capabilities(), cmp_nvim_lsp.default_capabilities())
+
+    -- print(require("user.util.lsp").print_r(capabilities))
+    -- print "========================="
+
     return capabilities
 end
 
