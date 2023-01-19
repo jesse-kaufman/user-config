@@ -19,7 +19,6 @@ M.flags = {
 M.capabilities =
     vim.tbl_extend('keep', vim.lsp.protocol.make_client_capabilities(), cmp_nvim_lsp.default_capabilities())
 
-
 -- Here we declare the setup function and add the modifications in signs and
 -- extra configs, like virtual text, false update_in_insert, rounded borders
 -- for float windows, etc.
@@ -48,6 +47,21 @@ M.on_attach = function(client, bufnr)
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
         end
+    end
+
+    if client.server_capabilities.documentHighlightProvider then
+        vim.notify(client.name .. ' supports highlight')
+        vim.api.nvim_create_augroup('lsp_document_highlight', {})
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+            group = 'lsp_document_highlight',
+            buffer = 0,
+            callback = vim.lsp.buf.document_highlight,
+        })
+        vim.api.nvim_create_autocmd('CursorMoved', {
+            group = 'lsp_document_highlight',
+            buffer = 0,
+            callback = vim.lsp.buf.clear_references,
+        })
     end
 
     require('user.config.lsp-keymaps').setup_format_maps(bufnr)
