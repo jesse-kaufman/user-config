@@ -18,6 +18,7 @@ indent_size = 2
 [{*.yml,*.yaml,.yamlfmt,yamlfmt}]
 indent_style = space
 indent_size = 4
+max_line_length = 80
 
 [*.md]
 trim_trailing_whitespace = false
@@ -29,3 +30,4 @@ indent_style = tab
 [{*.lua,*.sh,.bashrc,*bashrc*,*.vim}]
 indent_size = 4
 indent_style = space
+max_line_length = 80
