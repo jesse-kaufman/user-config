@@ -497,7 +497,7 @@ func! RetabIndents()
     call winrestview(saved_view)
 endfunc
 
-function! HiFile()
+function! ColorizeHiFile()
     let i = 1
     while i <= line("$")
         if strlen(getline(i)) > 0 && len(split(getline(i))) > 2
@@ -507,6 +507,11 @@ function! HiFile()
         let i += 1
     endwhile
 endfunction
+
+function! GetHiGroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
 
 " -------------------------- "
 "     REQUIRED LUA FILES     "
