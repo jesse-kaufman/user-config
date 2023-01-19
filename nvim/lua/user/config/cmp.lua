@@ -93,17 +93,17 @@ cmp.setup.cmdline("/", {
 --
 -- Enable autocomplete in command line
 --
--- cmp.setup.cmdline(":", {
--- 	formatting = {
--- 		fields = { "abbr" },
--- 	},
--- 	mapping = cmp.mapping.preset.cmdline(),
--- 	sources = cmp.config.sources({
--- 		{ name = "path" },
--- 	}, {
--- 		{ name = "cmdline" },
--- 		option = {
--- 			ignore_cmds = { "Man", "!" },
--- 		},
--- 	}),
--- })
+cmp.setup.cmdline(":", {
+    formatting = {
+        fields = { "abbr" },
+    },
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = "path" },
+    }, {
+        { name = "cmdline" },
+        option = {
+            ignore_cmds = { "Man", "!" },
+        },
+    }),
+})

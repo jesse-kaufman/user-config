@@ -1,12 +1,14 @@
 cmdargs:
-  severity: style_problem
+    severity: style_problem
 color: true
 env:
-  neovim: true
+    neovim: true
 policies:
-  ProhibitUnusedVariable:
-    enabled: false
-  ProhibitImplicitScopeVariable:
-    enabled: false
-  ProhibitSetNoCompatible:
-    enabled: false
+    ProhibitUnusedVariable:
+        enabled: false
+    ProhibitImplicitScopeVariable:
+        enabled: false
+    ProhibitSetNoCompatible:
+        enabled: false
+    ProhibitUnnecessaryDoubleQuote:
+        enabled: true
