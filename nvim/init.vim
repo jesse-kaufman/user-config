@@ -17,7 +17,6 @@ call plug#begin('~/.vim/plugged')
     " Colorscheme.
     Plug 'jesse-kaufman/vim-glandix'
 
-    Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 
     " Show context/indent lines.
     Plug 'lukas-reineke/indent-blankline.nvim'
@@ -102,6 +101,8 @@ call plug#begin('~/.vim/plugged')
     " Use Mason for handling installing/loading language server support.
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
+
+    Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 
     " LSP configuration helpers -- must load after Mason.
     Plug 'neovim/nvim-lspconfig'
@@ -406,7 +407,7 @@ vnoremap <S-Right> <Right>
 "           AUTOCMD          "
 " -------------------------- "
 
-au TextYankPost * silent! lua vim.highlight.on_yank {higroup="YankHighlight", timeout=150}
+au TextYankPost * silent! lua vim.highlight.on_yank {higroup="YankHighlight", timeout=250}
 
 
 augroup RestoreCursorShapeOnExit

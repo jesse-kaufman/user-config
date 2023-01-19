@@ -6,10 +6,11 @@ if not null_ls_status_ok then
     return
 end
 
+local M = {}
 local b = null_ls.builtins
 
 -- List builtins other than diagnostics here (diags are installed by Mason)
-local ensure_installed = {
+M.ensure_installed = {
     'prettierd',
     'stylua',
     'yamlfmt',
@@ -27,6 +28,7 @@ null_ls.setup({
             extra_args = {
                 '--severity=1',
             },
+            debounce = require('user.src.lsp-handler').php_debounce,
         }),
         b.diagnostics.yamllint.with({
             extra_args = {
@@ -34,20 +36,8 @@ null_ls.setup({
                 os.getenv('HOME') .. '/.config/yamllint.yml',
             },
         }),
-        -- b.diagnostics.phpstan.with({
-        --     extra_args = {
-        --         '--memory-limit',
-        --         '512M',
-        --     },
-        -- }),
         b.diagnostics.vint,
         b.diagnostics.shellcheck,
-        -- b.diagnostics.editorconfig_checker.with {
-        --     command = "editorconfig-checker",
-        --     extra_args = {
-        --         "-ignore-defaults",
-        --     },
-        -- },
         b.diagnostics.dotenv_linter,
 
         -- Hover Providers
@@ -79,18 +69,14 @@ null_ls.setup({
             },
         }),
     },
+    flags = require('user.src.lsp-handler').flags,
     on_attach = require('user.src.lsp-handler').on_attach,
-    capabilities = require('user.src.lsp-handler').get_capabilities(),
+    capabilities = require('user.src.lsp-handler').capabilities,
 })
 
-if vim.fn.line('$') >= 1000 then
-    null_ls.disable('phpstan')
-end
-
-local M = {}
 
 M.get_ensure_installed = function()
-    return ensure_installed
+    return M.ensure_installed
 end
 
 return M

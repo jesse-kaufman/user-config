@@ -1,28 +1,29 @@
 local lspconfig = require('lspconfig')
 
-lspconfig.vimls.setup({})
-lspconfig.phpactor.setup({})
+local ensure_installed = {
+    'vimls',
+}
+
+lspconfig.vimls.setup({
+    flags = require('user.src.lsp-handler').flags,
+    capabilities = require('user.src.lsp-handler').capabilities,
+    on_attach = require('user.src.lsp-handler').on_attach,
+})
+-- lspconfig.phpactor.setup({})
+
 lspconfig.intelephense.setup({
     settings = {
         intelephense = {
             files = {
                 maxSize = 5000000,
             },
-            format = {
-                enable = false,
-            },
         },
     },
-    capabilities = require('user.src.lsp-handler').get_capabilities(),
+    flags = require('user.src.lsp-handler').lsp_flags,
+    capabilities = require('user.src.lsp-handler').capabilities,
     on_attach = require('user.src.lsp-handler').on_attach,
 })
 vim.lsp.set_log_level('debug')
-
-require('lspconfig.ui.windows').default_options.border = 'single'
-
-local ensure_installed = {
-    'vimls',
-}
 
 local M = {}
 

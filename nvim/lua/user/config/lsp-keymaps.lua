@@ -82,10 +82,11 @@ K.setup_diag_maps = function(bufnr)
 end
 
 K.setup_format_maps = function(bufnr)
-    local opts = { noremap = true, silent = true }
+    -- local opts = { noremap = true, silent = true }
 
-    vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({timeout = 3000})' ]])
-    vim.cmd('command! LspToggleAutoFormat execute \'lua require("user.src.lsp-handler").toggle_format_on_save()\'')
+    vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({timeout_ms = 10000})' ]])
+    -- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()' ]] .. require('user.src.lsp-handler').php_timeout )
+    -- vim.cmd('command! LspToggleAutoFormat execute \'lua require("user.src.lsp-handler").toggle_format_on_save()\'')
 end
 
 return K
