@@ -3,4 +3,3 @@ formatter:
     include_document_start: false
     max_line_length: 80
     indent: 4
-
