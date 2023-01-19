@@ -5,8 +5,25 @@
 local file_bg_color = vim.g.glx_c_black
 local glx_icons = require "user.icons.glx-icons"
 
+local function starts_with(haystack, needle)
+    return haystack:sub(1, #needle) == needle
+end
+
+local function rename_buffer(bufname)
+    local retval = bufname
+
+    if starts_with(bufname, "COMMIT_EDITMSG") then
+        retval = bufname:gsub("COMMIT_EDITMSG", " 󱜾")
+    elseif starts_with(bufname, "__committia_diff__") then
+        retval = bufname:gsub("__committia_diff__", " ")
+    end
+
+    return retval
+end
+
 -- auto change color according to neovims mode
-local function mode_color()
+local function mode_color(is_fg, bg)
+    local retval = {}
     local mode_colors = {
         -- NORMAL MODE
         n = vim.g.glx_c_ltgreen, -- Normal
@@ -41,7 +58,20 @@ local function mode_color()
         t = vim.g.glx_c_teal, -- Terminal mode: keys go to the job
         c = vim.g.glx_c_magenta, -- Command-line editing
     }
-    return { fg = vim.g.glx_c_lualine_bg, bg = mode_colors[vim.fn.mode()] }
+
+    if is_fg == true then
+        retval.fg = mode_colors[vim.fn.mode()]
+        retval.gui = "bold"
+        if bg then
+            retval.bg = bg
+        end
+    else
+        retval.fg = vim.g.glx_c_lualine_bg
+        retval.bg = mode_colors[vim.fn.mode()]
+        retval.gui = "bold"
+    end
+
+    return retval
 end
 
 local conditions = {
@@ -58,7 +88,6 @@ local conditions = {
     end,
 }
 
-
 -- Config
 local config = {
     options = {
@@ -71,8 +100,8 @@ local config = {
             -- Initial background colors
             normal = {
                 a = {
-                    fg = vim.g.glx_c_lualine_bg,
-                    bg = vim.g.glx_c_ltgreen,
+                    fg = vim.g.glx_c_gray,
+                    bg = vim.g.glx_c_lualine_bg,
                 },
                 b = {
                     fg = vim.g.glx_c_gray,
@@ -94,12 +123,12 @@ local config = {
                     fg = vim.g.glx_c_gray,
                     bg = vim.g.glx_c_lualine_bg,
                 },
-                visual = {
-                    z = {
-                        fg = vim.g.glx_c_gray,
-                        bg = vim.g.glx_c_lualine_bg,
-                    },
-                },
+                -- visual = {
+                --     z = {
+                --         fg = vim.g.glx_c_gray,
+                --         bg = vim.g.glx_c_lualine_bg,
+                --     },
+                -- },
             },
         },
     },
@@ -129,14 +158,17 @@ local config = {
                 "filename",
                 cond = conditions.buffer_not_empty,
                 padding = { left = 1, right = 0 },
+                fmt = rename_buffer,
                 color = function()
-                    local is_readonly = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(0), "readonly")
                     local is_modified = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(0), "modified")
-
+                    local is_readonly = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(0), "readonly")
+                    local bufname = vim.fn.expand "%:t"
                     if is_modified == true then
                         return { fg = vim.g.glx_c_orange, bg = file_bg_color }
                     elseif is_readonly == true then
                         return { fg = vim.g.glx_c_red, bg = file_bg_color }
+                    elseif starts_with(bufname, "COMMIT_EDITMSG") then
+                        return { fg = vim.g.glx_c_dkblue, bg = file_bg_color }
                     else
                         return { fg = vim.g.glx_c_magenta, bg = file_bg_color }
                     end
@@ -154,6 +186,13 @@ local config = {
             -- FILESIZE COMPONENT
             {
                 "filesize",
+                fmt = function(size)
+                    local bufname = vim.fn.expand "%:t"
+                    if bufname == "COMMIT_EDITMSG" then
+                        return ""
+                    end
+                    return size
+                end,
                 color = { bg = file_bg_color },
                 padding = { left = 1, right = 0 },
                 cond = conditions.hide_in_width,
@@ -178,6 +217,7 @@ local config = {
                 separator = "",
                 sources = { "nvim_diagnostic" },
                 symbols = { error = " ", warn = " ", info = " " },
+                color = { bg = vim.g.glx_c_lualine_bg },
                 diagnostics_color = {
                     color_error = { fg = vim.g.glx_c_red },
                     color_warn = { fg = vim.g.glx_c_yellow },
@@ -214,6 +254,7 @@ local config = {
                     return vim.lsp.get_active_clients()[1].name
                 end,
                 icon = glx_icons.gear,
+                color = { bg = vim.g.glx_c_lualine_bg },
             },
             {
                 "lsp_progress",
@@ -237,6 +278,7 @@ local config = {
                     lsp_client_name = vim.g.glx_c_lualine_fg,
                     use = true,
                 },
+                color = { bg = vim.g.glx_c_lualine_bg },
                 separators = {
                     progress = " | ",
                     percentage = { pre = "[", post = "%%]" },
@@ -276,86 +318,140 @@ local config = {
     },
     tabline = {
         lualine_a = {
+            -- empty space before first tab
+            {
+                function()
+                    return " "
+                end,
+                padding = { left = 5, right = 0 },
+                color = { bg = vim.g.glx_c_lualine_bg, fg = vim.g.glx_c_gray },
+            },
+        },
+        -- {
+        --     "buffers",
+        --     fmt = function(bufname)
+        --         return rename_buffer(bufname)
+        --     end,
+
+        --     -- color = { bg = vim.g.glx_c_lualine_dkbg },
+        --     -- separator = { left = "L", right = "R" },
+        --     show_filename_only = true, -- Shows shortened relative path when set to false.
+        --     hide_filename_extension = false, -- Hide filename extension when set to true.
+        --     show_modified_status = true, -- Shows indicator when the buffer is modified.
+        --     mode = 0, -- 0: Shows buffer name
+        --     -- max_length = vim.o.columns * 2 / 3, -- Maximum width of buffers component,
+        --     filetype_names = {
+        --         Trouble = " Diagnostics",
+        --         TelescopePrompt = "Telescope",
+        --         dashboard = "Dashboard",
+        --         packer = "Packer",
+        --         fzf = "FZF",
+        --         alpha = "Alpha",
+        --     }, -- Shows specific buffer name for that filetype ( { `filetype` = `buffer_name`, ... } )
+
+        --     buffers_color = {
+        --         -- Same values as the general color option can be used here.
+        --         active = mode_color,
+        --         inactive = {
+        --             fg = vim.g.glx_c_gray,
+        --             bg = vim.g.glx_c_lualine_dkbg,
+        --             gui = "none",
+        --         }, -- Color for inactive buffer.
+        --     },
+
+        --     symbols = {
+        --         modified = " " .. glx_icons.smdot, -- Text to show when the buffer is modified
+        --         alternate_file = "⌁ ", -- Text to show to identify the alternate file
+        --         directory = glx_icons.directory, -- Text to show when the buffer is a directory
+        --     },
+        -- },
+        lualine_b = {
             {
                 "tabs",
-                separator = { left = glx_icons.arrow_right_filled, right = "R" },
-                color = { bg = vim.g.glx_c_teal },
-                tabs_color = {
-                    -- Same values as the general color option can be used here.
-                    active = mode_color,
-                    -- Color for inactive buffer.
-                    inactive = {
-                        fg = vim.g.glx_c_ltgray,
-                        bg = vim.g.glx_c_lualine_bg,
-                    }, -- Color for inactive buffer.
-                },
-            },
-            {
-                "buffers",
-                separator = { left = "L", right = "R" },
-                color = {
-                    fg = vim.g.glx_c_lualine_fg,
-                    bg = vim.g.glx_c_lualine_bg,
-                },
+                fmt = function(name, context)
+                    -- Show + if buffer is modified in tab
+                    local buflist = vim.fn.tabpagebuflist(context.tabnr)
+                    local winnr = vim.fn.tabpagewinnr(context.tabnr)
+                    local bufnr = buflist[winnr]
+                    local buftype = vim.bo.buftype
+                    local mod = vim.fn.getbufvar(bufnr, "&mod")
+                    local filetype = vim.bo.filetype
+                    local file = vim.api.nvim_buf_get_name(bufnr)
+                    local dev
+                    local status, _ = pcall(require, "nvim-web-devicons")
+
+                    if not status then
+                        dev, _ = "", ""
+                    elseif filetype == "TelescopePrompt" then
+                        dev, _ = require("nvim-web-devicons").get_icon "telescope"
+                    elseif filetype == "fugitive" then
+                        dev, _ = require("nvim-web-devicons").get_icon "git"
+                    elseif filetype == "vimwiki" then
+                        dev, _ = require("nvim-web-devicons").get_icon "markdown"
+                    elseif buftype == "terminal" then
+                        dev, _ = require("nvim-web-devicons").get_icon "zsh"
+                    elseif vim.fn.isdirectory(file) == 1 then
+                        dev, _ = glx_icons.folder.open, nil
+                        name = "Explore…"
+                    else
+                        dev, _ = require("nvim-web-devicons").get_icon(file, vim.fn.expand("#" .. bufnr .. ":e"))
+                    end
+
+                    if dev then
+                        name = dev .. " " .. name
+                    end
+
+                    return name .. (mod == 1 and " " .. glx_icons.smdot or "")
+                end,
+
+                color = { bg = vim.g.glx_c_magenta },
+                -- separator = { left = glx_icons.arrow_left_filled, right = glx_icons.arrow_right_filled },
+                separator = "@",
                 show_filename_only = true, -- Shows shortened relative path when set to false.
                 hide_filename_extension = false, -- Hide filename extension when set to true.
                 show_modified_status = true, -- Shows indicator when the buffer is modified.
-                mode = 0, -- 0: Shows buffer name
-                -- 1: Shows buffer index
-                -- 2: Shows buffer name + buffer index
-                -- 3: Shows buffer number
-                -- 4: Shows buffer name + buffer number
-
+                mode = 1,
                 max_length = vim.o.columns * 2 / 3, -- Maximum width of buffers component,
                 filetype_names = {
-                    Trouble = ' DIAGNOSTICS',
+                    Trouble = " Diagnostics",
                     TelescopePrompt = "Telescope",
                     dashboard = "Dashboard",
                     packer = "Packer",
                     fzf = "FZF",
                     alpha = "Alpha",
+                    netrw = "New File",
                 }, -- Shows specific buffer name for that filetype ( { `filetype` = `buffer_name`, ... } )
 
-                buffers_color = {
+                tabs_color = {
                     -- Same values as the general color option can be used here.
-                    active = {
-                        fg = vim.g.glx_c_lualine_fg,
-                        bg = vim.g.glx_c_black,
-                        gui = "bold",
-                    }, -- Color for inactive buffer.
+                    active = function()
+                        return mode_color(true, vim.g.glx_c_lualine_dkbg)
+                    end,
                     inactive = {
-                        fg = vim.g.glx_c_ltgray,
+                        fg = vim.g.glx_c_gray,
                         bg = vim.g.glx_c_lualine_bg,
+                        gui = "none",
                     }, -- Color for inactive buffer.
                 },
-
-                symbols = {
-                    modified = glx_icons.smdot, -- Text to show when the buffer is modified
-                    alternate_file = " ", -- Text to show to identify the alternate file
-                    directory = glx_icons.directory, -- Text to show when the buffer is a directory
-                },
-            },
-        },
-        lualine_b = {},
-        -- lualine_c = {},
-        -- lualine_x = {},
-        lualine_y = {
-            {
-                "filetype",
-                icons_enabled = true,
-                "o:encoding",
-                fmt = string.upper,
-                cond = conditions.hide_in_width,
-                color = { fg = vim.g.glx_c_lualine_fg },
             },
         },
         lualine_z = {
             {
+                "filetype",
+                icons_enabled = true,
+                "o:encoding",
+                separator = "",
+                fmt = string.upper,
+                cond = conditions.hide_in_width,
+                color = { fg = vim.g.glx_c_lualine_fg },
+            },
+            {
                 "branch",
                 icon = "",
                 separator = "",
+                fmt = string.upper,
                 padding = { left = 1, right = 1 },
-                color = { fg = vim.g.glx_c_lavendar, bg = vim.g.glx_c_black },
+                color = { fg = vim.g.glx_c_lavendar },
             },
             {
                 "diff",
@@ -367,18 +463,24 @@ local config = {
                     removed = { fg = vim.g.glx_c_red },
                 },
                 cond = conditions.hide_in_width,
-                color = { bg = vim.g.glx_c_lualine_bg },
             },
         },
     },
-    winbar = {
-        -- lualine_a = {'filename'},
-        -- lualine_b = {},
-        -- lualine_c = {},
-        -- lualine_x = {},
-        -- lualine_y = {},
-        -- lualine_z = { 'nerdtree' }
-    },
+    -- winbar = {
+    --     lualine_a = {
+    --         {
+    --             function()
+    --                 return " "
+    --             end,
+    --             color = mode_color,
+    --         },
+    --     },
+    --     -- lualine_b = {},
+    --     -- lualine_c = {},
+    --     -- lualine_x = {},
+    --     -- lualine_y = {},
+    --     -- lualine_z = { 'nerdtree' }
+    -- },
 }
 
 -- LOAD lualine

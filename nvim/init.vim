@@ -17,6 +17,8 @@ call plug#begin('~/.vim/plugged')
     " Colorscheme.
     Plug 'jesse-kaufman/vim-glandix'
 
+    Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
+
     " Show context/indent lines.
     Plug 'lukas-reineke/indent-blankline.nvim'
 
@@ -47,8 +49,11 @@ call plug#begin('~/.vim/plugged')
     " Show colors in code.
     Plug 'ap/vim-css-color'
 
+
+    Plug 'rhysd/committia.vim'
+
     " Honor .editorconfig files
-    Plug 'gpanders/editorconfig.nvim'
+    " Plug 'gpanders/editorconfig.nvim'
 
     " Better colorcolumn.
     Plug 'xiyaowong/virtcolumn.nvim'
@@ -72,6 +77,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'windwp/nvim-autopairs'      " Autocomplete (), [], and {}
 
     Plug 'kevinhwang91/nvim-hlslens'  " Show better info when searching
+
+
 
     "
     " LSP / Diagnostics
@@ -142,13 +149,15 @@ set signcolumn=yes:1    " 1-char sign column
 set cursorline          " highlight current line
 " set timeoutlen=1000
 set notimeout           " don't timeout on leader key
-execute 'setlocal colorcolumn=80,120'
-setlocal textwidth=120
+let g:my_colorcolumn="+0,120"
+execute 'setlocal colorcolumn=' . g:my_colorcolumn
+" setlocal textwidth=120
 let &showbreak='↪'      " wrap character
 let mapleader=' '       " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
 
 set laststatus=2
+
 " Make cursor blink
 set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
 " Make command/search use | cursor
@@ -167,12 +176,9 @@ let g:UltiSnipsEditSplit='vertical'
 let g:loaded_python_provier=0
 let g:loaded_ruby_provider = 0
 let g:loaded_perl_provider = 0
-let g:python_host_skip_check = 1
-"let g:python_host_prog='/usr/bin/python2'
-"let g:python3_host_prog='/usr/bin/python3'
-set pyxversion=3
 
 let g:highlightedyank_highlight_duration = 1000
+
 
 set list listchars=tab:‣\ ,nbsp:␣
 set list listchars+=eol:¬
@@ -180,6 +186,35 @@ set list listchars+=space:·
 set list listchars+=trail:
 set list listchars+=precedes:
 set list listchars+=extends:
+
+" let g:committia_min_window_width = 100
+let g:committia_edit_window_width = 72
+
+let g:committia_hooks = {}
+function! g:committia_hooks.edit_open(info)
+    setlocal spell
+
+    " If no commit message, start with insert mode
+    if a:info.vcs ==# 'git' && getline(1) ==# ''
+        startinsert
+    endif
+
+    setlocal nonumber
+    setlocal nolist
+    setlocal signcolumn=no
+    setlocal colorcolumn
+
+    " Scroll the diff window from insert mode
+    " Map <C-n> and <C-p>
+    imap <buffer><PageDown> <Plug>(committia-scroll-diff-down-half)
+    imap <buffer><PageUp> <Plug>(committia-scroll-diff-up-half)
+endfunction
+
+
+
+function! g:committia_hooks.diff_open(info)
+    setlocal winhighlight=Normal:glxLtGrayFG
+endfunction
 
 
 " -------------------------- "
@@ -371,30 +406,33 @@ vnoremap <S-Right> <Right>
 "           AUTOCMD          "
 " -------------------------- "
 
+au TextYankPost * silent! lua vim.highlight.on_yank {higroup="YankHighlight", timeout=150}
+
+
 augroup RestoreCursorShapeOnExit
     autocmd!
     autocmd VimLeave * set guicursor=a:hor20
 
-        autocmd VimLeave * set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
-" remember cursor position
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    autocmd VimLeave * set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
+    " remember cursor position
+    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 augroup END
 
-highlight  link ExtraWhitespace ErrorMsg
+" highlight  link ExtraWhitespace ErrorMsg
 
-augroup HighlightSpacingErrors
-    autocmd!
-    " Show trailing spaces, but only when in normal mode
-    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+" augroup HighlightSpacingErrors
+"     autocmd!
+"     " Show trailing spaces, but only when in normal mode
+"     autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+"     autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+"     autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+"     autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 
-    " Show spaces intermixed with tabs in insert and normal mode
-    autocmd BufWinEnter * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
-    autocmd InsertEnter * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
-    autocmd InsertLeave * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
-augroup END
+"     " Show spaces intermixed with tabs in insert and normal mode
+"     autocmd BufWinEnter * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
+"     autocmd InsertEnter * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
+"     autocmd InsertLeave * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
+" augroup END
 
 
 function! DisableMatchesOnFloat()
@@ -409,7 +447,6 @@ augroup END
 
 function! DisableExtrasOnFloats()
     call nvim_win_set_option(g:float_preview#win, 'cursorline', v:false)
-    call nvim_win_set_option(g:float_preview#win, 'winhighlight', 'Normal:MyHighlight,FloatBorder:MyHighlight')
     call nvim_win_set_option(g:float_preview#win, 'textwidth', '0')
 endfunctio
 
@@ -435,15 +472,16 @@ let s:my_noCharsState=1
 function! MyToggleNoChars()
     if s:my_noCharsState
         set nonumber
-        set nolist
+        setlocal nolist
         set signcolumn=no
+        set colorcolumn=0
         let &showbreak = ''
         call clearmatches()
         lua vim.diagnostic.config({virtual_text = false})
     else
         set number
         set list
-        set signcolumn=yes:1
+        setlocal signcolumn=yes:1
         let &showbreak = '↪'
         lua vim.diagnostic.config({virtual_text = true})
     endif
@@ -457,6 +495,17 @@ func! RetabIndents()
     execute '%s@^\( \{'.&tabstop.'}\)\+@\=repeat("\t", len(submatch(0))/'.&tabstop.')@'
     call winrestview(saved_view)
 endfunc
+
+function! HiFile()
+    let i = 1
+    while i <= line("$")
+        if strlen(getline(i)) > 0 && len(split(getline(i))) > 2
+            let w = split(getline(i))[0]
+            exe "syn match " . w . " /\\(" . w . "\\s\\+\\)\\@<=xxx/"
+        endif
+        let i += 1
+    endwhile
+endfunction
 
 " -------------------------- "
 "     REQUIRED LUA FILES     "

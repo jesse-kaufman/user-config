@@ -45,7 +45,7 @@ local function setup_server(server)
     local opts = {
         -- getting "on_attach" and capabilities from handlers
         on_attach = require("user.src.lsp-handler").on_attach,
-        capabilities = require("user.src.lsp-handler").capabilities,
+        capabilities = require("user.src.lsp-handler").get_capabilities(),
     }
 
     -- get the server name

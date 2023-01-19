@@ -20,7 +20,7 @@ require "user.config.lspsaga"
 require "user.config.treesitter"
 
 -- Load Trouble
-require("user.config.trouble")
+require "user.config.trouble"
 
 -- Load cmp
 require "user.config.cmp"

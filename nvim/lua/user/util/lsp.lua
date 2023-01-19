@@ -33,7 +33,7 @@ M.print_r = function(data)
     return buffer
 end
 
-M.setup_servers = function(servers)
+M.setup_lspconfig_servers = function(servers)
     local lspconfig = require "lspconfig"
     local lsp_handler = require "user.src.lsp-handler"
 
@@ -41,7 +41,7 @@ M.setup_servers = function(servers)
     for _, server in pairs(servers) do
         -- get the server name
         server = vim.split(server, "@")[1]
-vim.notify("setting up server: " .. server)
+        vim.notify("setting up server: " .. server)
 
         local opts = {
             -- getting "on_attach" and capabilities from handlers

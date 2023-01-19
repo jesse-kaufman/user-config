@@ -1,7 +1,7 @@
 --
 -- Null-ls Config
 --
-local null_ls_status_ok, null_ls = pcall(require, "null-ls")
+local null_ls_status_ok, null_ls = pcall(require, 'null-ls')
 if not null_ls_status_ok then
     return
 end
@@ -10,43 +10,44 @@ local b = null_ls.builtins
 
 -- List builtins other than diagnostics here (diags are installed by Mason)
 local ensure_installed = {
-    "prettierd",
-    "stylua",
-    "yamlfmt",
+    'prettierd',
+    'stylua',
+    'yamlfmt',
 }
 
-null_ls.setup {
+null_ls.setup({
     debug = true,
     sources = {
         -- Diagnostics/Linters
         b.diagnostics.luacheck,
         b.diagnostics.cpplint,
         b.diagnostics.php,
-        b.diagnostics.phpcs.with {
+        b.diagnostics.phpcs.with({
+            command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcs',
             extra_args = {
-                "--severity=1",
+                '--severity=1',
             },
-        },
-        b.diagnostics.yamllint.with {
+        }),
+        b.diagnostics.yamllint.with({
             extra_args = {
-                "-c",
-                os.getenv "HOME" .. "/.config/yamllint.yml",
+                '-c',
+                os.getenv('HOME') .. '/.config/yamllint.yml',
             },
-        },
-        -- b.diagnostics.phpstan.with {
+        }),
+        -- b.diagnostics.phpstan.with({
         --     extra_args = {
-        --         "--memory-limit",
-        --         "512M",
+        --         '--memory-limit',
+        --         '512M',
         --     },
-        -- },
+        -- }),
         b.diagnostics.vint,
         b.diagnostics.shellcheck,
-        b.diagnostics.editorconfig_checker.with {
-            command = "editorconfig-checker",
-            extra_args = {
-                "-ignore-defaults",
-            },
-        },
+        -- b.diagnostics.editorconfig_checker.with {
+        --     command = "editorconfig-checker",
+        --     extra_args = {
+        --         "-ignore-defaults",
+        --     },
+        -- },
         b.diagnostics.dotenv_linter,
 
         -- Hover Providers
@@ -57,35 +58,33 @@ null_ls.setup {
 
         -- Formatters
         b.formatting.stylua,
-        b.formatting.phpcbf,
+        b.formatting.phpcbf.with({
+            command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcbf',
+        }),
         -- b.formatting.prettierd,
         b.formatting.tidy,
         b.formatting.shfmt,
         b.formatting.sqlformat,
-        b.formatting.yamlfmt.with {
+        b.formatting.yamlfmt.with({
             extra_args = {
-                "-conf",
-                "$HOME/.config/yamlfmt.yml",
+                '-conf',
+                os.getenv('HOME') .. '/.config/yamlfmt.yml',
             },
-        },
+        }),
         b.formatting.autopep8,
-        b.formatting.uncrustify.with {
+        b.formatting.uncrustify.with({
             extra_args = {
-                "-c",
-                os.getenv "HOME" .. "/.config/uncrustify.cfg",
+                '-c',
+                os.getenv('HOME') .. '/.config/uncrustify.cfg',
             },
-        },
+        }),
     },
-    on_attach = require("user.src.lsp-handler").on_attach,
-    capabilities = require("user.src.lsp-handler").get_capabilities(),
-}
+    on_attach = require('user.src.lsp-handler').on_attach,
+    capabilities = require('user.src.lsp-handler').get_capabilities(),
+})
 
-if vim.bo.filetype ~= "log" then
-    null_ls.disable "editorconfig"
-end
-
-if vim.fn.line "$" >= 1000 then
-    null_ls.disable "phpstan"
+if vim.fn.line('$') >= 1000 then
+    null_ls.disable('phpstan')
 end
 
 local M = {}

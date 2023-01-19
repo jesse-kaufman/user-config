@@ -7,7 +7,7 @@ if not cmp_status_ok then
     return
 end
 
-vim.o.completeopt = "menu,menuone,noselect"
+-- vim.o.completeopt = "menu,menuone,noselect"
 
 -- Set up nvim-cmp.
 local glx_icons = require "user.icons.glx-icons"
@@ -93,17 +93,17 @@ cmp.setup.cmdline("/", {
 --
 -- Enable autocomplete in command line
 --
--- cmp.setup.cmdline(":", {
--- 	formatting = {
--- 		fields = { "abbr" },
--- 	},
--- 	mapping = cmp.mapping.preset.cmdline(),
--- 	sources = cmp.config.sources({
--- 		{ name = "path" },
--- 	}, {
--- 		{ name = "cmdline" },
--- 		option = {
--- 			ignore_cmds = { "Man", "!" },
--- 		},
--- 	}),
--- })
+cmp.setup.cmdline(":", {
+    formatting = {
+        fields = { "abbr" },
+    },
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = "path" },
+    }, {
+        { name = "cmdline" },
+        option = {
+            ignore_cmds = { "Man", "!" },
+        },
+    }),
+})
