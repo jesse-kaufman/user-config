@@ -102,7 +102,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
 
-    Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
+    " Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 
     " LSP configuration helpers -- must load after Mason.
     Plug 'neovim/nvim-lspconfig'
