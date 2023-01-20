@@ -12,10 +12,12 @@ end
 local function rename_buffer(bufname)
     local retval = bufname
 
-    if starts_with(bufname, "COMMIT_EDITMSG") then
-        retval = bufname:gsub("COMMIT_EDITMSG", " 󱜾")
-    elseif starts_with(bufname, "__committia_diff__") then
-        retval = bufname:gsub("__committia_diff__", " ")
+    if starts_with(bufname, 'COMMIT_EDITMSG') then
+        retval = bufname:gsub('COMMIT_EDITMSG', ' 󱜾')
+    elseif starts_with(bufname, '__committia_diff__') then
+        retval = bufname:gsub('__committia_diff__', ' ')
+    elseif starts_with(bufname, 'Trouble') then
+        retval = ' DIAG'
     end
 
     return retval
