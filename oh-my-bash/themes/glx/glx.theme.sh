@@ -39,50 +39,17 @@ text_effect() {
     esac
 }
 
-# to add colors, see
-# http://bitmote.com/index.php?post/2012/11/19/Using-ANSI-Color-Codes-to-Colorize-Your-Bash-Prompt-on-Linux
-# under the "256 (8-bit) Colors" section, and follow the example for orange below
-#
-# let g:glx_colors_black      = "#101010"
-# let g:glx_colors_ltblack    = "#262626"
-# let g:glx_colors_dkgray     = "#323232"
-# let g:glx_colors_gray       = "#525252"
-# let g:glx_colors_ltgray     = "#828282"
-# let g:glx_colors_dkwhite    = "#bfbfbf"
-# let g:glx_colors_white      = "#eaeaea"
-# let g:glx_colors_teal       = "#008080"
-# let g:glx_colors_ltcyan     = "#80e8ff"
-# let g:glx_colors_cyan       = "#56bbdc"
-# let g:glx_colors_ltblue     = "#5b8dd8"
-# let g:glx_colors_blue       = "#3879d8"
-# let g:glx_colors_dkblue     = "#4a6fa5"
-# let g:glx_colors_lavendar   = "#a9a1e1"
-# let g:glx_colors_purple     = "#7158C0"
-# let g:glx_colors_dkpurple   = "#4e3d86"
-# let g:glx_colors_magenta    = "#c678dd"
-# let g:glx_colors_ltred      = "#ec5f67"
-# let g:glx_colors_red        = "#ef4335"
-# let g:glx_colors_dkorange   = "#fa5a1f"
-# let g:glx_colors_orange     = "#fc8a25"
-# let g:glx_colors_yellow     = "#fecb2f"
-# let g:glx_colors_green      = "#98be65"
-# let g:glx_colors_ltgreen    = "#1ea50b"
-# let g:glx_colors_dkgreen    = "#157108"
-# let g:glx_colors_leaf    = "#157108"
-# let g:glx_colors_lualine_bg = "#202328"
-# let g:glx_colors_lualine_fg = "#bbc2cf"
-
 my_color() {
     case "$1" in
     black) echo 16\;16\;16 ;;
-    red) echo 239\;67\;53 ;;
+    red) echo 220\;81\;63 ;;
     ltred) echo 236\;95\;103;;
     ltgreen) echo 152\;190\;101 ;;
     dkgreen) echo 21\;113\;8 ;;
     leaf) echo 16\;79\;6 ;;
     purple) echo 113\;88\;192 ;;
     dkpurple) echo 78\;61\;134 ;;
-    green) echo 30\;165\;11 ;;
+    green) echo 79\;163\;49 ;;
     yellow) echo 254\;203\;47 ;;
     blue) echo 91\;141\;216 ;;
     magenta) echo 174\;80\;185 ;;
