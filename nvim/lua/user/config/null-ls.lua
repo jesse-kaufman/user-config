@@ -16,25 +16,36 @@ M.ensure_installed = {
     'yamlfmt',
 }
 
+local on_attach = require('user.src.lsp-handler').on_attach
+local capabilities = require('user.src.lsp-handler').capabilities
+
 null_ls.setup({
     debug = true,
     sources = {
         -- Diagnostics/Linters
-        b.diagnostics.luacheck,
-        b.diagnostics.cpplint,
-        b.diagnostics.php,
+        b.diagnostics.luacheck.with({
+            -- capabilities = capabilities,
+        }),
+        b.diagnostics.cpplint.with({
+            capabilities = capabilities,
+        }),
+        b.diagnostics.php.with({
+            capabilities = capabilities,
+        }),
         b.diagnostics.phpcs.with({
             command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcs',
             extra_args = {
                 '--severity=1',
             },
             debounce = require('user.src.lsp-handler').php_debounce,
+            capabilities = capabilities,
         }),
         b.diagnostics.yamllint.with({
             extra_args = {
                 '-c',
                 os.getenv('HOME') .. '/.config/yamllint.yml',
             },
+            capabilities = capabilities,
         }),
         b.diagnostics.vint,
         b.diagnostics.shellcheck,
@@ -47,7 +58,9 @@ null_ls.setup({
         b.code_actions.shellcheck,
 
         -- Formatters
-        b.formatting.stylua,
+        b.formatting.stylua.with({
+            on_attach = on_attach,
+        }),
         b.formatting.phpcbf.with({
             command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcbf',
         }),
@@ -70,10 +83,8 @@ null_ls.setup({
         }),
     },
     flags = require('user.src.lsp-handler').flags,
-    on_attach = require('user.src.lsp-handler').on_attach,
-    capabilities = require('user.src.lsp-handler').capabilities,
+    on_attach = on_attach,
 })
-
 
 M.get_ensure_installed = function()
     return M.ensure_installed
