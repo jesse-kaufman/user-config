@@ -1,5 +1,7 @@
 # Add undercurl support (Smulx) and support for setting underline/undercurl
 # color (Setulc)
 xterm-256color|xterm with 256 colors,
-	Smulx=\E[4:%p1%dm,
-	Setulc=\E[58\:2\:%p1%{65536}%/%d\:%p1%{256}%/%{255}%&%d\:%p1%{255}%&%d%;m,
+  Smulx=\E[4\:%p1%dm,
+  Setulc=\E[58\:2\:%p1%{65536}%/%d\:%p1%{256}%/%{255}%&%d\:%p1%{255}%&%d%;m,
+  use=xterm-256color,
+
