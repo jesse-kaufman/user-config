@@ -273,11 +273,11 @@ endif
 " -------------------------- "
 "    NUMBER COLUMN SIGNS     "
 " -------------------------- "
-sign define LspSagaLightBulb text= texthl=LspSagaLightBulb
+sign define LspSagaLightBulb text=󰌵 texthl=LspSagaLightBulb
 sign define DiagnosticSignError text=  texthl=DiagnosticSignError
 sign define DiagnosticSignWarn text=  texthl=DiagnosticSignWarn
 sign define DiagnosticSignInfo text=  texthl=DiagnosticSignInfo
-sign define DiagnosticSignHint text=  texthl=DiagnosticSignHint
+sign define DiagnosticSignHint text=󰌵  texthl=DiagnosticSignHint
 
 
 
