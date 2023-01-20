@@ -27,10 +27,10 @@ null_ls.setup({
             -- capabilities = capabilities,
         }),
         b.diagnostics.cpplint.with({
-            capabilities = capabilities,
+            -- capabilities = capabilities,
         }),
         b.diagnostics.php.with({
-            capabilities = capabilities,
+            -- capabilities = capabilities,
         }),
         b.diagnostics.phpcs.with({
             command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcs',
@@ -38,14 +38,14 @@ null_ls.setup({
                 '--severity=1',
             },
             debounce = require('user.src.lsp-handler').php_debounce,
-            capabilities = capabilities,
+            -- capabilities = capabilities,
         }),
         b.diagnostics.yamllint.with({
             extra_args = {
                 '-c',
                 os.getenv('HOME') .. '/.config/yamllint.yml',
             },
-            capabilities = capabilities,
+            -- capabilities = capabilities,
         }),
         b.diagnostics.vint,
         b.diagnostics.shellcheck,

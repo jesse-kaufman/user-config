@@ -46,7 +46,7 @@ M.setup_lspconfig_servers = function(servers)
         local opts = {
             -- getting "on_attach" and capabilities from handlers
             on_attach = lsp_handler.on_attach,
-            capabilities = lsp_handler.get_capabilities(),
+            -- capabilities = lsp_handler.get_capabilities(),
         }
 
         -- pass them to lspconfig

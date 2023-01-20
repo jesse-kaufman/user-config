@@ -6,12 +6,12 @@ local ensure_installed = {
 }
 
 local flags = require('user.src.lsp-handler').flags
-local capabilities = require('user.src.lsp-handler').capabilities
+-- local capabilities = require('user.src.lsp-handler').capabilities
 local on_attach = require('user.src.lsp-handler').on_attach
 
 lspconfig.vimls.setup({
     flags = flags,
-    capabilities = capabilities,
+    -- capabilities = capabilities,
     on_attach = on_attach,
 })
 require('lspconfig').sumneko_lua.setup({
@@ -33,6 +33,7 @@ require('lspconfig').sumneko_lua.setup({
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file('', true),
+                checkThirdParty = false
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
@@ -52,10 +53,11 @@ lspconfig.intelephense.setup({
         },
     },
     flags = flags,
-    capabilities = capabilities,
+    -- capabilities = capabilities,
     on_attach = on_attach,
 })
-vim.lsp.set_log_level('debug')
+
+-- vim.lsp.set_log_level('debug')
 
 local M = {}
 
