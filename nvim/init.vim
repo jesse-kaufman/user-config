@@ -17,7 +17,6 @@ call plug#begin('~/.vim/plugged')
     " Colorscheme.
     Plug 'jesse-kaufman/vim-glandix'
 
-    Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 
     " Show context/indent lines.
     Plug 'lukas-reineke/indent-blankline.nvim'
@@ -102,6 +101,8 @@ call plug#begin('~/.vim/plugged')
     " Use Mason for handling installing/loading language server support.
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
+
+    " Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 
     " LSP configuration helpers -- must load after Mason.
     Plug 'neovim/nvim-lspconfig'
@@ -272,11 +273,11 @@ endif
 " -------------------------- "
 "    NUMBER COLUMN SIGNS     "
 " -------------------------- "
-sign define LspSagaLightBulb text= texthl=LspSagaLightBulb
+sign define LspSagaLightBulb text=󰌵 texthl=LspSagaLightBulb
 sign define DiagnosticSignError text=  texthl=DiagnosticSignError
 sign define DiagnosticSignWarn text=  texthl=DiagnosticSignWarn
 sign define DiagnosticSignInfo text=  texthl=DiagnosticSignInfo
-sign define DiagnosticSignHint text=  texthl=DiagnosticSignHint
+sign define DiagnosticSignHint text=󰌵  texthl=DiagnosticSignHint
 
 
 
@@ -406,7 +407,7 @@ vnoremap <S-Right> <Right>
 "           AUTOCMD          "
 " -------------------------- "
 
-au TextYankPost * silent! lua vim.highlight.on_yank {higroup="YankHighlight", timeout=150}
+au TextYankPost * silent! lua vim.highlight.on_yank {higroup="YankHighlight", timeout=250}
 
 
 augroup RestoreCursorShapeOnExit
@@ -496,7 +497,7 @@ func! RetabIndents()
     call winrestview(saved_view)
 endfunc
 
-function! HiFile()
+function! ColorizeHiFile()
     let i = 1
     while i <= line("$")
         if strlen(getline(i)) > 0 && len(split(getline(i))) > 2
@@ -506,6 +507,11 @@ function! HiFile()
         let i += 1
     endwhile
 endfunction
+
+function! GetHiGroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
 
 " -------------------------- "
 "     REQUIRED LUA FILES     "
