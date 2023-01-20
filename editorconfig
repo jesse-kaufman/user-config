@@ -30,4 +30,3 @@ indent_style = tab
 [{*.lua,*.sh,.bashrc,*bashrc*,*.vim}]
 indent_size = 4
 indent_style = space
-max_line_length = 80
