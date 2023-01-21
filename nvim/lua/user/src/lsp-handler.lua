@@ -29,7 +29,7 @@ M.setup = function()
         update_in_insert = false,
         virtual_text = {
             spacing = 6,
-            prefix = '',
+            prefix = '',
         },
         source = true,
     })
@@ -50,7 +50,6 @@ M.on_attach = function(client, bufnr)
     end
 
     if client.server_capabilities.documentHighlightProvider then
-        vim.notify(client.name .. ' supports highlight')
         vim.api.nvim_create_augroup('lsp_document_highlight', {})
         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
             group = 'lsp_document_highlight',

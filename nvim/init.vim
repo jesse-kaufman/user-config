@@ -17,7 +17,6 @@ call plug#begin('~/.vim/plugged')
     " Colorscheme.
     Plug 'jesse-kaufman/vim-glandix'
 
-
     " Show context/indent lines.
     Plug 'lukas-reineke/indent-blankline.nvim'
 
@@ -48,11 +47,8 @@ call plug#begin('~/.vim/plugged')
     " Show colors in code.
     Plug 'ap/vim-css-color'
 
-
+    " Better GIT commit message screen
     Plug 'rhysd/committia.vim'
-
-    " Honor .editorconfig files
-    " Plug 'gpanders/editorconfig.nvim'
 
     " Better colorcolumn.
     Plug 'xiyaowong/virtcolumn.nvim'
@@ -74,10 +70,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'SirVer/ultisnips'           " UltiSnips snippets
     Plug 'honza/vim-snippets'         " Autocomplete snippets
     Plug 'windwp/nvim-autopairs'      " Autocomplete (), [], and {}
-
     Plug 'kevinhwang91/nvim-hlslens'  " Show better info when searching
-
-
 
     "
     " LSP / Diagnostics
@@ -150,9 +143,11 @@ set signcolumn=yes:1    " 1-char sign column
 set cursorline          " highlight current line
 " set timeoutlen=1000
 set notimeout           " don't timeout on leader key
-let g:my_colorcolumn="+0,120"
+
+" set color column to [textwidth], 80, and 120
+let g:my_colorcolumn='+0,80,120'
 execute 'setlocal colorcolumn=' . g:my_colorcolumn
-" setlocal textwidth=120
+
 let &showbreak='↪'      " wrap character
 let mapleader=' '       " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
@@ -407,7 +402,7 @@ vnoremap <S-Right> <Right>
 "           AUTOCMD          "
 " -------------------------- "
 
-au TextYankPost * silent! lua vim.highlight.on_yank {higroup="YankHighlight", timeout=250}
+autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="YankHighlight", timeout=250}
 
 
 augroup RestoreCursorShapeOnExit
@@ -419,23 +414,6 @@ augroup RestoreCursorShapeOnExit
     autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 augroup END
 
-" highlight  link ExtraWhitespace ErrorMsg
-
-" augroup HighlightSpacingErrors
-"     autocmd!
-"     " Show trailing spaces, but only when in normal mode
-"     autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-"     autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-"     autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-"     autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-
-"     " Show spaces intermixed with tabs in insert and normal mode
-"     autocmd BufWinEnter * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
-"     autocmd InsertEnter * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
-"     autocmd InsertLeave * match ExtraWhitespace /\( \+\ze\t\)\+\ze/
-" augroup END
-
-
 function! DisableMatchesOnFloat()
     call clearmatches()
 endfunction
@@ -444,7 +422,6 @@ augroup DisableMatchesOnFloatGroup
     autocmd!
     autocmd User FloatPreviewWinOpen call DisableMatchesOnFloat()
 augroup END
-
 
 function! DisableExtrasOnFloats()
     call nvim_win_set_option(g:float_preview#win, 'cursorline', v:false)
@@ -499,10 +476,10 @@ endfunc
 
 function! ColorizeHiFile()
     let i = 1
-    while i <= line("$")
+    while i <= line('$')
         if strlen(getline(i)) > 0 && len(split(getline(i))) > 2
             let w = split(getline(i))[0]
-            exe "syn match " . w . " /\\(" . w . "\\s\\+\\)\\@<=xxx/"
+            exe 'syn match ' . w . " /\\(" . w . "\\s\\+\\)\\@<=xxx/"
         endif
         let i += 1
     endwhile

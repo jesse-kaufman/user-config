@@ -5,16 +5,27 @@ local ensure_installed = {
     'sumneko_lua',
 }
 
+-- Get flags, expanded capabilities, and on_attach handler for use with each
+-- server
 local flags = require('user.src.lsp-handler').flags
 -- local capabilities = require('user.src.lsp-handler').capabilities
 local on_attach = require('user.src.lsp-handler').on_attach
+local capabilities = require('user.src.lsp-handler').capabilities
 
+--
+-- VIM LANGUAGE SERVER
+--
 lspconfig.vimls.setup({
     flags = flags,
     -- capabilities = capabilities,
     on_attach = on_attach,
 })
-require('lspconfig').sumneko_lua.setup({
+
+--
+-- LUA LANGUAGE SERVER
+--
+lspconfig.sumneko_lua.setup({
+    single_file_support = true,
     settings = {
         Lua = {
             semantic = {
@@ -41,9 +52,13 @@ require('lspconfig').sumneko_lua.setup({
             },
         },
     },
+    on_attach = on_attach,
+    capabilities = capabilities,
 })
--- lspconfig.phpactor.setup({})
 
+--
+-- INTELEPHENSE (PHP) LANGUAGE SERVER
+--
 lspconfig.intelephense.setup({
     settings = {
         intelephense = {
@@ -57,12 +72,13 @@ lspconfig.intelephense.setup({
     on_attach = on_attach,
 })
 
--- vim.lsp.set_log_level('debug')
+vim.lsp.set_log_level('debug')
 
+--
+-- Used by Mason to get list of must-load linters/formatters/LSP
+--
 local M = {}
-
 M.get_ensure_installed = function()
     return ensure_installed
 end
-
 return M

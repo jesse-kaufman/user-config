@@ -78,7 +78,8 @@ require("lspsaga").setup {
             --float window normal background color
             normal_bg = vim.g.glx_c_black,
             --title background color
-            title_bg = vim.g.glx_c_lualine_fg,
+            title_bg = vim.g.glx_c_lualine_bg,
+            fg = vim.g.glx_c_lualine_fg,
             red = vim.g.glx_c_red,
             magenta = vim.g.glx_c_magenta,
             orange = vim.g.glx_c_orange,
@@ -103,7 +104,7 @@ require("lspsaga").setup {
             Enum = { "了", vim.g.glx_c_green },
             Interface = { " ", vim.g.glx_c_orange },
             Function = { " ", vim.g.glx_c_purple },
-            Variable = { glx_icons.kind_icons.Variable .. " ", vim.g.glx_c_blue },
+            Variable = { glx_icons.kind_icons.Variable, vim.g.glx_c_cyan },
             Constant = { " ", vim.g.glx_c_cyan },
             String = { " ", vim.g.glx_c_green },
             Number = { " ", vim.g.glx_c_green },
