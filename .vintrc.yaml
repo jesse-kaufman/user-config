@@ -1,0 +1,24 @@
+cmdargs:
+    severity: style_problem
+color: false
+env:
+    neovim: true
+policies:
+    ProhibitUnusedVariable:
+        enabled: true
+    ProhibitImplicitScopeVariable:
+        enabled: true
+    ProhibitSetNoCompatible:
+        enabled: false
+    ProhibitUnnecessaryDoubleQuote:
+        enabled: true
+    ProhibitAbbreviationOption:
+        enabled: true
+    ProhibitMissingScriptEncoding:
+        enabled: true
+    ProhibitCommandWithUnintendedSideEffect:
+        enabled: true
+    ProhibitCommandRelyOnUser:
+        enabled: true
+    ProhibitAutocmdWithNoGroup:
+        enabled: true
