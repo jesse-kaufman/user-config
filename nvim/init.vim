@@ -144,9 +144,17 @@ set cursorline          " highlight current line
 " set timeoutlen=1000
 set notimeout           " don't timeout on leader key
 
-" set color column to [textwidth], 80, and 120
+" set color column to [textwidth], 80, and 120 by default
 let g:my_colorcolumn='+0,80,120'
 execute 'setlocal colorcolumn=' . g:my_colorcolumn
+
+augroup GIT_COMMIT_MSG
+    autocmd!
+    autocmd FileType gitcommit setlocal textwidth=72
+    autocmd FileType gitcommit let g:my_colorcolumn='50,+0'
+    autocmd FileType gitcommit execute 'setlocal colorcolumn=' . g:my_colorcolumn
+augroup END
+
 
 let &showbreak='↪'      " wrap character
 let mapleader=' '       " set leader to space
