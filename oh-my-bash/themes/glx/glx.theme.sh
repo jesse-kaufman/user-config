@@ -7,9 +7,7 @@
 # An agnoster-inspired (which is a Powerline-inspired) theme for BASH
 #
 
-
 HOST=$(hostname)
-
 
 ######################################################################
 DEBUG=0
@@ -43,7 +41,7 @@ my_color() {
     case "$1" in
     black) echo 16\;16\;16 ;;
     red) echo 220\;81\;63 ;;
-    ltred) echo 236\;95\;103;;
+    ltred) echo 236\;95\;103 ;;
     ltgreen) echo 152\;190\;101 ;;
     dkgreen) echo 21\;113\;8 ;;
     leaf) echo 16\;79\;6 ;;
@@ -202,7 +200,6 @@ prompt_end() {
         PR="${PR}${symbols}"
     fi
 
-
     if [[ "$USER" == "root" ]]; then
         PR="${PR}$(ansi_single $(fg_color dkorange)) "
     else
@@ -307,12 +304,11 @@ prompt_dir() {
     pwd_symbol=""
 
     path="${PWD/$HOME/}"
-    if [ "$(echo -n "$path" | wc -c | tr -d " ")" -gt $pwd_length ]
-    then
+    if [ "$(echo -n "$path" | wc -c | tr -d " ")" -gt $pwd_length ]; then
         path="$(echo -n "$path" | awk -F '/' '{print $1 "/" $2 "/$pwd_symbol/" $(NF-1) "/" $(NF)}')"
     fi
 
-    IFS='/' read -ra path_item <<< "$path"
+    IFS='/' read -ra path_item <<<"$path"
     for path_item in "${path_item[@]}"; do
         # shellcheck disable=2016
         if [[ "$path_item" == '$pwd_symbol' ]]; then
@@ -338,7 +334,6 @@ prompt_status() {
 
     [[ -n "$symbols" ]] && prompt_segment background default "$symbols"
 }
-
 
 ######################################################################
 ## Main prompt
