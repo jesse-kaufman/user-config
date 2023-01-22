@@ -24,7 +24,7 @@ null_ls.setup({
     sources = {
         -- Diagnostics/Linters
         b.diagnostics.luacheck.with({
-            -- capabilities = capabilities,
+            capabilities = capabilities,
         }),
         b.diagnostics.cpplint.with({
             -- capabilities = capabilities,
