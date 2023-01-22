@@ -185,6 +185,7 @@ set list listchars+=extends:
 
 " let g:committia_min_window_width = 100
 let g:committia_edit_window_width = 72
+let g:committia_use_singlecolumn = 'always'
 
 let g:committia_hooks = {}
 function! g:committia_hooks.edit_open(info)
@@ -198,7 +199,10 @@ function! g:committia_hooks.edit_open(info)
     setlocal nonumber
     setlocal nolist
     setlocal signcolumn=no
-    setlocal colorcolumn
+
+    setlocal textwidth=72
+    let g:my_colorcolumn='50,+0'
+    execute 'setlocal colorcolumn=' . g:my_colorcolumn
 
     " Scroll the diff window from insert mode
     " Map <C-n> and <C-p>
