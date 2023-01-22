@@ -148,14 +148,6 @@ set notimeout           " don't timeout on leader key
 let g:my_colorcolumn='+0,80,120'
 execute 'setlocal colorcolumn=' . g:my_colorcolumn
 
-augroup GIT_COMMIT_MSG
-    autocmd!
-    autocmd FileType gitcommit setlocal textwidth=72
-    autocmd FileType gitcommit let g:my_colorcolumn='50,+0'
-    autocmd FileType gitcommit execute 'setlocal colorcolumn=' . g:my_colorcolumn
-augroup END
-
-
 let &showbreak='↪'      " wrap character
 let mapleader=' '       " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
