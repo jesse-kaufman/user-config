@@ -235,23 +235,23 @@ prompt_virtualenv() {
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
-if [[ "$HOST" = "re710" ]]; then
-    HOST_BG="dkpurple"
-    ICON="$(ansi_single $(fg_color green)) $(ansi_single $(fg_color ltwhite))"
-elif [[ "$HOST" = "re420" ]]; then
-    HOST_BG="green"
-    ICON="$(ansi_single $(fg_color dkpurple)) $(ansi_single $(fg_color black))"
-elif [[ "$HOST" = "tgdev1" ]]; then
-    HOST_BG="lavendar"
-    ICON="ﭧ "
-elif [[ "$HOST" = "mws1" ]]; then
-    HOST_BG="orange"
-    ICON=" "
-fi
-
     # shellcheck disable=2046
     PR="\n$(ansi_single $(text_effect reset))"
     PR="$PR$(ansi_single $(fg_color gray))┌"
+
+    if [[ "$HOST" = "re710" ]]; then
+        HOST_BG="dkpurple"
+        ICON="$(ansi_single $(fg_color green)) $(ansi_single $(fg_color ltwhite))"
+    elif [[ "$HOST" = "re420" ]]; then
+        HOST_BG="green"
+        ICON="$(ansi_single $(fg_color dkpurple)) $(ansi_single $(fg_color black))"
+    elif [[ "$HOST" = "tgdev1" ]]; then
+        HOST_BG="lavendar"
+        ICON="ﭧ "
+    elif [[ "$HOST" = "mws1" ]]; then
+        HOST_BG="orange"
+        ICON=" "
+    fi
 
     declare -a codes=($(fg_color "${HOST_BG}"))
     PR="$PR$(ansi_single $(fg_color "${HOST_BG}"))"
@@ -263,7 +263,7 @@ fi
     # if [[ "$user" != "$DEFAULT_USER" || -n $SSH_CLIENT ]]; then
     #     PR="$PR$user@"
     # fi
-    PR="$PR$ICON\h "
+    PR="$PR$ICON$HOST "
 
     # Reset font style
     PR="$PR$(ansi_single $(text_effect reset))"
