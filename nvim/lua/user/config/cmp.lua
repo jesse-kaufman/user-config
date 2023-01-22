@@ -31,7 +31,7 @@ cmp.setup({
                 ultisnips = '[US]',
                 cmp_git = '[CMP_GIT]',
                 buffer = glx_icons.file,
-                cmdline = glx_icons.bash,
+                -- cmdline = glx_icons.bash,
                 -- nvim_lsp = glx_icons.gear,
                 -- nvim_lsp_signature_help = glx_icons.gear,
                 -- ultisnips = glx_icons.bolt,
@@ -67,6 +67,7 @@ cmp.setup({
         { name = 'nvim_lsp' },
         { name = 'ultisnips' },
         { name = 'buffer' },
+        { name = 'path' },
     }),
     experimental = {
         ghost_text = {
