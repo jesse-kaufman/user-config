@@ -27,6 +27,13 @@ if [[ ":$BREW_PATH:" != "::" ]] && \
             GLX_PATHS="$BREW_PATH/sbin:$GLX_PATHS"
         fi
 
+        ncurses_path="$BREW_PATH/opt/ncurses/bin"
+        # Add opt/ncurses/bin if it exists
+        if [[ -d "$ncurses_path" ]]; then
+            # Add PHP bin dir
+            export PATH="$ncurses_path:$PATH"
+        fi
+
         php_path="$BREW_PATH/php@7.4" # TODO: Remove hardcoded ver
         # Add PHP if it exists
         if [[ -d "$php_path" ]]; then
