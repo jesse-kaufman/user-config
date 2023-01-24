@@ -1,6 +1,5 @@
-#!/usr/bin/env bash
-# oh-my-bash.module
-# vim: ft=bash ts=2 sw=2 sts=2
+# shellcheck disable=2207
+#shellcheck shell=bash
 
 #
 # GLX Oh-My-Bash theme
@@ -40,6 +39,7 @@ text_effect() {
 my_color() {
     case "$1" in
     black) echo 16\;16\;16 ;;
+    dkgray) echo 50\;50\;50 ;;
     red) echo 220\;81\;63 ;;
     ltred) echo 236\;95\;103 ;;
     ltgreen) echo 152\;190\;101 ;;
@@ -50,6 +50,7 @@ my_color() {
     green) echo 79\;163\;49 ;;
     yellow) echo 254\;203\;47 ;;
     blue) echo 91\;141\;216 ;;
+    dkblue) echo 74\;111\;165 ;;
     magenta) echo 174\;80\;185 ;;
     cyan) echo 128\;232\;255 ;;
     white) echo 191\;191\;191 ;;
@@ -58,6 +59,7 @@ my_color() {
     gray) echo 82\;82\;82 ;;
     foreground) echo 187\;194\;207 ;;
     background) echo 42\;45\;50 ;;
+    dkbackground) echo 22\;25\;28 ;;
     lavendar) echo 169\;161\;225 ;;
     orange) echo 252\;138\;37 ;;
     dkorange) echo 250\;90\;31 ;;
@@ -178,7 +180,7 @@ prompt_end() {
     declare -a codes=($(fg_color background))
     PR="$PR$(ansi codes[@])"
 
-    PR="${PR}\n"
+    PR="${PR}\n"
 
     # shellcheck disable=2034
     declare -a codes=($(fg_color gray))
@@ -270,30 +272,35 @@ prompt_context() {
     PR="$PR$(ansi codes[@])"
 }
 
-# prints history followed by HH:MM, useful for remembering what
-# we did previously
-prompt_histdt() {
-    prompt_segment background default "\! [\A]"
-}
-
 git_status_dirty() {
     dirty=$(git status -s 2>/dev/null | tail -n 1)
-    [[ -n $dirty ]] && echo ""
+    [[ -n $dirty ]] && echo "󰧞"
 }
 
 # Git: branch/detached head, dirty status
 prompt_git() {
+    # Set color and add segment separator.
+    declare -a codes=($(fg_color 'background') $(bg_color 'dkbackground'))
+    PR="$PR $(ansi codes[@])"
+    # PR="$PR $(ansi codes[@])"
+
     local ref dirty
     if git rev-parse --is-inside-work-tree &>/dev/null; then
         dirty=$(git_status_dirty)
         ref=$(git symbolic-ref HEAD 2>/dev/null) || ref="➦ $(git show-ref --head -s --abbrev | head -n1 2>/dev/null)"
-        prompt_segment background lavendar
-        PR="$PR${ref/refs\/heads\// }"
+        declare -a codes=($(fg_color 'gray') $(bg_color 'dkbackground'))
+        PR="$PR $(ansi codes[@])${ref/refs\/heads\// }"
         if [[ -n $dirty ]]; then
-            set_colors background orange
-            PR="$PR$dirty"
+            declare -a codes=($(fg_color 'orange') $(bg_color 'dkbackground'))
+            PR="$PR $(ansi codes[@])$dirty"
         fi
     fi
+
+    declare -a reset=($(text_effect reset))
+    PR="$PR$(ansi reset[@])"
+
+    declare -a codes=($(fg_color 'dkbackground'))
+    PR="$PR$(ansi codes[@])"
 }
 
 # Dir: current working directory
@@ -314,6 +321,7 @@ prompt_dir() {
         path="$(echo -n "$path" | awk -F '/' '{print $1 "/" $2 "/$pwd_symbol/" $(NF-1) "/" $(NF)}')"
     fi
 
+
     IFS='/' read -ra path_item <<<"$path"
     for path_item in "${path_item[@]}"; do
         if [[ "$path_item" == "\$pwd_symbol" ]]; then
@@ -328,7 +336,6 @@ prompt_dir() {
 ## Main prompt
 
 build_prompt() {
-    #[[ -z ${AG_NO_HIST+x} ]] && prompt_histdt
     [[ -z ${AG_NO_CONTEXT+x} ]] && prompt_context
     prompt_virtualenv
     prompt_dir
