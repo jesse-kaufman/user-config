@@ -3,7 +3,10 @@ local lspconfig = require('lspconfig')
 local ensure_installed = {
     'vimls',
     'sumneko_lua',
+    'cssmodules_ls',
 }
+
+-- vim.lsp.set_log_level('debug')
 
 -- Get flags, expanded capabilities, and on_attach handler for use with each
 -- server
@@ -17,7 +20,16 @@ local capabilities = require('user.src.lsp-handler').capabilities
 --
 lspconfig.vimls.setup({
     flags = flags,
-    -- capabilities = capabilities,
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
+
+--
+-- CSS language server
+--
+lspconfig.cssmodules_ls.setup({
+    flags = flags,
+    capabilities = capabilities,
     on_attach = on_attach,
 })
 
@@ -44,7 +56,7 @@ lspconfig.sumneko_lua.setup({
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file('', true),
-                checkThirdParty = false
+                checkThirdParty = false,
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
@@ -52,8 +64,9 @@ lspconfig.sumneko_lua.setup({
             },
         },
     },
-    on_attach = on_attach,
+    flags = flags,
     capabilities = capabilities,
+    on_attach = on_attach,
 })
 
 --
@@ -67,12 +80,85 @@ lspconfig.intelephense.setup({
             },
         },
     },
+    stubs = {
+        'apache',
+        'bcmath',
+        'bz2',
+        'calendar',
+        'com_dotnet',
+        'Core',
+        'ctype',
+        'curl',
+        'date',
+        'dba',
+        'dom',
+        'enchant',
+        'exif',
+        'FFI',
+        'fileinfo',
+        'filter',
+        'fpm',
+        'ftp',
+        'gd',
+        'gettext',
+        'gmp',
+        'hash',
+        'iconv',
+        'imap',
+        'intl',
+        'json',
+        'ldap',
+        'libxml',
+        'mbstring',
+        'meta',
+        'mysqli',
+        'oci8',
+        'odbc',
+        'openssl',
+        'pcntl',
+        'pcre',
+        'PDO',
+        'pdo_ibm',
+        'pdo_mysql',
+        'pdo_pgsql',
+        'pdo_sqlite',
+        'pgsql',
+        'Phar',
+        'posix',
+        'pspell',
+        'readline',
+        'Reflection',
+        'session',
+        'shmop',
+        'SimpleXML',
+        'snmp',
+        'soap',
+        'sockets',
+        'sodium',
+        'SPL',
+        'sqlite3',
+        'standard',
+        'superglobals',
+        'sysvmsg',
+        'sysvsem',
+        'sysvshm',
+        'tidy',
+        'tokenizer',
+        'xml',
+        'xmlreader',
+        'xmlrpc',
+        'xmlwriter',
+        'xsl',
+        'Zend OPcache',
+        'zip',
+        'zlib',
+        'wordpress',
+        'phpunit',
+    },
     flags = flags,
-    -- capabilities = capabilities,
+    capabilities = capabilities,
     on_attach = on_attach,
 })
-
-vim.lsp.set_log_level('debug')
 
 --
 -- Used by Mason to get list of must-load linters/formatters/LSP

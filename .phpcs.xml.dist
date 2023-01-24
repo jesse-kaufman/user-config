@@ -69,8 +69,15 @@
 	</rule>
 
 	<!-- Add in some extra rules from other standards. -->
+	<rule ref="Generic.PHP.DeprecatedFunctions"/>
 	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
 	<rule ref="Generic.Commenting.Todo"/>
+		<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="alignMultilineItems" value="!=100"/>
+			<property name="exact" value="false" phpcs-only="true"/>
+		</properties>
+	</rule>
 
 	<rule ref="WordPress">
 		<!-- Ignore WP filename standards -->
@@ -97,14 +104,6 @@
 		</properties>
 	</rule>
 
-	<!--
-	To get the optimal benefits of using WPCS, we should add a couple of
-	custom properties.
-	Adjust the values of these properties to fit our needs.
-	For information on additional custom properties available, check out
-	the wiki:
-	https://github.com/WordPress/WordPress-Coding-Standards/wiki/Customizable-sniff-properties
-	-->
 	<config name="minimum_supported_wp_version" value="6.0"/>
 
 	<rule ref="WordPress.WP.I18n">
@@ -119,6 +118,7 @@
 		<properties>
 			<property name="prefixes" type="array">
 				<element value="fo_"/>
+				<element value="fo_settings"/>
 				<element value="_fo_"/>
 				<element value="shop_by_room_"/>
 				<element value="shop_by_item_"/>
@@ -127,5 +127,4 @@
 			</property>
 		</properties>
 	</rule>
-
 </ruleset>

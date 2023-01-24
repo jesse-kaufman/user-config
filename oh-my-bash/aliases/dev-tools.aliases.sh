@@ -18,4 +18,9 @@ alias yamllint="yamllint -c \$HOME/.config/yamllint.yml"
 alias phpstan='phpstan --memory-limit=512M'
 
 alias phpcs='phpcs --severity=1'
+alias phpcss='phpcs --report=summary'
+alias pcss='phpcss'
+alias pcs='phpcs'
 
+alias phpcbf='phpcbf --severity=1'
+alias pcf='phpcbf'
