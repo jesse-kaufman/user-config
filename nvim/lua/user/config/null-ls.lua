@@ -59,7 +59,8 @@ null_ls.setup({
         b.formatting.prettierd,
         b.formatting.tidy,
         b.formatting.eslint_d.with({}),
-        -- b.formatting.shfmt,
+        b.formatting.shfmt,
+        b.formatting.beautysh,
         b.formatting.sqlformat,
         b.formatting.yamlfmt.with({
             extra_args = {
