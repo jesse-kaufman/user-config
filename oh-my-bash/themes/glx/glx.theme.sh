@@ -6,7 +6,6 @@
 # An agnoster-inspired (which is a Powerline-inspired) theme for BASH
 #
 
-
 ######################################################################
 DEBUG=0
 debug() {
@@ -318,7 +317,6 @@ prompt_dir() {
     if [ "$(echo -n "$path" | wc -c | tr -d " ")" -gt $pwd_length ]; then
         path="$(echo -n "$path" | awk -F '/' '{print $1 "/" $2 "/$pwd_symbol/" $(NF-1) "/" $(NF)}')"
     fi
-
 
     IFS='/' read -ra path_item <<<"$path"
     for path_item in "${path_item[@]}"; do
