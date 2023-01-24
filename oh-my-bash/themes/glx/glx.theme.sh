@@ -289,10 +289,10 @@ prompt_git() {
         dirty=$(git_status_dirty)
         ref=$(git symbolic-ref HEAD 2>/dev/null) || ref="➦ $(git show-ref --head -s --abbrev | head -n1 2>/dev/null)"
         declare -a codes=($(fg_color 'gray') $(bg_color 'dkbackground'))
-        PR="$PR $(ansi codes[@])${ref/refs\/heads\// }"
+        PR="$PR $(ansi codes[@])${ref/refs\/heads\// } "
         if [[ -n $dirty ]]; then
             declare -a codes=($(fg_color 'orange') $(bg_color 'dkbackground'))
-            PR="$PR $(ansi codes[@])$dirty"
+            PR="$PR$(ansi codes[@])$dirty"
         fi
     fi
 
