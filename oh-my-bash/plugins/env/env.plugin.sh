@@ -28,9 +28,8 @@ if [[ ":$BREW_PATH:" != "::" ]] && \
         fi
 
         php_path="$BREW_PATH/php@7.4" # TODO: Remove hardcoded ver
-
         # Add PHP if it exists
-        if [[ -d $php_path ]]; then
+        if [[ -d "$php_path" ]]; then
             # Add PHP bin dir
             export PATH="$php_path/bin:$PATH"
             # Add PHP sbin dir
