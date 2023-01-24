@@ -20,32 +20,25 @@ local on_attach = require('user.src.lsp-handler').on_attach
 local capabilities = require('user.src.lsp-handler').capabilities
 
 null_ls.setup({
-    debug = true,
+    -- debug = true,
     sources = {
         -- Diagnostics/Linters
-        b.diagnostics.luacheck.with({
-            capabilities = capabilities,
-        }),
-        b.diagnostics.cpplint.with({
-            -- capabilities = capabilities,
-        }),
-        b.diagnostics.php.with({
-            -- capabilities = capabilities,
-        }),
+        b.diagnostics.luacheck.with({}),
+        b.diagnostics.eslint_d.with({}),
+        b.diagnostics.cpplint.with({}),
+        b.diagnostics.php.with({}),
         b.diagnostics.phpcs.with({
             command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcs',
             extra_args = {
                 '--severity=1',
             },
             debounce = require('user.src.lsp-handler').php_debounce,
-            -- capabilities = capabilities,
         }),
         b.diagnostics.yamllint.with({
             extra_args = {
                 '-c',
                 os.getenv('HOME') .. '/.config/yamllint.yml',
             },
-            -- capabilities = capabilities,
         }),
         b.diagnostics.vint,
         b.diagnostics.shellcheck,
@@ -56,17 +49,17 @@ null_ls.setup({
 
         -- Code Action Providers
         b.code_actions.shellcheck,
+        b.code_actions.eslint_d.with({}),
 
         -- Formatters
-        b.formatting.stylua.with({
-            on_attach = on_attach,
-        }),
+        b.formatting.stylua.with({}),
         b.formatting.phpcbf.with({
             command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcbf',
         }),
-        -- b.formatting.prettierd,
+        b.formatting.prettierd,
         b.formatting.tidy,
-        b.formatting.shfmt,
+        b.formatting.eslint_d.with({}),
+        -- b.formatting.shfmt,
         b.formatting.sqlformat,
         b.formatting.yamlfmt.with({
             extra_args = {
@@ -84,6 +77,7 @@ null_ls.setup({
     },
     flags = require('user.src.lsp-handler').flags,
     on_attach = on_attach,
+    capabilities = capabilities,
 })
 
 M.get_ensure_installed = function()
