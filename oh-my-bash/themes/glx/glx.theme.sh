@@ -6,7 +6,6 @@
 # An agnoster-inspired (which is a Powerline-inspired) theme for BASH
 #
 
-HOST=$(hostname)
 
 ######################################################################
 DEBUG=0
@@ -29,40 +28,40 @@ SEGMENT_SEPARATOR=''
 
 text_effect() {
     case "$1" in
-    reset) echo 0 ;;
-    bold) echo 1 ;;
-    italic) echo 3 ;;
-    underline) echo 4 ;;
+        reset) echo 0 ;;
+        bold) echo 1 ;;
+        italic) echo 3 ;;
+        underline) echo 4 ;;
     esac
 }
 
 my_color() {
     case "$1" in
-    black) echo 16\;16\;16 ;;
-    dkgray) echo 50\;50\;50 ;;
-    red) echo 220\;81\;63 ;;
-    ltred) echo 236\;95\;103 ;;
-    ltgreen) echo 152\;190\;101 ;;
-    dkgreen) echo 21\;113\;8 ;;
-    leaf) echo 16\;79\;6 ;;
-    purple) echo 113\;88\;192 ;;
-    dkpurple) echo 78\;61\;134 ;;
-    green) echo 79\;163\;49 ;;
-    yellow) echo 254\;203\;47 ;;
-    blue) echo 91\;141\;216 ;;
-    dkblue) echo 74\;111\;165 ;;
-    magenta) echo 174\;80\;185 ;;
-    cyan) echo 128\;232\;255 ;;
-    white) echo 191\;191\;191 ;;
-    ltwhite) echo 245\;245\;245 ;;
-    ltgray) echo 130\;130\;130 ;;
-    gray) echo 82\;82\;82 ;;
-    foreground) echo 187\;194\;207 ;;
-    background) echo 42\;45\;50 ;;
-    dkbackground) echo 22\;25\;28 ;;
-    lavendar) echo 169\;161\;225 ;;
-    orange) echo 252\;138\;37 ;;
-    dkorange) echo 250\;90\;31 ;;
+        black) echo 16\;16\;16 ;;
+        dkgray) echo 50\;50\;50 ;;
+        red) echo 220\;81\;63 ;;
+        ltred) echo 236\;95\;103 ;;
+        ltgreen) echo 152\;190\;101 ;;
+        dkgreen) echo 21\;113\;8 ;;
+        leaf) echo 16\;79\;6 ;;
+        purple) echo 113\;88\;192 ;;
+        dkpurple) echo 78\;61\;134 ;;
+        green) echo 79\;163\;49 ;;
+        yellow) echo 254\;203\;47 ;;
+        blue) echo 91\;141\;216 ;;
+        dkblue) echo 74\;111\;165 ;;
+        magenta) echo 174\;80\;185 ;;
+        cyan) echo 128\;232\;255 ;;
+        white) echo 191\;191\;191 ;;
+        ltwhite) echo 245\;245\;245 ;;
+        ltgray) echo 130\;130\;130 ;;
+        gray) echo 82\;82\;82 ;;
+        foreground) echo 187\;194\;207 ;;
+        background) echo 42\;45\;50 ;;
+        dkbackground) echo 22\;25\;28 ;;
+        lavendar) echo 169\;161\;225 ;;
+        orange) echo 252\;138\;37 ;;
+        dkorange) echo 250\;90\;31 ;;
     esac
 }
 
@@ -279,13 +278,12 @@ git_status_dirty() {
 
 # Git: branch/detached head, dirty status
 prompt_git() {
-    # Set color and add segment separator.
-    declare -a codes=($(fg_color 'background') $(bg_color 'dkbackground'))
-    PR="$PR $(ansi codes[@])"
-    # PR="$PR $(ansi codes[@])"
-
     local ref dirty
-    if git rev-parse --is-inside-work-tree &>/dev/null; then
+    if [[ $is_git -eq 1 ]]; then
+        # Set color and add segment separator.
+        declare -a codes=($(fg_color 'background') $(bg_color 'dkbackground'))
+        PR="$PR$(ansi codes[@])"
+
         dirty=$(git_status_dirty)
         ref=$(git symbolic-ref HEAD 2>/dev/null) || ref="➦ $(git show-ref --head -s --abbrev | head -n1 2>/dev/null)"
         declare -a codes=($(fg_color 'gray') $(bg_color 'dkbackground'))
@@ -294,13 +292,13 @@ prompt_git() {
             declare -a codes=($(fg_color 'orange') $(bg_color 'dkbackground'))
             PR="$PR$(ansi codes[@])$dirty"
         fi
+
+        declare -a reset=($(text_effect reset))
+        PR="$PR$(ansi reset[@])"
+
+        declare -a codes=($(fg_color 'dkbackground'))
+        PR="$PR$(ansi codes[@])"
     fi
-
-    declare -a reset=($(text_effect reset))
-    PR="$PR$(ansi reset[@])"
-
-    declare -a codes=($(fg_color 'dkbackground'))
-    PR="$PR$(ansi codes[@])"
 }
 
 # Dir: current working directory
@@ -330,12 +328,29 @@ prompt_dir() {
             prompt_segment background foreground "$path_item"
         fi
     done
+
+    PR="${PR} $(ansi_single $(text_effect reset))"
+
+    if [[ $is_git -eq 1 ]]; then
+        declare -a codes=($(fg_color 'background') $(bg_color 'dkbackground'))
+    else
+        declare -a codes=($(fg_color 'background'))
+    fi
+
+    PR="${PR}$(ansi codes[@])"
 }
 
 ######################################################################
 ## Main prompt
 
 build_prompt() {
+    HOST=$(hostname)
+    if git rev-parse --is-inside-work-tree &>/dev/null; then
+        is_git=1
+    else
+        is_git=0
+    fi
+
     [[ -z ${AG_NO_CONTEXT+x} ]] && prompt_context
     prompt_virtualenv
     prompt_dir
