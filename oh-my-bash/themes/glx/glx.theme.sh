@@ -304,7 +304,7 @@ prompt_dir() {
     # shellcheck disable=2034
     pwd_symbol=""
 
-    if [[ ":$path:" != ":$HOME:" ]]; then
+    if [[ "$path" != *"$HOME"* ]]; then
     # shellcheck disable=1001,2001
     path=$(echo "$path" | sed s/^\//)
     else
