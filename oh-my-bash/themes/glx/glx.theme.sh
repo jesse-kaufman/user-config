@@ -306,9 +306,9 @@ prompt_dir() {
 
     if [[ "$path" != *"$HOME"* ]]; then
     # shellcheck disable=1001,2001
-    path=$(echo "$path" | sed s/^\//)
+    path=" ${path}"
     else
-        path="${path/$HOME/}"
+        path="${path/$HOME/ }"
     fi
 
     if [ "$(echo -n "$path" | wc -c | tr -d " ")" -gt $pwd_length ]; then
