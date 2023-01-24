@@ -299,11 +299,18 @@ prompt_git() {
 # Dir: current working directory
 prompt_dir() {
     local path
-    pwd_length=60
+    path=$PWD
+    pwd_length=60 # XXX: update this to calculate based on number of columns in window
     # shellcheck disable=2034
     pwd_symbol=""
 
-    path="${PWD/$HOME/}"
+    if [[ ":$path:" != ":$HOME:" ]]; then
+    # shellcheck disable=1001,2001
+    path=$(echo "$path" | sed s/^\//)
+    else
+        path="${path/$HOME/}"
+    fi
+
     if [ "$(echo -n "$path" | wc -c | tr -d " ")" -gt $pwd_length ]; then
         path="$(echo -n "$path" | awk -F '/' '{print $1 "/" $2 "/$pwd_symbol/" $(NF-1) "/" $(NF)}')"
     fi
