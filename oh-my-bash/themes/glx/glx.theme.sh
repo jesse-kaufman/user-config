@@ -201,7 +201,7 @@ prompt_end() {
     fi
 
     if [[ "$USER" == "root" ]]; then
-        PR="${PR}$(ansi_single $(fg_color dkorange)) "
+        PR="${PR}$(ansi_single $(fg_color dkorange))  "
     else
         PR="${PR}$(ansi reset[@]) "
     fi
