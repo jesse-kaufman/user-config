@@ -5,20 +5,32 @@
   "minimum-stability": "dev",
   "license": "proprietary",
   "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/furniture-options/fo-plugin-stubs.git",
+      "no-api": true
+    }
+  ],
   "require": {
     "php": ">=7.4",
     "phpcompatibility/php-compatibility": "^9.3",
-    "phpunit/phpunit": "^9",
+    "php-parallel-lint/php-parallel-lint": "^1.3",
     "phpcsstandards/phpcsdevtools": "^1.2.0",
-    "php-parallel-lint/php-parallel-lint": "^1.3.2",
-    "php-parallel-lint/php-console-highlighter": "^1.0.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
-    "wp-coding-standards/wpcs": "^2.3",
-    "roave/security-advisories": "dev-latest",
-    "squizlabs/php_codesniffer": "^3.7.1",
     "phpcsstandards/phpcsutils": "^1.0",
     "phpcsstandards/phpcsextra": "^1.0",
-    "szepeviktor/phpstan-wordpress": "^1.1"
+    "squizlabs/php_codesniffer": "^3.7.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+    "wp-coding-standards/wpcs": "^2.3",
+    "php-stubs/woocommerce-stubs": "^7.3",
+    "php-stubs/wordpress-stubs": "^6.1",
+    "php-stubs/wordpress-seo-stubs": "^19.4",
+    "php-stubs/acf-pro-stubs": "^6.0",
+    "php-stubs/wordpress-globals": "^0.2.0",
+    "php-stubs/wp-cli-stubs": "^2.7",
+    "roave/security-advisories": "dev-latest",
+    "furniture-options/fo-plugin-stubs": "dev-main",
+    "friendsofphp/php-cs-fixer": "^3.4"
   },
   "config": {
     "allow-plugins": {
@@ -27,22 +39,22 @@
   },
   "scripts": {
     "lint": [
-      "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --show-deprecated --exclude vendor --exclude .git"
+      "@php parallel-lint . -e php --show-deprecated --exclude vendor --exclude .git"
     ],
     "chk-cs": [
-      "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
+      "@php phpcs"
     ],
     "fix-cs": [
-      "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf -p"
+      "@php phpcbf -p"
     ],
     "run-tests": [
-      "@php ./vendor/phpunit/phpunit/phpunit --filter WordPress ./vendor/squizlabs/php_codesniffer/tests/AllTests.php"
+      "@php phpunit --filter WordPress ~/.composer/vendor/squizlabs/php_codesniffer/tests/AllTests.php"
     ],
     "chk-complete": [
-      "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness -q ./WordPress"
+      "@php phpcs-check-feature-completeness -q ./WordPress"
     ],
     "chk-complete-strict": [
-      "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness ./WordPress"
+      "@php phpcs-check-feature-completeness ./WordPress"
     ],
     "chk-all": [
       "@lint",
@@ -66,18 +78,5 @@
     "chk-complete-strict": "Check if all the sniffs have unit tests and XML documentation.",
     "chk-all": "Run all checks (lint, phpcs, feature completeness) and tests.",
     "check": "Run all checks (lint, phpcs, feature completeness) and tests."
-  },
-  "config": {
-    "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true
-    }
-  },
-  "require-dev": {
-    "php-stubs/wordpress-globals": "^0.2.0",
-    "php-stubs/acf-pro-stubs": "^6.0",
-    "php-stubs/wp-cli-stubs": "^2.7",
-    "php-stubs/wordpress-stubs": "^6.1",
-    "php-stubs/woocommerce-stubs": "^7.3",
-    "wpsyntex/polylang-stubs": "^3.2"
   }
 }

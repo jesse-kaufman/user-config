@@ -23,10 +23,11 @@ null_ls.setup({
     -- debug = true,
     sources = {
         -- Diagnostics/Linters
-        b.diagnostics.luacheck.with({}),
-        b.diagnostics.eslint_d.with({}),
-        b.diagnostics.cpplint.with({}),
-        b.diagnostics.php.with({}),
+        b.diagnostics.luacheck,
+        b.diagnostics.eslint_d,
+        b.diagnostics.cpplint,
+        b.diagnostics.jsonlint,
+        b.diagnostics.php,
         b.diagnostics.phpcs.with({
             command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcs',
             extra_args = {
@@ -49,16 +50,17 @@ null_ls.setup({
 
         -- Code Action Providers
         b.code_actions.shellcheck,
-        b.code_actions.eslint_d.with({}),
+        b.code_actions.eslint_d,
 
         -- Formatters
-        b.formatting.stylua.with({}),
+        b.formatting.stylua,
+        b.formatting.phpcsfixer,
         b.formatting.phpcbf.with({
             command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcbf',
         }),
         b.formatting.prettierd,
         b.formatting.tidy,
-        b.formatting.eslint_d.with({}),
+        b.formatting.eslint_d,
         b.formatting.shfmt,
         b.formatting.beautysh,
         b.formatting.sqlformat,
