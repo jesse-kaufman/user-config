@@ -305,8 +305,7 @@ prompt_dir() {
     pwd_symbol=""
 
     if [[ "$path" != *"$HOME"* ]]; then
-    # shellcheck disable=1001,2001
-    path=" ${path}"
+        path=" ${path}"
     else
         path="${path/$HOME/ }"
     fi
@@ -317,29 +316,12 @@ prompt_dir() {
 
     IFS='/' read -ra path_item <<<"$path"
     for path_item in "${path_item[@]}"; do
-        # shellcheck disable=2016
-        if [[ "$path_item" == '$pwd_symbol' ]]; then
+        if [[ "$path_item" == "\$pwd_symbol" ]]; then
             prompt_segment background gray "$path_item"
         else
             prompt_segment background foreground "$path_item"
         fi
     done
-}
-
-# Status:
-# - was there an error
-# - am I root
-# - are there background jobs?
-prompt_status() {
-    local symbols
-    symbols=()
-    [[ $RETVAL -ne 0 ]] && symbols+="$(ansi_single "$(fg_color red)")✘"
-    [[ $UID -eq 0 ]] && symbols+="$(ansi_single "$(fg_color yellow)")⚡"
-    [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="$(ansi_single "$(fg_color cyan)")⚙"
-
-    [[ -n "$symbols" ]] && symbols+="$(ansi_single "$(bg_color background)")"
-
-    [[ -n "$symbols" ]] && prompt_segment background default "$symbols"
 }
 
 ######################################################################
@@ -349,7 +331,6 @@ build_prompt() {
     #[[ -z ${AG_NO_HIST+x} ]] && prompt_histdt
     [[ -z ${AG_NO_CONTEXT+x} ]] && prompt_context
     prompt_virtualenv
-    # prompt_status
     prompt_dir
     prompt_git
     prompt_end
