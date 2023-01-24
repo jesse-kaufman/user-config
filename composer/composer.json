@@ -30,7 +30,8 @@
     "php-stubs/wp-cli-stubs": "^2.7",
     "roave/security-advisories": "dev-latest",
     "furniture-options/fo-plugin-stubs": "dev-main",
-    "friendsofphp/php-cs-fixer": "^3.4"
+    "friendsofphp/php-cs-fixer": "^3.4",
+    "tareq1988/wp-php-cs-fixer": "dev-master"
   },
   "config": {
     "allow-plugins": {
