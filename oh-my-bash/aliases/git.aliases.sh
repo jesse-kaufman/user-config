@@ -1,4 +1,9 @@
+# shellcheck shell=bash
+
+#
 # git aliases
+#
+
 alias gstat='git fetch && git status'
 alias gstatus='git fetch && git status'
 alias gcommit='git commit'
