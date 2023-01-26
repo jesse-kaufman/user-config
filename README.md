@@ -25,11 +25,9 @@
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install nodejs
+brew install rust
 ```
-
-`brew install nodejs`
-
-`brew install rust`
 
 [^1]: *Only required until LSD's next release with color support*
 
