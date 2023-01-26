@@ -17,7 +17,8 @@ elif [ -d "/usr/local" ]; then
 fi
 
 # Add aliases for all GNU apps in the coreutils cask dir
-for FILE in $(ls -1 "${BREW_PATH}/"); do
+# shellcheck disable=2045
+for FILE in $(ls -1 "$BREW_PATH"/Cellar/coreutils/*/bin/); do
 
     # Only act on files that start with g.
     if [[ $FILE != g* ]]; then
@@ -25,12 +26,11 @@ for FILE in $(ls -1 "${BREW_PATH}/"); do
     fi
 
     # Skip gls and gdb*
-    if [ "$FILE" = "gls" ] || [[ $FILE == gdb* ]] || [ "$FILE" = "g[" ]; then
+    if [ "$FILE" = "gls" ] || [[ $FILE == gdb* ]] || [ "$FILE" = "g[" ] || [ "$FILE" = "gecho" ] ; then
         continue
     fi
 
     # Create the alias.
-    # NEWFILE=`echo $FILE | sed 's/g//'`
-    # alias ${NEWFILE}="${FILE}"
-    alias $(echo $FILE | sed 's/g//')="${FILE}"
+    # shellcheck disable=2001,2139
+    alias "$(echo "$FILE" | sed 's/g//')"="$FILE"
 done
