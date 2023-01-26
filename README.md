@@ -13,7 +13,7 @@
 
 1. Install additional software ([see below](#additional-software-installation))
 
-... to be completed
+*... to be completed*
 
 ## Additional Software Installation
 
