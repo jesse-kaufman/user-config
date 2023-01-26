@@ -13,6 +13,8 @@ augroup END
 
 call plug#begin('~/.vim/plugged')
     " Plugin Section
+    Plug 'godlygeek/tabular'
+    Plug 'preservim/vim-markdown'
 
     " Colorscheme.
     Plug 'jesse-kaufman/vim-glandix'
@@ -149,8 +151,11 @@ let g:my_colorcolumn='+0,80,120'
 execute 'setlocal colorcolumn=' . g:my_colorcolumn
 
 let &showbreak='↪'      " wrap character
-let mapleader=' '       " set leader to space
+let g:mapleader=' '       " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
+
+let g:vim_markdown_folding_disabled = 1
+
 
 set laststatus=2
 
@@ -291,17 +296,9 @@ cnoremap <M-BS>  <C-W>
 " Map F24 to ^w (for window controls)
 nmap <F24> <C-W>
 
-" Map Enter to space in normal mode (for leader key)
-nmap <Enter> <Space>
-
-
-
 " ====================================
 " LEADERS COMMANDS
 " ====================================
-
-" Format file.
-nmap <Leader>f  :Format<Cr>
 
 " toggle comments
 map <Leader>c gcc
@@ -407,7 +404,6 @@ vnoremap <S-Right> <Right>
 " -------------------------- "
 
 autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="YankHighlight", timeout=250}
-
 
 augroup RestoreCursorShapeOnExit
     autocmd!

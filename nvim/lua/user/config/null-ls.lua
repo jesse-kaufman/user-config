@@ -20,13 +20,14 @@ local on_attach = require('user.src.lsp-handler').on_attach
 local capabilities = require('user.src.lsp-handler').capabilities
 
 null_ls.setup({
-    -- debug = true,
+    debug = true,
     sources = {
         -- Diagnostics/Linters
         b.diagnostics.luacheck,
         b.diagnostics.eslint_d,
         b.diagnostics.cpplint,
         b.diagnostics.jsonlint,
+        b.diagnostics.markdownlint,
         b.diagnostics.php,
         b.diagnostics.phpcs.with({
             command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcs',

@@ -16,8 +16,11 @@ M.flags = {
 }
 
 -- adds capabilities to list
-M.capabilities =
-    vim.tbl_extend('keep', vim.lsp.protocol.make_client_capabilities(), cmp_nvim_lsp.default_capabilities())
+M.capabilities = vim.tbl_extend(
+    'keep',
+    vim.lsp.protocol.make_client_capabilities(),
+    cmp_nvim_lsp.default_capabilities()
+)
 
 -- Here we declare the setup function and add the modifications in signs and
 -- extra configs, like virtual text, false update_in_insert, rounded borders
@@ -38,12 +41,11 @@ end
 M.on_attach = function(client, bufnr)
     -- Register client for messages and set up buffer autocommands to update
     -- the statusline and the current function.
-    -- NOTE: on_attach is called with the client object, which is the "client" parameter below
     require('lsp-status').on_attach(client)
 
     if client.supports_method('textDocument/formatting') then
         -- Disable intelephense formatting so PHPCBF can handle it
-        if client.name == 'intelephense' then
+        if client.name == 'sumneko_lua' or client.name == 'intelephense' then
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
         end

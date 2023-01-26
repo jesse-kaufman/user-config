@@ -76,9 +76,9 @@ require("lspsaga").setup {
         -- outgoing = " ",
         colors = {
             --float window normal background color
-            normal_bg = vim.g.glx_c_black,
+            normal_bg = 'none',
             --title background color
-            title_bg = vim.g.glx_c_lualine_bg,
+            title_bg = vim.g.glx_c_lualine_fg,
             fg = vim.g.glx_c_lualine_fg,
             red = vim.g.glx_c_red,
             magenta = vim.g.glx_c_magenta,
