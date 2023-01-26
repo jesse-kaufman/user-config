@@ -7,3 +7,4 @@ nvim/lua-language-server
 iterm2
 karabiner/automatic_backups
 bin/jDownload*
+composer/auth.json
