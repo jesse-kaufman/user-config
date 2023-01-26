@@ -30,7 +30,7 @@ null_ls.setup({
         b.diagnostics.markdownlint,
         b.diagnostics.php,
         b.diagnostics.phpcs.with({
-            command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcs',
+            command = os.getenv('HOME') .. '/.config/composer/vendor/bin/phpcs',
             extra_args = {
                 '--severity=1',
             },
