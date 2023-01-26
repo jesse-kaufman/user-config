@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Enable the subsequent settings only in interactive sessions
 case $- in
-*i*) ;;
-*) return ;;
+    *i*) ;;
+    *) return ;;
 esac
 
 # Path to your oh-my-bash installation.
@@ -70,10 +70,10 @@ OMB_USE_SUDO=true
 # Example format: completions=(ssh git bundler gem pip pip3)
 # Add wisely, as too many completions slow down shell startup.
 completions=(
-    system
     defaults
-    git
+    system
     composer
+    git
     gh
 )
 
