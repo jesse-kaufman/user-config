@@ -21,6 +21,7 @@ _... to be completed_
 - [Homebrew](https://www.brew.sh/)
 - [NPM (nodejs)](https://www.nodejs.org)
 - [Cargo/Rust](https://www.rust-lang.org) [^1]
+- [Composer](https://getcomposer.org)
 
 [^1]: _Only required until LSD's next release with color support_
 
@@ -33,6 +34,9 @@ brew install nodejs
 
 # rust
 brew install rust
+
+# composer
+brew install composer
 ```
 
 ### Linters/Formatters/Language Servers
