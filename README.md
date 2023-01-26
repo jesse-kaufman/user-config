@@ -3,13 +3,13 @@
 1. Rename this directory to ~/.config/
 1. Create symlinks
 
-    ```bash
-    ln -s ~/.config/terminfo/ ~/.terminfo/
-    ln -s ~/.config/inputrc ~/.inputrc
-    ln -s ~/.config/htop/htoprc ~/.htop
-    ln -s ~/.config/composer/ ~/.composer/
-    ln -s
-    #end```
+   ```bash
+   ln -s ~/.config/terminfo/ ~/.terminfo/
+   ln -s ~/.config/inputrc ~/.inputrc
+   ln -s ~/.config/htop/htoprc ~/.htop
+   ln -s ~/.config/composer/ ~/.composer/
+   ln -s
+   ```
 
 1. Install additional software
    ...
@@ -24,17 +24,13 @@
 
 #### Nodejs/NPM
 
-```bash
-brew install nodejs
-```
+`brew install nodejs`
 
 #### Cargo/Rust
 
 Only required until LSD's next release with color support
 
-```bash
-brew install rust
-```
+`brew install rust`
 
 ### Linters/Formatters/Language Servers, Oh My
 
