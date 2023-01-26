@@ -20,7 +20,7 @@
 ### Package Managers
 
 * [Homebrew](https://www.brew.sh/)
-* [NPM (nodejs)](https://www.node.js)
+* [NPM (nodejs)](https://www.nodejs.org)
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
