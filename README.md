@@ -4,10 +4,16 @@
 1. Create symlinks
 
    ```bash
-   ln -s ~/.config/terminfo/ ~/.terminfo/
-   ln -s ~/.config/inputrc ~/.inputrc
-   ln -s ~/.config/htop/htoprc ~/.htop
-   ln -s ~/.config/composer/ ~/.composer/
+   ln -sf ~/.config/oh-my-bash/bashrc ~/.bashrc
+   ln -sf ~/.config/.phpcs.xml.dist   ~/.phpcs.xml.dist
+   ln -sf ~/.config/terminfo          ~/.terminfo
+   ln -sf ~/.config/inputrc           ~/.inputrc
+   ln -sf ~/.config/htop/htoprc       ~/.htop
+   ln -sf ~/.config/git/config        ~/.gitconfig
+   ln -sf ~/.config/composer          ~/.composer
+   ln -sf ~/.config/.luarc.json       ~/.luarc.json
+   ln -sf ~/.config/editorconfig      ~/.editorconfig
+   ln -sf ~/.config/bin               ~/bin
    ```
 
 1. Install additional software ([see below](#additional-software-installation))
