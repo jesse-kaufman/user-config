@@ -27,11 +27,11 @@
 
 `brew install nodejs`
 
-#### Cargo/Rust
-
-*Only required until LSD's next release with color support*
+#### Cargo/Rust [^1]
 
 `brew install rust`
+
+[^1]*Only required until LSD's next release with color support*
 
 ### Linters/Formatters/Language Servers, Oh My
 
