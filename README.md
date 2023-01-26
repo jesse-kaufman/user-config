@@ -21,7 +21,7 @@
 
 * [Homebrew](https://www.brew.sh/)
 * [NPM (nodejs)](https://www.nodejs.org)
-* Cargo/Rust [^1]
+* [Cargo/Rust](https://www.rust-lang.org) [^1]
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
