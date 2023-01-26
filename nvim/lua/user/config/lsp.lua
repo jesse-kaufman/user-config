@@ -4,6 +4,7 @@ local ensure_installed = {
     'vimls',
     'sumneko_lua',
     'cssmodules_ls',
+    'intelephense',
 }
 
 vim.lsp.set_log_level('debug')
