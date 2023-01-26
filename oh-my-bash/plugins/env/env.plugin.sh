@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-##
-# Setup environment variables like PATH
-# Copyright © 2023 Jesse Kaufman. All rights reserved.
+###############################
+# Setup environment variables
+# Copyright © 2023 Jesse Kaufman.
+# All rights reserved.
 #
 
 # Don't ignore any history items when recalling.
@@ -11,37 +12,38 @@ HISTIGNORE=
 # Local variable for paths to prepend to PATH.
 GLX_PATHS=""
 
+##############
+# SETUP PATH
+#
+
 #
 # Add Homebrew to path
 #
-
-# Variable is set.
-if [[ ":$BREW_PATH:" != "::" ]] && \
+if [[ ":$BREW_PATH:" != "::" ]] && [[ -d "$BREW_PATH/bin" ]]; then
     # Brew bin dir exists.
-    [[ -d "$BREW_PATH/bin" ]]; then
 
-        # Brew bin dir isn't in path already.
-        if [[ ":$PATH:" != *":$BREW_PATH/bin:"* ]]; then \
-            # Prepend bin dir to local var of paths
-            GLX_PATHS="$BREW_PATH/bin:$GLX_PATHS"
-            GLX_PATHS="$BREW_PATH/sbin:$GLX_PATHS"
-        fi
+    # Brew bin dir isn't in path already.
+    if [[ ":$PATH:" != *":$BREW_PATH/bin:"* ]]; then
+        # Prepend bin dir to local var of paths
+        GLX_PATHS="$BREW_PATH/bin:$GLX_PATHS"
+        GLX_PATHS="$BREW_PATH/sbin:$GLX_PATHS"
+    fi
 
-        ncurses_path="$BREW_PATH/opt/ncurses/bin"
-        # Add opt/ncurses/bin if it exists
-        if [[ -d "$ncurses_path" ]]; then
-            # Add PHP bin dir
-            export PATH="$ncurses_path:$PATH"
-        fi
+    ncurses_path="$BREW_PATH/opt/ncurses/bin"
+    # Add opt/ncurses/bin if it exists
+    if [[ -d "$ncurses_path" ]]; then
+        # Add PHP bin dir
+        export PATH="$ncurses_path:$PATH"
+    fi
 
-        php_path="$BREW_PATH/php@7.4" # TODO: Remove hardcoded ver
-        # Add PHP if it exists
-        if [[ -d "$php_path" ]]; then
-            # Add PHP bin dir
-            export PATH="$php_path/bin:$PATH"
-            # Add PHP sbin dir
-            export PATH="$php_path/sbin:$PATH"
-        fi
+    php_path="$BREW_PATH/php@7.4" # TODO: Remove hardcoded ver
+    # Add PHP if it exists
+    if [[ -d "$php_path" ]]; then
+        # Add PHP bin dir
+        export PATH="$php_path/bin:$PATH"
+        # Add PHP sbin dir
+        export PATH="$php_path/sbin:$PATH"
+    fi
 fi
 
 #
@@ -91,6 +93,11 @@ fi
 #
 export PATH="${GLX_PATHS}${PATH}"
 
-# Don't autocomplete vars for cd
-shopt -u cdable_vars
+###########################
+# OTHER ENV VARS / CONFIG
+#
 
+#
+# Don't autocomplete vars for cd
+#
+shopt -u cdable_vars
