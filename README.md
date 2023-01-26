@@ -13,15 +13,17 @@
 
 1. Install additional software ([see below](#additional-software-installation))
 
-*... to be completed*
+_... to be completed_
 
 ## Additional Software Installation
 
 ### Package Managers
 
-* [Homebrew](https://www.brew.sh/)
-* [NPM (nodejs)](https://www.nodejs.org)
-* [Cargo/Rust](https://www.rust-lang.org) [^1]
+- [Homebrew](https://www.brew.sh/)
+- [NPM (nodejs)](https://www.nodejs.org)
+- [Cargo/Rust](https://www.rust-lang.org) [^1]
+
+[^1]: _Only required until LSD's next release with color support_
 
 ```bash
 # Homebrew
@@ -32,15 +34,15 @@ brew install nodejs
 brew install rust
 ```
 
-[^1]: *Only required until LSD's next release with color support*
-
 ### Linters/Formatters/Language Servers, Oh My
 
-#### Vint (vimscript)
+- [Vint (vimscript)](https://github.com/Vimjas/vint) [^2]
+
+[^2]: _Use this over the Mason auto-install so we can use HEAD_
 
 ```bash
 # vint
-brew install vint
+brew install vint --HEAD
 ```
 
 ... to be completed
