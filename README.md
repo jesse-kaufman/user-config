@@ -19,9 +19,9 @@
 
 ### Package Managers
 
-#### [Homebrew](https://www.brew.sh/)
 
 ```bash
+#### [\#Homebrew](https://www.brew.sh/)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
