@@ -21,15 +21,13 @@
 
 * [Homebrew](https://www.brew.sh/)
 * [NPM (nodejs)](https://www.nodejs.org)
+* Cargo/Rust [^1]
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-
 `brew install nodejs`
-
-#### Cargo/Rust [^1]
 
 `brew install rust`
 
