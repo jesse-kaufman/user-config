@@ -31,7 +31,7 @@
 
 `brew install rust`
 
-[^1]*Only required until LSD's next release with color support*
+[^1]: *Only required until LSD's next release with color support*
 
 ### Linters/Formatters/Language Servers, Oh My
 
