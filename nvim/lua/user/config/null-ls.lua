@@ -50,14 +50,20 @@ null_ls.setup({
         b.hover.printenv,
 
         -- Code Action Providers
-        b.code_actions.shellcheck,
+        b.code_actions.shellcheck.with({
+            extra_args = {
+                '--shell',
+                'bash',
+            },
+        }),
         b.code_actions.eslint_d,
 
         -- Formatters
         b.formatting.stylua,
         b.formatting.phpcsfixer,
         b.formatting.phpcbf.with({
-            command = os.getenv('HOME') .. '/.composer/vendor/bin/phpcbf',
+            command = os.getenv('HOME')
+                .. '/.config/composer/vendor/bin/phpcbf',
         }),
         b.formatting.prettierd,
         b.formatting.tidy,
