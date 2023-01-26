@@ -30,6 +30,7 @@
 #### Cargo/Rust
 
 *Only required until LSD's next release with color support*
+
 `brew install rust`
 
 ### Linters/Formatters/Language Servers, Oh My
