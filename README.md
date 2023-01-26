@@ -70,4 +70,11 @@ composer global install
 brew install coreutils
 ```
 
+### Install Other Apps
+
+```bash
+# neovim
+brew install neovim --HEAD
+```
+
 ... to be completed
