@@ -8,7 +8,6 @@
    ln -s ~/.config/inputrc ~/.inputrc
    ln -s ~/.config/htop/htoprc ~/.htop
    ln -s ~/.config/composer/ ~/.composer/
-   ln -s
    ```
 
 1. Install additional software ([see below](#additional-software-installation))
@@ -28,13 +27,15 @@ _... to be completed_
 ```bash
 # Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 # nodejs
 brew install nodejs
+
 # rust
 brew install rust
 ```
 
-### Linters/Formatters/Language Servers, Oh My
+### Linters/Formatters/Language Servers
 
 - [Vint (vimscript)](https://github.com/Vimjas/vint) [^2]
 
@@ -43,6 +44,14 @@ brew install rust
 ```bash
 # vint
 brew install vint --HEAD
+```
+
+... to be completed
+
+### Global Composer Dependencies
+
+```bash
+composer global install
 ```
 
 ... to be completed
