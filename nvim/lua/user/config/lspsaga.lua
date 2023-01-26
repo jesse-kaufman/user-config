@@ -6,8 +6,8 @@ local glx_icons = require "user.icons.glx-icons"
 
 require("lspsaga").setup {
     move_in_saga = {
-        prev = "<C-p>",
-        next = "<C-n>",
+        prev = "<C-b>",
+        next = "<C-f>",
     },
     code_action_num_shortcut = true,
     -- finder_icons = {
@@ -52,13 +52,13 @@ require("lspsaga").setup {
     },
     diagnostic = {
         show_code_action = false,
-        -- show_source = true,
-        -- jump_num_shortcut = true,
-        -- keys = {
-        --     exec_action = "o",
-        --     quit = "q",
-        --     go_action = "g",
-        -- },
+        show_source = true,
+        jump_num_shortcut = true,
+        keys = {
+            exec_action = "o",
+            quit = "<Esc>",
+            go_action = "g",
+        },
     },
     ui = {
         -- currently only round theme
