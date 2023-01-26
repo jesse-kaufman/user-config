@@ -11,7 +11,7 @@
    ln -s
    ```
 
-1. Install additional software
+1. Install additional software ([see below](#additional-software-installation))
    ...
 
 ## Additional Software Installation
@@ -28,9 +28,8 @@
 
 #### Cargo/Rust
 
-Only required until LSD's next release with color support
-
 `brew install rust`
+*Only required until LSD's next release with color support*
 
 ### Linters/Formatters/Language Servers, Oh My
 
