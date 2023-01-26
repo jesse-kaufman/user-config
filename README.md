@@ -58,4 +58,10 @@ brew install vint --HEAD
 composer global install
 ```
 
+### GNU coreutils (macOS only)
+
+```bash
+brew install coreutils
+```
+
 ... to be completed
