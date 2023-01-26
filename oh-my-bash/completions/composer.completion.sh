@@ -131,5 +131,6 @@ _composer()
 }
 
 complete -o default -F _composer composer
+
 # Make completions work for 'cmp' alias
 complete -o default -F _composer cmp
