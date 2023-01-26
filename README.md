@@ -13,6 +13,7 @@
    ln -sf ~/.config/composer          ~/.composer
    ln -sf ~/.config/.luarc.json       ~/.luarc.json
    ln -sf ~/.config/editorconfig      ~/.editorconfig
+   ln -sf ~/.config/shellcheckrc      ~/.shellcheckrc
    ln -sf ~/.config/bin               ~/bin
    ```
 
@@ -70,11 +71,12 @@ composer global install
 brew install coreutils
 ```
 
-### Install Other Apps
+### Other Apps
 
 ```bash
 # neovim
 brew install neovim --HEAD
+brew install htop
 ```
 
 ... to be completed
