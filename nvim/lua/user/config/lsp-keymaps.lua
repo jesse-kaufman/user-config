@@ -16,7 +16,7 @@ K.setup_diag_maps = function(bufnr)
     vim.api.nvim_buf_set_keymap(
         bufnr,
         'n',
-        '<Leader>rg',
+        '<Leader>rp',
         '<cmd>Lspsaga rename ++project<CR>',
         opts
     )
