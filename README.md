@@ -65,10 +65,14 @@ brew install vint --HEAD
 composer global install
 ```
 
-### GNU coreutils (macOS only)
+### macOS-only Dependencies
 
 ```bash
+# gnu coreutils
 brew install coreutils
+
+#  bash-completion
+brew install bash-completion
 ```
 
 ### Other Apps
