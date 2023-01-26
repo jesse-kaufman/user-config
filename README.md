@@ -24,8 +24,11 @@
 * [Cargo/Rust](https://www.rust-lang.org) [^1]
 
 ```bash
+# Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# nodejs
 brew install nodejs
+# rust
 brew install rust
 ```
 
@@ -35,6 +38,9 @@ brew install rust
 
 #### Vint (vimscript)
 
-`brew install vint`
+```bash
+# vint
+brew install vint
+```
 
 ... to be completed
