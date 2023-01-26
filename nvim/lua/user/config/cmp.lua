@@ -53,10 +53,10 @@ cmp.setup({
         documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-        -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        -- ['<C-Space>'] = cmp.mapping.complete(),
-        -- ['<C-e>'] = cmp.mapping.abort(),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<Leader><Enter>'] = cmp.mapping.complete(),
+        ['<Leader><Esc>'] = cmp.mapping.abort(),
         -- Accept currently selected item in menu with Return.
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         -- Accept first item in menu or currently selected item with Tab.
