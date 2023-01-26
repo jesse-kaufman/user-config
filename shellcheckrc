@@ -2,7 +2,7 @@
 external-sources=true
 
 # Turn on warnings for unquoted variables with safe values
-enable=quote-safe-variables
+#enable=quote-safe-variables
 
 # Disable shebang check, since it breaks null-ls code_actions for now
 disable=2239
