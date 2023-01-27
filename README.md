@@ -42,10 +42,6 @@ brew install rust
 
 ---
 
-### Linters/Formatters/Language Servers
-
----
-
 ### Global Composer Dependencies
 
 ```bash
