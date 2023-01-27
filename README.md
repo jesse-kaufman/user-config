@@ -44,11 +44,6 @@ brew install rust
 
 ### Linters/Formatters/Language Servers
 
-```bash
-# vint (Use this over the Mason auto-install so we can use HEAD)
-brew install vint --HEAD
-```
-
 ---
 
 ### Global Composer Dependencies
@@ -76,7 +71,12 @@ brew install bash-completion
 ```bash
 # neovim
 brew install neovim --HEAD
+
+# htop
 brew install htop
+
+# vint (Use this over the Mason auto-install so we can use HEAD)
+brew install vint --HEAD
 ```
 
 ---
