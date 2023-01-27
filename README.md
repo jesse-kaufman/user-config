@@ -18,6 +18,7 @@
    ```
 
 1. Install additional software ([see below](#additional-software-installation))
+1. Setup NeoVim
 
 _... to be completed_
 
@@ -82,5 +83,10 @@ brew install bash-completion
 brew install neovim --HEAD
 brew install htop
 ```
+
+#### Setup NeoVim
+
+1. Run NeoVim and run `:PlugInstall`
+1. Restart NeoVim and wait for Mason to install dependencies
 
 ... to be completed
