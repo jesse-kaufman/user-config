@@ -90,9 +90,6 @@ call plug#begin('~/.vim/plugged')
     " Required by null-ls
     Plug 'nvim-lua/plenary.nvim'
 
-    " LSP status
-    Plug 'nvim-lua/lsp-status.nvim'
-
     " Use Mason for handling installing/loading language server support.
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
