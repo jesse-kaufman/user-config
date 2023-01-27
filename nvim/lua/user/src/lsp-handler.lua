@@ -39,10 +39,6 @@ M.setup = function()
 end
 
 M.on_attach = function(client, bufnr)
-    -- Register client for messages and set up buffer autocommands to update
-    -- the statusline and the current function.
-    require('lsp-status').on_attach(client)
-
     if client.supports_method('textDocument/formatting') then
         -- Disable intelephense formatting so PHPCBF can handle it
         if client.name == 'sumneko_lua' or client.name == 'intelephense' then
