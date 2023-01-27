@@ -20,7 +20,7 @@
 1. Install additional software ([see below](#additional-software-installation))
 1. Setup NeoVim
 
-_... to be completed_
+---
 
 ## Additional Software Installation
 
