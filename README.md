@@ -81,5 +81,3 @@ brew install vint --HEAD
 
 1. Run NeoVim and run `:PlugInstall`
 1. Restart NeoVim and wait for Mason to install dependencies
-
-... to be completed
