@@ -19,6 +19,8 @@
 
 1. Install additional software ([see below](#additional-software-installation))
 1. Setup NeoVim
+    1. Run NeoVim and run `:PlugInstall`
+    1. Restart NeoVim and wait for Mason to install dependencies
 
 ---
 
@@ -48,8 +50,6 @@ brew install rust
 composer global install
 ```
 
----
-
 ### macOS-only Dependencies
 
 ```bash
@@ -59,8 +59,6 @@ brew install coreutils
 # bash-completion
 brew install bash-completion
 ```
-
----
 
 ### Other Apps
 
@@ -74,10 +72,3 @@ brew install htop
 # vint (Use this over the Mason auto-install so we can use HEAD)
 brew install vint --HEAD
 ```
-
----
-
-#### Setup NeoVim
-
-1. Run NeoVim and run `:PlugInstall`
-1. Restart NeoVim and wait for Mason to install dependencies
