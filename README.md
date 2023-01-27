@@ -47,6 +47,8 @@ brew install rust
 brew install composer
 ```
 
+---
+
 ### Linters/Formatters/Language Servers
 
 - [Vint (vimscript)](https://github.com/Vimjas/vint) [^2]
@@ -58,13 +60,15 @@ brew install composer
 brew install vint --HEAD
 ```
 
-... to be completed
+---
 
 ### Global Composer Dependencies
 
 ```bash
 composer global install
 ```
+
+---
 
 ### macOS-only Dependencies
 
@@ -76,6 +80,8 @@ brew install coreutils
 brew install bash-completion
 ```
 
+---
+
 ### Other Apps
 
 ```bash
@@ -83,6 +89,8 @@ brew install bash-completion
 brew install neovim --HEAD
 brew install htop
 ```
+
+---
 
 #### Setup NeoVim
 
