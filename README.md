@@ -44,12 +44,8 @@ brew install rust
 
 ### Linters/Formatters/Language Servers
 
-- [Vint (vimscript)](https://github.com/Vimjas/vint) [^2]
-
-[^2]: _Use this over the Mason auto-install so we can use HEAD_
-
 ```bash
-# vint
+# vint (Use this over the Mason auto-install so we can use HEAD)
 brew install vint --HEAD
 ```
 
