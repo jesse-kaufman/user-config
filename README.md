@@ -64,6 +64,9 @@ brew install bash-completion
 # neovim
 brew install neovim --HEAD
 
+# lsd
+cargo install --git https://github.com/Peltoche/lsd.git --branch master
+
 # htop
 brew install htop
 
