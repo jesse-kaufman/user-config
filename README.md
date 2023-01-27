@@ -76,7 +76,7 @@ composer global install
 # gnu coreutils
 brew install coreutils
 
-#  bash-completion
+# bash-completion
 brew install bash-completion
 ```
 
