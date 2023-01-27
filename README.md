@@ -26,13 +26,6 @@ _... to be completed_
 
 ### Package Managers
 
-[Homebrew](https://www.brew.sh/),
-[NPM (nodejs)](https://www.nodejs.org),
-[Composer](https://getcomposer.org),
-and [Cargo/Rust](https://www.rust-lang.org) [^1]
-
-[^1]: _Only required until LSD's next release with color support_
-
 ```bash
 # Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -40,11 +33,11 @@ and [Cargo/Rust](https://www.rust-lang.org) [^1]
 # nodejs
 brew install nodejs
 
-# rust
-brew install rust
-
 # composer
 brew install composer
+
+# rust (Only required until LSD's next release with color support)
+brew install rust
 ```
 
 ---
