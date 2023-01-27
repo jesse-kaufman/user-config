@@ -37,13 +37,18 @@ if [[ ":$BREW_PATH:" != "::" ]] && [[ -d "$BREW_PATH/bin" ]]; then
     fi
 
     php_path="$BREW_PATH/php@7.4" # TODO: Remove hardcoded ver
-    # Add PHP if it exists
+    # Add PHP bin/sbin dir if php directory exists
     if [[ -d "$php_path" ]]; then
-        # Add PHP bin dir
         export PATH="$php_path/bin:$PATH"
-        # Add PHP sbin dir
         export PATH="$php_path/sbin:$PATH"
     fi
+
+    tar_path="$BREW_PATH/opt/gnu-tar/libexec/gnubin"
+    # Add tar bin if it exists
+    if [[ -d "$tar_path" ]]; then
+        export PATH="$tar_path:$PATH"
+    fi
+
 fi
 
 #
