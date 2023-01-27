@@ -26,8 +26,8 @@ if [ -d "$BREW_PATH/Cellar/coreutils" ]; then
             continue
         fi
 
-        # Skip gls and gdb*
-        if [ "$FILE" = "gls" ] || [[ $FILE == gdb* ]] || [ "$FILE" = "g[" ] || [ "$FILE" = "gecho" ]; then
+        # Skip some tools to avoid weirdness
+        if [ "$FILE" = "gls" ] || [[ $FILE == gdb* ]] || [ "$FILE" = "g[" ] || [ "$FILE" = "gecho" ] || [ "$FILE" = "gprintf" ]; then
             continue
         fi
 
