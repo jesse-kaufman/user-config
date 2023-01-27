@@ -70,6 +70,9 @@ cargo install --git https://github.com/Peltoche/lsd.git --branch master
 # htop
 brew install htop
 
+# colortail
+brew install colortail
+
 # vint (Use this over the Mason auto-install so we can use HEAD)
 brew install vint --HEAD
 ```

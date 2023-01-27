@@ -20,7 +20,7 @@ local on_attach = require('user.src.lsp-handler').on_attach
 local capabilities = require('user.src.lsp-handler').capabilities
 
 null_ls.setup({
-    debug = true,
+    -- debug = true,
     sources = {
         -- Diagnostics/Linters
         b.diagnostics.luacheck,
