@@ -42,8 +42,6 @@ brew install composer
 brew install rust
 ```
 
----
-
 ### Global Composer Dependencies
 
 ```bash
