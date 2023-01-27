@@ -26,10 +26,10 @@ _... to be completed_
 
 ### Package Managers
 
-- [Homebrew](https://www.brew.sh/)
-- [NPM (nodejs)](https://www.nodejs.org)
-- [Cargo/Rust](https://www.rust-lang.org) [^1]
-- [Composer](https://getcomposer.org)
+[Homebrew](https://www.brew.sh/),
+[NPM (nodejs)](https://www.nodejs.org),
+[Composer](https://getcomposer.org),
+[Cargo/Rust](https://www.rust-lang.org) [^1],
 
 [^1]: _Only required until LSD's next release with color support_
 
