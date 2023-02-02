@@ -184,6 +184,11 @@ set list listchars+=trail:
 set list listchars+=precedes:
 set list listchars+=extends:
 
+augroup FixPhp
+    autocmd!
+    autocmd BufRead,BufNewFile   *.php set commentstring=//\ %s
+augroup END
+
 " let g:committia_min_window_width = 100
 let g:committia_edit_window_width = 72
 let g:committia_use_singlecolumn = 'always'
