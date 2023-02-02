@@ -82,6 +82,7 @@ lspconfig.intelephense.setup({
                 includePaths = {
                     os.getenv('HOME')
                         .. '/.composer/vendor/furniture-options/fo-plugin-stubs/stubs/',
+                    './vendor/furniture-options/fo-plugin-stubs/stubs/',
                 },
             },
             stubs = {
