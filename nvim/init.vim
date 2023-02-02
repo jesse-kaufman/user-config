@@ -129,7 +129,6 @@ set formatoptions+=j    " remove comment leader when joining comment lines
 
 " set nowildmenu
 
-set filetype=on         " detect filetype
 set number              " show line numbers
 set scrolloff=5         " offset scroll from edge by 4 lines
 set showmatch           " show matching (), [], {}, etc when typing
