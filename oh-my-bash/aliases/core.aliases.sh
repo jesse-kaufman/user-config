@@ -10,7 +10,7 @@ alias c='cd'
 unalias mv
 alias mv='mv -i'
 alias grep='grep --exclude-dir=".git" --color=auto'
-alias grepr='grep -R --exclude-dir="{.git, vendor}"'
+alias grepr="grep -R --exclude-dir={.git,'*vendor*','*node_modules*'}"
 alias grepv='grep -v'
 alias taildevp='tail -f /var/log/php/tgdev1.transitionsgroup.net-error_log'
 alias taildeva='tail -f /var/log/apache2/tgdev1.transitionsgroup.net-error_log'

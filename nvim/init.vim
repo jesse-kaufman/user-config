@@ -129,7 +129,6 @@ set formatoptions+=j    " remove comment leader when joining comment lines
 
 " set nowildmenu
 
-set filetype=on         " detect filetype
 set number              " show line numbers
 set scrolloff=5         " offset scroll from edge by 4 lines
 set showmatch           " show matching (), [], {}, etc when typing
@@ -184,6 +183,11 @@ set list listchars+=space:·
 set list listchars+=trail:
 set list listchars+=precedes:
 set list listchars+=extends:
+
+augroup FixPhp
+    autocmd!
+    autocmd BufRead,BufNewFile   *.php set commentstring=//\ %s
+augroup END
 
 " let g:committia_min_window_width = 100
 let g:committia_edit_window_width = 72
