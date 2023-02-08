@@ -16,11 +16,7 @@ M.flags = {
 }
 
 -- adds capabilities to list
-M.capabilities = vim.tbl_extend(
-    'keep',
-    vim.lsp.protocol.make_client_capabilities(),
-    cmp_nvim_lsp.default_capabilities()
-)
+M.capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- Here we declare the setup function and add the modifications in signs and
 -- extra configs, like virtual text, false update_in_insert, rounded borders
@@ -41,6 +37,7 @@ end
 M.on_attach = function(client, bufnr)
     if client.supports_method('textDocument/formatting') then
         -- Disable intelephense formatting so PHPCBF can handle it
+        -- Disable sumnko_lua formatting so stylua can handle it
         if client.name == 'sumneko_lua' or client.name == 'intelephense' then
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
