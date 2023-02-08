@@ -1,5 +1,6 @@
 */autoload
 # */bundle
+.*.cache
 procps
 *vendor*
 configstore/update-notifier-npm*
