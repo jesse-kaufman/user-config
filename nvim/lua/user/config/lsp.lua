@@ -2,7 +2,7 @@ local lspconfig = require('lspconfig')
 
 local ensure_installed = {
     'vimls',
-    'sumneko_lua',
+    'lua_ls',
     'cssmodules_ls',
     'intelephense',
 }
@@ -36,7 +36,7 @@ lspconfig.cssmodules_ls.setup({
 --
 -- LUA LANGUAGE SERVER
 --
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
     single_file_support = true,
     settings = {
         Lua = {
