@@ -79,7 +79,7 @@ K.setup_diag_maps = function(bufnr)
     vim.api.nvim_buf_set_keymap(
         bufnr,
         'n',
-        'dc',
+        '<Leader>dc',
         '<cmd>Lspsaga show_cursor_diagnostics<CR>',
         opts
     )
@@ -91,7 +91,7 @@ K.setup_diag_maps = function(bufnr)
     vim.api.nvim_buf_set_keymap(
         bufnr,
         'n',
-        'dp',
+        '<Leader>dp',
         '<cmd>Lspsaga diagnostic_jump_prev<CR>',
         opts
     )
@@ -100,7 +100,7 @@ K.setup_diag_maps = function(bufnr)
     vim.api.nvim_buf_set_keymap(
         bufnr,
         'n',
-        'dn',
+        '<Leader>dn',
         '<cmd>Lspsaga diagnostic_jump_next<CR>',
         opts
     )
@@ -109,14 +109,14 @@ K.setup_diag_maps = function(bufnr)
     vim.api.nvim_buf_set_keymap(
         bufnr,
         'n',
-        'dP',
+        '<Leader>dP',
         "<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>",
         opts
     )
     vim.api.nvim_buf_set_keymap(
         bufnr,
         'n',
-        'dN',
+        '<Leader>dN',
         "<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>",
         opts
     )
@@ -125,7 +125,7 @@ K.setup_diag_maps = function(bufnr)
     vim.api.nvim_buf_set_keymap(
         bufnr,
         'n',
-        'do',
+        '<Leader>do',
         '<cmd>Lspsaga outline<CR>',
         opts
     )
