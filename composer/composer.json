@@ -1,7 +1,4 @@
 {
-  "name": "furniture-options/fo-settings",
-  "type": "wordpress-plugin",
-  "description": "FO Settings plugin for WooCommerce",
   "minimum-stability": "dev",
   "license": "proprietary",
   "prefer-stable": true,
@@ -30,7 +27,6 @@
     "php-stubs/wp-cli-stubs": "^2.7",
     "roave/security-advisories": "dev-latest",
     "furniture-options/fo-plugin-stubs": "dev-main",
-    "friendsofphp/php-cs-fixer": "^3.4",
     "tareq1988/wp-php-cs-fixer": "dev-master"
   },
   "config": {
