@@ -2,7 +2,7 @@ local lspconfig = require('lspconfig')
 
 local ensure_installed = {
     'vimls',
-    'sumneko_lua',
+    'lua_ls',
     'cssmodules_ls',
     'intelephense',
 }
@@ -36,7 +36,7 @@ lspconfig.cssmodules_ls.setup({
 --
 -- LUA LANGUAGE SERVER
 --
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
     single_file_support = true,
     settings = {
         Lua = {
@@ -82,8 +82,7 @@ lspconfig.intelephense.setup({
                 includePaths = {
                     os.getenv('HOME')
                         .. '/.config/composer/vendor/furniture-options/fo-plugin-stubs/stubs/',
-                    os.getenv('HOME')
-                        .. '/.config/composer/vendor/php-stubs/',
+                    os.getenv('HOME') .. '/.config/composer/vendor/php-stubs/',
                     './vendor/furniture-options/fo-plugin-stubs/stubs/',
                     './vendor/php-stubs/',
                 },

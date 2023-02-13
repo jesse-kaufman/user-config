@@ -14,7 +14,6 @@ require('user.config.null-ls')
 
 -- Load LSP config -- must happen after Mason above
 require('user.config.lsp')
-require('user.config.lspsaga')
 
 -- Load treesitter settings
 require('user.config.treesitter')
@@ -24,3 +23,5 @@ require('user.config.trouble')
 
 -- Load cmp
 require('user.config.cmp')
+
+require('user.config.lspsaga')

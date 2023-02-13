@@ -36,9 +36,13 @@ end
 
 M.on_attach = function(client, bufnr)
     if client.supports_method('textDocument/formatting') then
+        -- Disable lua_ls formatting so stylua can handle it
+        if client.name == 'lua_ls' then
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+        end
         -- Disable intelephense formatting so PHPCBF can handle it
-        -- Disable sumnko_lua formatting so stylua can handle it
-        if client.name == 'sumneko_lua' or client.name == 'intelephense' then
+        if client.name == 'intelephense' then
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
         end
