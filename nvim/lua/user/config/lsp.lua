@@ -79,7 +79,7 @@ if require('user.util').getHostname() ~= 'mws1' then
         settings = {
             intelephense = {
                 files = {
-                    maxSize = 500000,
+                    maxSize = 5000000,
                 },
                 environment = {
                     includePaths = {
@@ -88,6 +88,7 @@ if require('user.util').getHostname() ~= 'mws1' then
                         os.getenv('HOME')
                             .. '/.config/composer/vendor/php-stubs/',
                     },
+                    documentRoot = '/data/sites/dev/wp-content/',
                 },
             },
         },
