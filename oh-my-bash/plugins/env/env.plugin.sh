@@ -62,14 +62,14 @@ if [[ -d $CARGO_PATH ]]; then
         GLX_PATHS="$CARGO_PATH:$GLX_PATHS"
     fi
 fi
-
 #
-# Add Mason-vim bin dir to path
+# Add local composer to path
 #
-MASON_PATH="$HOME/.local/share/nvim/mason/bin"
-if [[ ":$PATH:" != *":$MASON_PATH:"* ]]; then
-    GLX_PATHS="$MASON_PATH:$GLX_PATHS"
+if [[ ":$PATH:" != *":./vendor/bin:"* ]]; then
+    GLX_PATHS="./vendor/bin:$GLX_PATHS"
 fi
+
+
 
 #
 # Add global composer to path
@@ -87,10 +87,11 @@ if [[ ":$G_COMPOSER_PATH:" != "::" ]]; then
 fi
 
 #
-# Add local composer to path
+# Add Mason-vim bin dir to path
 #
-if [[ ":$PATH:" != *":./vendor/bin:"* ]]; then
-    GLX_PATHS="./vendor/bin:$GLX_PATHS"
+MASON_PATH="$HOME/.local/share/nvim/mason/bin"
+if [[ ":$PATH:" != *":$MASON_PATH:"* ]]; then
+    GLX_PATHS="$MASON_PATH:$GLX_PATHS"
 fi
 
 #
