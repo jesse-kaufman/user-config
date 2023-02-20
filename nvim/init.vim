@@ -12,6 +12,7 @@ augroup VimPlug
 augroup END
 
 call plug#begin('~/.vim/plugged')
+
     " Plugin Section
     Plug 'godlygeek/tabular'
     Plug 'preservim/vim-markdown'
@@ -34,17 +35,18 @@ call plug#begin('~/.vim/plugged')
     " Repeat more things (like toggle comments)
     Plug 'tpope/vim-repeat'
 
-    " Highlighting/indents for JavaScript
-    Plug 'pangloss/vim-javascript'
+    " Highlighting/indent support
+    Plug 'pangloss/vim-javascript'      " JavaScript
+    Plug 'othree/html5.vim'             " HTML5
+    Plug 'vim-scripts/bash-support.vim' " Bash
+    Plug 'StanAngeloff/php.vim'         " PHP
 
-    " Highlighting/indent support for HTML5
-    Plug 'othree/html5.vim'
 
     " Add devicons
     Plug 'nvim-tree/nvim-web-devicons'
 
     " Advanced syntax highlighting.
-    Plug 'sheerun/vim-polyglot'
+    " Plug 'sheerun/vim-polyglot'
 
     " Show colors in code.
     Plug 'ap/vim-css-color'
@@ -62,16 +64,17 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     " Autocomplete plugins
-    Plug 'hrsh7th/cmp-nvim-lsp'  " Autocomplete LSP items.
-    Plug 'hrsh7th/cmp-buffer'    " Autocomplete buffer items.
-    Plug 'hrsh7th/cmp-path'      " Autocomplete filesystem path items
-    Plug 'hrsh7th/cmp-cmdline'   " Autocomplete VIM command line items
+    Plug 'hrsh7th/cmp-nvim-lsp'                " Autocomplete LSP items.
+    Plug 'hrsh7th/cmp-buffer'                  " Autocomplete buffer items.
+    Plug 'hrsh7th/cmp-path'                    " Autocomplete filesystem path items
+    Plug 'hrsh7th/cmp-cmdline'                 " Autocomplete VIM command line items
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help' " Autocomplete signatures easily
+    Plug 'SirVer/ultisnips'                    " UltiSnips snippets
     Plug 'quangnguyen30192/cmp-nvim-ultisnips' " Add autocomplete support for ultisnips
-    Plug 'hrsh7th/nvim-cmp'      " Autocomplete plugin.
-    Plug 'SirVer/ultisnips'           " UltiSnips snippets
-    Plug 'honza/vim-snippets'         " Autocomplete snippets
-    Plug 'windwp/nvim-autopairs'      " Autocomplete (), [], and {}
+    Plug 'honza/vim-snippets'                  " Autocomplete snippets
+    Plug 'windwp/nvim-autopairs'               " Autocomplete (), [], and {}
+    Plug 'hrsh7th/nvim-cmp'                    " Autocomplete plugin.
+
     Plug 'kevinhwang91/nvim-hlslens'  " Show better info when searching
 
     "
@@ -93,8 +96,6 @@ call plug#begin('~/.vim/plugged')
     " Use Mason for handling installing/loading language server support.
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
-
-    " Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 
     " LSP configuration helpers -- must load after Mason.
     Plug 'neovim/nvim-lspconfig'
@@ -175,6 +176,8 @@ let g:loaded_ruby_provider = 0
 let g:loaded_perl_provider = 0
 
 let g:highlightedyank_highlight_duration = 1000
+
+let g:php_html_load = 1
 
 
 set list listchars=tab:‣\ ,nbsp:␣
