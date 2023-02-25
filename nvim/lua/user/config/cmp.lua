@@ -2,10 +2,7 @@
 -- CMP autocomplete setup
 --
 
-local cmp_status_ok, cmp = pcall(require, 'cmp')
-if not cmp_status_ok then
-    return
-end
+local cmp = require('cmp')
 
 -- vim.o.completeopt = "menu,menuone,noselect"
 
@@ -80,7 +77,10 @@ cmp.setup({
 -- Set configuration for specific filetype.
 --
 cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({ { name = 'cmp_git' } }, { { name = 'buffer' } }),
+    sources = cmp.config.sources(
+        { { name = 'cmp_git' } },
+        { { name = 'buffer' } }
+    ),
 })
 
 --

@@ -36,11 +36,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-repeat'
 
     " Highlighting/indent support
-    Plug 'pangloss/vim-javascript'      " JavaScript
-    Plug 'othree/html5.vim'             " HTML5
-    Plug 'vim-scripts/bash-support.vim' " Bash
-    Plug 'StanAngeloff/php.vim'         " PHP
+    " Plug 'pangloss/vim-javascript'      " JavaScript
+    " Plug 'othree/html5.vim'             " HTML5
+    " Plug 'StanAngeloff/php.vim'         " PHP
 
+    Plug 'nvim-lua/lsp-status.nvim'
 
     " Add devicons
     Plug 'nvim-tree/nvim-web-devicons'
@@ -81,28 +81,29 @@ call plug#begin('~/.vim/plugged')
     " LSP / Diagnostics
     "
 
-    " Add LSP progress to lualine
-    Plug 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
-
-    " Use null-ls for external linters
-    Plug 'jose-elias-alvarez/null-ls.nvim'
-
-    " Integrate null-ls with Mason
-    Plug 'jay-babu/mason-null-ls.nvim'
-
     " Required by null-ls
     Plug 'nvim-lua/plenary.nvim'
 
     " Use Mason for handling installing/loading language server support.
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
-
     " LSP configuration helpers -- must load after Mason.
     Plug 'neovim/nvim-lspconfig'
+    " Use null-ls for external linters
+    Plug 'jose-elias-alvarez/null-ls.nvim'
+    " Integrate null-ls with Mason
+    Plug 'jay-babu/mason-null-ls.nvim'
+
+
+    " Add LSP progress to lualine
+    Plug 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
 
     " Improved LSP interface.
-    Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
     Plug 'folke/trouble.nvim'
+
+    Plug 'Maan2003/lsp_lines.nvim'
+    Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
+    Plug 'j-hui/fidget.nvim'
 call plug#end()
 
 colorscheme glandix     " Set color scheme
@@ -145,6 +146,8 @@ set notimeout           " don't timeout on leader key
 
 " set color column to [textwidth], 80, and 120 by default
 let g:my_colorcolumn='+0,80,120'
+let g:is_bash=1
+let g:sh_no_error= 1
 execute 'setlocal colorcolumn=' . g:my_colorcolumn
 
 let &showbreak='↪'      " wrap character
@@ -309,7 +312,7 @@ map <Leader>c gcc
 
 " Make <Leader>n toggle extra characters so copying text highlighted with the
 " mouse in terminal makes sense
-map <Leader>n :call MyToggleNoChars()<cr>
+map <Leader>n :call ToggleNoChars()<cr>
 
 " Tab / Shift Tab to switch between tabs (:tabe <file>)
 " nnoremap <Tab> :tabnext<CR>
@@ -451,7 +454,7 @@ augroup END
 
 " Toggle showing extra characters and number/sign column with :NC
 let s:my_noCharsState=1
-function! MyToggleNoChars()
+function! ToggleNoChars()
     if s:my_noCharsState
         set nonumber
         setlocal nolist
@@ -459,13 +462,16 @@ function! MyToggleNoChars()
         set colorcolumn=0
         let &showbreak = ''
         call clearmatches()
-        lua vim.diagnostic.config({virtual_text = false})
+        lua require('toggle_lsp_diagnostics').turn_off_diagnostics()
+        lua require('trouble').close()
+        set nohlsearch
     else
         set number
         set list
         setlocal signcolumn=yes:1
         let &showbreak = '↪'
-        lua vim.diagnostic.config({virtual_text = true})
+        lua require('user.config.trouble').show_trouble()
+        set hlsearch
     endif
     let s:my_noCharsState = !s:my_noCharsState
 endfunction
@@ -493,6 +499,16 @@ function! GetHiGroup()
     let l:s = synID(line('.'), col('.'), 1)
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
+
+
+" Statusline
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
+endfunction
 
 " -------------------------- "
 "     REQUIRED LUA FILES     "

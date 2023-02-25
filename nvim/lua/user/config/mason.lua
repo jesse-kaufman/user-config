@@ -2,24 +2,7 @@
 -- Mason config
 --
 
--- protected calls
-local status_ok, mason = pcall(require, 'mason')
-if not status_ok then
-    return
-end
-
-local status_ok_1, mason_lspconfig = pcall(require, 'mason-lspconfig')
-if not status_ok_1 then
-    return
-end
-
-local status_ok_2, mason_null_ls = pcall(require, 'mason-null-ls')
-if not status_ok_2 then
-    return
-end
-
 local glx_icons = require('user.icons.glx-icons')
-
 local mason_config = {
     ui = {
         icons = {
@@ -36,18 +19,18 @@ local mason_config = {
 --
 -- Load Mason
 --
-mason.setup(mason_config)
-
--- Setup Mason-null-ls
-mason_null_ls.setup({
-    ensure_installed = require('user.config.null-ls').get_ensure_installed(),
-    automatic_installation = { exclude = { 'vint' } },
-    automatic_setup = true,
-})
+require('mason').setup(mason_config)
 
 -- Load Mason-lspconfig
-mason_lspconfig.setup({
-    ensure_installed = require('user.config.lsp').get_ensure_installed(),
+require('mason-lspconfig').setup({
+    ensure_installed = require('user.config.lsp').ensure_installed,
     automatic_installation = true,
-    automatic_setup = true,
+    automatic_setup = false,
+})
+
+-- Setup Mason-null-ls
+require('mason-null-ls').setup({
+    ensure_installed = require('user.config.null-ls').ensure_installed,
+    automatic_installation = { exclude = { 'vint' } },
+    automatic_setup = false,
 })

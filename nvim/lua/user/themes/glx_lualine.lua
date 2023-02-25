@@ -101,7 +101,10 @@ local config = {
         globalstatus = true,
         always_divide_middle = false,
         section_separators = { left = '', right = glx_icons.separator },
-        component_separators = { left = glx_icons.separator, right = glx_icons.separator },
+        component_separators = {
+            left = glx_icons.separator,
+            right = glx_icons.separator,
+        },
         icons_enabled = true,
         theme = {
             -- Initial background colors
@@ -167,8 +170,14 @@ local config = {
                 padding = { left = 1, right = 0 },
                 fmt = rename_buffer,
                 color = function()
-                    local is_modified = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(0), 'modified')
-                    local is_readonly = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(0), 'readonly')
+                    local is_modified = vim.api.nvim_buf_get_option(
+                        vim.api.nvim_win_get_buf(0),
+                        'modified'
+                    )
+                    local is_readonly = vim.api.nvim_buf_get_option(
+                        vim.api.nvim_win_get_buf(0),
+                        'readonly'
+                    )
                     local bufname = vim.fn.expand('%:t')
                     if is_modified == true then
                         return { fg = vim.g.glx_c_orange, bg = file_bg_color }
@@ -207,7 +216,7 @@ local config = {
 
             {
                 function()
-                    return ' '
+                    return ' ' -- .. require('lsp-status').status()
                 end,
                 color = { bg = file_bg_color },
                 padding = { left = 0, right = 0 },
@@ -223,7 +232,12 @@ local config = {
                 'diagnostics',
                 separator = '',
                 sources = { 'nvim_diagnostic' },
-                symbols = { error = ' ', warn = ' ', info = ' ', hint = '󰌵' },
+                symbols = {
+                    error = ' ',
+                    warn = ' ',
+                    info = ' ',
+                    hint = '󰌵',
+                },
                 color = { bg = vim.g.glx_c_lualine_bg },
                 diagnostics_color = {
                     -- color_error = { fg = vim.g.glx_c_red },
@@ -253,54 +267,65 @@ local config = {
                 },
             },
 
-            -- LSP NAME (only used when there is no LSP client)
+            -- LSP
             {
                 function()
                     if next(vim.lsp.get_active_clients()) == nil then
                         return 'No LSP'
                     end
-                    return vim.lsp.get_active_clients()[1].name
+                    return require('lsp-status').status_progress()
                 end,
                 icon = glx_icons.gear,
                 color = { bg = vim.g.glx_c_lualine_bg },
-            },
-            {
-                'lsp_progress',
-                display_components = {
-                    {
-                        'title',
-                        'percentage',
-                        'message',
-                    },
-                },
-                timer = {
-                    progress_enddelay = 500,
-                    spinner = 500,
-                    lsp_client_name_enddelay = 1000,
-                },
-                colors = {
-                    percentage = vim.g.glx_c_lualine_fg,
-                    message = vim.g.glx_c_gray,
-                    title = vim.g.glx_c_yellow,
-                    lsp_client_name = vim.g.glx_c_lualine_fg,
-                    use = true,
-                },
-                color = { bg = vim.g.glx_c_lualine_bg },
-                separators = {
-                    progress = ' | ',
-                    percentage = { pre = '[', post = '%%]' },
-                    messages = {
-                        commenced = 'In Progress',
-                        completed = 'Completed',
-                    },
-                    lsp_client_name = { pre = glx_icons.gear .. ' ', post = '' },
-                    message = {
-                        pre = ' - ',
-                        post = '',
-                    },
-                },
                 cond = conditions.hide_in_width,
             },
+            -- {
+            --     'lsp_progress',
+            --     display_components = {
+            --         'lsp_client_name',
+            --         'spinner',
+            --         { 'title', 'percentage', 'message' },
+            --     },
+            --     spinner_symbols = {
+            --         '⠋',
+            --         '⠙',
+            --         '⠹',
+            --         '⠸',
+            --         '⠼',
+            --         '⠴',
+            --         '⠦',
+            --         '⠧',
+            --         '⠇',
+            --         '⠏',
+            --     },
+            --     timer = {
+            --         progress_enddelay = 800,
+            --         spinner = 1000,
+            --         lsp_client_name_enddelay = 1000,
+            --     },
+            --     colors = {
+            --         percentage = vim.g.glx_c_lualine_fg,
+            --         message = vim.g.glx_c_gray,
+            --         title = vim.g.glx_c_yellow,
+            --         lsp_client_name = vim.g.glx_c_lualine_fg,
+            --         use = true,
+            --     },
+            --     color = { bg = vim.g.glx_c_lualine_bg },
+            --     separators = {
+            --         progress = ' | ',
+            --         percentage = { pre = '[', post = '%%]' },
+            --         messages = {
+            --             commenced = 'In Progress',
+            --             completed = 'Completed',
+            --         },
+            --         lsp_client_name = { pre = glx_icons.gear .. ' ', post = '' },
+            --         message = {
+            --             pre = ' - ',
+            --             post = '',
+            --         },
+            --     },
+            --     cond = conditions.hide_in_width,
+            -- },
         },
 
         --
@@ -347,14 +372,15 @@ local config = {
                     local filetype = vim.bo.filetype
                     local file = vim.api.nvim_buf_get_name(bufnr)
                     local icon
-                    local status, _ = pcall(require, 'nvim-web-devicons')
+                    local status = require('nvim-web-devicons')
 
                     name = rename_buffer(name)
 
                     if not status then
                         icon = ''
                     elseif filetype == 'TelescopePrompt' then
-                        icon = require('nvim-web-devicons').get_icon('telescope')
+                        icon =
+                            require('nvim-web-devicons').get_icon('telescope')
                     elseif filetype == 'fugitive' then
                         icon = require('nvim-web-devicons').get_icon('git')
                     elseif filetype == 'vimwiki' then
@@ -365,7 +391,10 @@ local config = {
                         icon = glx_icons.folder.open
                         name = 'Explore…'
                     else
-                        icon = require('nvim-web-devicons').get_icon(file, vim.fn.expand('#' .. bufnr .. ':e'))
+                        icon = require('nvim-web-devicons').get_icon(
+                            file,
+                            vim.fn.expand('#' .. bufnr .. ':e')
+                        )
                     end
 
                     if icon then
@@ -416,7 +445,11 @@ local config = {
             {
                 'diff',
                 -- symbols = { added = ' ', modified = '柳', removed = ' ' },
-                symbols = { added = ' ', modified = ' ', removed = ' ' },
+                symbols = {
+                    added = ' ',
+                    modified = ' ',
+                    removed = ' ',
+                },
                 diff_color = {
                     added = { fg = vim.g.glx_c_ltgreen },
                     modified = { fg = vim.g.glx_c_orange },

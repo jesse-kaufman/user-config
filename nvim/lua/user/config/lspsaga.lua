@@ -4,6 +4,13 @@
 
 local glx_icons = require('user.icons.glx-icons')
 
+require("lsp-colors").setup({
+  -- Error = vim.g.glx_c_red,
+  -- Warning = vim.g.glx_c_yellow,
+  -- Information = vim.g.glx_c_lualine_fg,
+  -- Hint = vim.g.glx_c_gray
+})
+
 require('lspsaga').setup({
     move_in_saga = {
         prev = '<C-b>',

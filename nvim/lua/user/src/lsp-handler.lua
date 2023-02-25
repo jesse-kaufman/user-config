@@ -2,21 +2,12 @@
 -- nvim-cmp (we will set up cmp.lua later) in the LSP
 local M = {}
 
--- protected call to get the cmp
-local status_cmp_ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
-if not status_cmp_ok then
-    return
-end
-
 M.default_debounce = 250
 M.php_debounce = M.default_debounce * 4
 
 M.flags = {
     debounce_text_changes = M.default_debounce,
 }
-
--- adds capabilities to list
-M.capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- Here we declare the setup function and add the modifications in signs and
 -- extra configs, like virtual text, false update_in_insert, rounded borders
@@ -26,15 +17,24 @@ M.setup = function()
         severity_sort = true,
         underline = true,
         update_in_insert = false,
-        virtual_text = {
-            spacing = 6,
-            prefix = '',
-        },
         source = true,
+        virtual_lines = true,
+        virtual_text = false,
     })
 end
 
 M.on_attach = function(client, bufnr)
+    require('lsp-status').on_attach(client)
+
+    vim.diagnostic.config({
+        severity_sort = true,
+        underline = true,
+        update_in_insert = false,
+        source = true,
+        virtual_lines = true,
+        virtual_text = false,
+    })
+
     if client.supports_method('textDocument/formatting') then
         -- Disable lua_ls formatting so stylua can handle it
         if client.name == 'lua_ls' then
