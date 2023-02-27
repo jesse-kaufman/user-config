@@ -91,11 +91,12 @@ M.setup = function()
     -- Only load if we aren't on mws1 to prevent performance issues
     if require('user.util').getHostname() ~= 'mws1' then
         lspconfig.intelephense.setup({
-            init_options = {
-                storagePath = os.getenv('HOME') .. '/intelephense/cache/',
-            },
+            -- init_options = {
+            --     storagePath = os.getenv('HOME') .. '/intelephense/cache/',
+            -- },
             settings = {
                 intelephense = {
+                    telemetry = false,
                     files = {
                         maxSize = 5000000,
                         exclude = { 'vendor/**' },
@@ -106,6 +107,8 @@ M.setup = function()
                                 .. '/.config/composer/vendor/furniture-options/fo-plugin-stubs/stubs/',
                             os.getenv('HOME')
                                 .. '/.config/composer/vendor/php-stubs/',
+                            os.getenv('HOME')
+                                .. '/.config/composer/vendor/tareq1988/wp-php-cs-fixer/src/',
                         },
                         documentRoot = '/data/sites/dev/wp-content/',
                     },

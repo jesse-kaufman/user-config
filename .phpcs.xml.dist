@@ -78,6 +78,7 @@
 		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
 		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
 		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+		<exclude name="Squiz.PHP.CommentedOutCode.Found"/>
 	</rule>
 
 	<!-- Enforce PSR1 compatible namespaces. -->

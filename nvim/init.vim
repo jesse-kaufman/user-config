@@ -46,7 +46,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-tree/nvim-web-devicons'
 
     " Advanced syntax highlighting.
-    " Plug 'sheerun/vim-polyglot'
+    Plug 'sheerun/vim-polyglot'
 
     " Show colors in code.
     Plug 'ap/vim-css-color'
