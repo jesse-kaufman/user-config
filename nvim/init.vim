@@ -144,6 +144,8 @@ set cursorline          " highlight current line
 " set timeoutlen=1000
 set notimeout           " don't timeout on leader key
 
+
+
 " set color column to [textwidth], 80, and 120 by default
 let g:my_colorcolumn='+0,80,120'
 let g:is_bash=1
@@ -411,6 +413,10 @@ vnoremap <S-Right> <Right>
 " -------------------------- "
 
 autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="YankHighlight", timeout=250}
+
+augroup DisablePolyglotReindent
+    autocmd BufEnter * set indentexpr=
+augroup END
 
 augroup RestoreCursorShapeOnExit
     autocmd!

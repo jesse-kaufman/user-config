@@ -57,11 +57,13 @@
 		<type>warning</type>
 	</rule>
 
+
 	<!-- Add in some extra rules from other standards. -->
 	<rule ref="Generic.PHP.DeprecatedFunctions"/>
 	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
 	<rule ref="Generic.Commenting.Todo"/>
-		<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
 			<property name="alignMultilineItems" value="!=100"/>
 			<property name="exact" value="false" phpcs-only="true"/>
@@ -79,11 +81,11 @@
 		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
 		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
 		<exclude name="Squiz.PHP.CommentedOutCode.Found"/>
+		<exclude name="Generic.Commenting.DocComment.MissingShort" />
 	</rule>
 
 	<!-- Enforce PSR1 compatible namespaces. -->
 	<rule ref="PSR1.Classes.ClassDeclaration"/>
-
 
 	<!--
 	#############################################################################
