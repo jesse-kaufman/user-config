@@ -96,7 +96,6 @@ M.setup = function()
         flags = require('user.src.lsp-handler').flags,
         on_attach = on_attach,
         capabilities = capabilities,
-        diagnostics_format = '#{m} [#{c}]',
     })
 end
 
