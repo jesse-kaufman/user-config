@@ -36,8 +36,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-repeat'
 
     " Highlighting/indent support
-    " Plug 'pangloss/vim-javascript'      " JavaScript
-    " Plug 'othree/html5.vim'             " HTML5
+    " Plug 'pangloss/vim-javascript'    " JavaScript
+    " Plug 'othree/html5.vim'           " HTML5
+    " Plug '2072/PHP-Indenting-for-VIm' " PHP
     " Plug 'StanAngeloff/php.vim'         " PHP
 
     Plug 'nvim-lua/lsp-status.nvim'
@@ -144,6 +145,9 @@ set cursorline          " highlight current line
 " set timeoutlen=1000
 set notimeout           " don't timeout on leader key
 
+setlocal autoindent
+setlocal smartindent
+
 
 
 " set color column to [textwidth], 80, and 120 by default
@@ -157,6 +161,7 @@ let g:mapleader=' '       " set leader to space
 let g:tablineclosebutton=0 " hide close tab button
 
 let g:vim_markdown_folding_disabled = 1
+
 
 
 set laststatus=2
@@ -413,10 +418,6 @@ vnoremap <S-Right> <Right>
 " -------------------------- "
 
 autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="YankHighlight", timeout=250}
-
-augroup DisablePolyglotReindent
-    autocmd BufEnter * set indentexpr=
-augroup END
 
 augroup RestoreCursorShapeOnExit
     autocmd!

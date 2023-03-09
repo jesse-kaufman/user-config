@@ -10,6 +10,7 @@ M.ensure_installed = {
     'prettierd',
     'stylua',
     'yamlfmt',
+    'cpplint',
 }
 
 M.setup = function()
@@ -58,7 +59,7 @@ M.setup = function()
         b.formatting.eslint_d,
         b.formatting.shfmt,
         b.formatting.beautysh,
-        b.formatting.sqlformat,
+        b.formatting.sql_formatter,
         b.formatting.yamlfmt.with({
             extra_args = {
                 '-conf',
