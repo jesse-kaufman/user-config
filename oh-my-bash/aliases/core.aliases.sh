@@ -9,8 +9,8 @@ alias cdi='cd ~/fo/inc/'
 alias c='cd'
 unalias mv
 alias mv='mv -i'
-alias grep="grep --exclude-dir={.git,'*vendor*','*node_modules*'} --exclude=.phpcs.cache --color=auto"
-alias grepr="grep -R --exclude-dir={.git,'*vendor*','*node_modules*'} --exclude=.phpcs.cache"
+alias grep="grep --exclude-dir={.git,'*node_modules*'} --exclude=.phpcs.cache --color=auto"
+alias grepr="grep -R --exclude-dir={.git,'*node_modules*'} --exclude=.phpcs.cache"
 alias grepv='grep -v'
 alias taildevp='tail -f /var/log/php/tgdev1.transitionsgroup.net-error_log'
 alias taildeva='tail -f /var/log/apache2/tgdev1.transitionsgroup.net-error_log'
