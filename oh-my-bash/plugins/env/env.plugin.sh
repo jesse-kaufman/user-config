@@ -95,6 +95,11 @@ if [[ ":$PATH:" != *":$MASON_PATH:"* ]]; then
 fi
 
 #
+# Add ~/.config/bin/ to path
+#
+GLX_PATHS="$HOME/.config/bin:$GLX_PATHS"
+
+#
 # Prepend our paths to $PATH
 #
 export PATH="${GLX_PATHS}${PATH}"
