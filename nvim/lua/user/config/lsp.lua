@@ -10,7 +10,7 @@ M.ensure_installed = {
 }
 
 M.setup = function()
-    vim.lsp.set_log_level('debug')
+    -- vim.lsp.set_log_level('debug')
 
     -- Get flags, expanded capabilities, and on_attach handler for use with each server
     local flags = {
