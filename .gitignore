@@ -10,3 +10,4 @@ karabiner/automatic_backups
 bin/jDownload*
 composer/auth.json
 configstore/@tuyapi/cli.json
+configstore/update-notifier-@tuyapi/cli.json
