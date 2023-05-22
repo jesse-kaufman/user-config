@@ -244,7 +244,7 @@ prompt_context() {
         ICON="$(ansi_single $(fg_color dkpurple)) $(ansi_single $(fg_color black))"
     elif [[ "$HOST" = "tgdev1" ]]; then
         HOST_BG="lavendar"
-        ICON="ﭧ "
+        ICON="󰙨 "
     elif [[ "$HOST" = "mws1" ]]; then
         HOST_BG="orange"
         ICON=" "
@@ -309,9 +309,9 @@ prompt_dir() {
     pwd_symbol=""
 
     if [[ "$path" != *"$HOME"* ]]; then
-        path=" ${path}"
+        path="󰋜 ${path}"
     else
-        path="${path/$HOME/ }"
+        path="${path/$HOME/󰋜 }"
     fi
 
     if [ "$(echo -n "$path" | wc -c | tr -d " ")" -gt $pwd_length ]; then

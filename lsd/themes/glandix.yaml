@@ -1,6 +1,6 @@
 ---
 user: [191, 191, 191]
-group: [82, 82, 82]
+group: [50, 50, 50]
 permission:
   read: [152, 190, 101]
   write: [239, 67, 53]
@@ -11,12 +11,12 @@ permission:
   acl: dark_cyan
   context: [128, 232, 255]
 date:
-  hour-old: [245, 245, 245]
-  day-old: [248, 248, 248]
-  older: [242, 242, 242]
+  hour-old: [240, 240, 240]
+  day-old: [200, 200, 200]
+  older: [130, 130, 130]
 size:
-  none: [191, 191, 191]
-  small: [152, 190, 101]
+  none: [51, 51, 51]
+  small: [90, 90, 90]
   medium: [254, 203, 47]
   large: [250, 90, 31]
 inode:
