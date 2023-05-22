@@ -2,31 +2,29 @@
 name:
   # .trash: 
   .trash: 
-  .cargo: 
   .emacs.d: 
-  # a.out: 
   a.out: 
   stylua.toml: 
   vintrc.yaml: 
   uncrustify.cfg: 
-  .bash_history: 
-  .wget-hsts: 
-  "icloud documents": 
-  "cloud-drive": 
-  "creative cloud files": 
-  documents: 
-  files: 
-  .bash_profile: 
-  bashrc: 
+  .mysql_history: 
+  .bash_history: 
+  .wget-hsts: 
+  icloud documents: 
+  cloud-drive": 
+  "creative cloud files": 
+  documents: 󰃖
+  files: 󰃖
+  .bash_profile: 󱁤
+  bashrc: 󱁤
   .bashrc: 
   .login: 
   .yarnrc: 
-  .sqlite_history: 
+  .sqlite_history: 
   .ds_store: 
-  # github: 
-  # github: 
   github: 
   .gvimrc: 
+  .vimrc: 󱁤
   .inputrc: 
   inputrc: 
   .dircolorsrc: 
@@ -34,7 +32,7 @@ name:
   vendor: 
   .gitconfig: 
   .gitignore: 
-  .lesshst: 
+  .lesshst: 
   .editorconfig: 
   editorconfig: 
   .phpcs.xml.dist: 
@@ -45,73 +43,58 @@ name:
   readme: 
   readme.md: 
   csscomb.json: 
-  photos: 
-  pictures: 
-  downloads: 
-  "idrive downloads": 
+  photos: 󰉏
+  pictures: 󰉏
+  downloads: 󰉍
+  "idrive downloads": 󰉍
   applications: 
   library: 
-  movies: ﳜ
-  music: ﱘ
+  movies: 󰿎
+  music: 󱍙
   desktop: 
 filetype:
-  # dir: 
-  dir: 
-  # file: 
-  file: 
+  dir: 
+  # dir: 
+  file: 
+  # file: 
   pipe: 📩
-  socket: 
-  executable: 
+  socket: 󱄉
+  executable: 
   symlink-dir: 
   # symlink-file: 
   symlink-file: 
-  device-char: 
-  device-block: ﰩ
-  special: 
 extension:
   1: 
   apk: 
-  asc: 
-  asm: 
-  asp: 
-  a: 
   avi: 
-  avro: 
-  awk: 
-  bak: 
+  bak: 󰁯
   bash: 
-  bat: 
+  bat: 
   bin: 
-  bio: 蘿
-  bmp: 
+  bmp: 
   bz2: 
-  cc: ﭱ
-  cfg: 
-  class: 
-  cljs: 
-  clj: 
-  cls: 
-  cl: 
-  coffee: 
-  conf: 
-  cpp: ﭱ
-  cp: ﭱ
-  cshtml: 
+  cargo: 󱘗
+  cc: 
+  cfg: 󱁤
+  class: 
+  coffee: 󰅶
+  conf: 󱁤
+  cpp: 
+  cp: 
   csh: 
-  csproj: 
-  css: 
-  less: 
-  cs: 
+  csproj: 
+  css: 
+  less: 
+  cs: 
   csv: 
-  csx: 
-  c: 
-  c++: ﭱ
+  csx: 
+  c: 
+  c++: 
   cue: 
-  cxx: ﭱ
-  dart: 
-  dat: 
-  db: 
-  deb: 
+  cxx: 
+  dat: 
+  db: 
+  deb: 󰪶
   desktop: 
   diff: 
   dll: 
@@ -227,12 +210,13 @@ extension:
   orig: 
   otf: 
   o: 
-  pdf: 
+  pdf: 
   pem: 
   phar: 
-  # php: 
-  php: 
-  pkg: 
+  # php: 
+  php: 󰌟
+  # pkg: 
+  pkg: 󰀼
   plist: 
   pls: 蘿
   pl: 
