@@ -104,7 +104,7 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'Maan2003/lsp_lines.nvim'
     Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
-    Plug 'j-hui/fidget.nvim'
+    Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
 call plug#end()
 
 colorscheme glandix     " Set color scheme
