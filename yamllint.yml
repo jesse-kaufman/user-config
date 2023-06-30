@@ -11,3 +11,5 @@ rules:
         allow-non-breakable-words: true
     quoted-strings:
         required: only-when-needed
+    indentation:
+        spaces: 4
