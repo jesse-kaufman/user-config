@@ -245,6 +245,9 @@ prompt_context() {
     elif [[ "$HOST" = "tgdev1" ]]; then
         HOST_BG="lavendar"
         ICON="󰙨 "
+    elif [[ "$HOST" = "tgdev2" ]]; then
+        HOST_BG="dkpurple"
+        ICON="󰙨 "
     elif [[ "$HOST" = "mws1" ]]; then
         HOST_BG="orange"
         ICON=" "
