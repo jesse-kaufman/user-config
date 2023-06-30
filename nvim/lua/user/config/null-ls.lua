@@ -11,6 +11,20 @@ M.ensure_installed = {
     'stylua',
     'yamlfmt',
     'cpplint',
+    'luacheck',
+    'eslint_d',
+    'shellcheck',
+    'shfmt',
+    'beautysh',
+    'yamllint',
+    'markdownlint',
+    'jsonlint',
+    'vint',
+    'dotenv_linter',
+    'phpcsfixer',
+    'sql_formatter',
+    'autopep8',
+    'uncrustify',
 }
 
 M.setup = function()
