@@ -36,6 +36,7 @@ elif command -v ec &>/dev/null; then
 fi
 
 alias dev='ssh tgdev1.transitionsgroup.net'
+alias dev2='ssh jkaufman@4.236.163.23'
 alias mws='ssh mws1.transitionsgroup.net'
 
 alias tic='tic -sx'
