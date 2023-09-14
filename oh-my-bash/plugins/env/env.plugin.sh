@@ -21,6 +21,7 @@ GLX_PATHS=""
 #
 if [[ ":$BREW_PATH:" != "::" ]] && [[ -d "$BREW_PATH/bin" ]]; then
     # Brew bin dir exists.
+    GLX_PATHS="$BREW_PATH/opt/llvm/bin:$PATH"
 
     # Brew bin dir isn't in path already.
     if [[ ":$PATH:" != *":$BREW_PATH/bin:"* ]]; then
