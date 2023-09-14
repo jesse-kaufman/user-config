@@ -10,3 +10,4 @@ karabiner/automatic_backups
 bin/jDownload*
 composer/auth.json
 configstore/*tuya*
+mosquitto_pub
