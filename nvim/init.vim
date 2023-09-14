@@ -40,6 +40,9 @@ call plug#begin('~/.vim/plugged')
     " Plug 'othree/html5.vim'           " HTML5
     " Plug '2072/PHP-Indenting-for-VIm' " PHP
     " Plug 'StanAngeloff/php.vim'         " PHP
+    " Plug 'lepture/vim-jinja'
+    " Plug 'chase/vim-ansible-yaml'
+    Plug 'pearofducks/ansible-vim'
 
     Plug 'nvim-lua/lsp-status.nvim'
 
@@ -516,6 +519,13 @@ function! LspStatus() abort
 
   return ''
 endfunction
+
+" Use yaml.jinja2 syntax for yaml files (from ansible-vim plugin)
+augroup yaml_ft
+  au!
+  autocmd BufNewFile,BufRead *.yaml   set syntax=yaml.jinja2
+augroup END
+
 
 " -------------------------- "
 "     REQUIRED LUA FILES     "

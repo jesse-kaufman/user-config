@@ -36,13 +36,15 @@ M.on_attach = function(client, bufnr)
     })
 
     if client.supports_method('textDocument/formatting') then
-        -- Disable lua_ls formatting so stylua can handle it
         if client.name == 'lua_ls' then
+            -- Disable lua_ls formatting so stylua can handle it
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
-        end
+        elseif vim.bo.filetype == "yaml" then
+            -- Disable yaml formatting so ansible-vim can handle it
+            -- client.server_capabilities.semanticTokensProvider = nil
+        elseif client.name == 'intelephense' then
         -- Disable intelephense formatting so PHPCBF can handle it
-        if client.name == 'intelephense' then
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
         end

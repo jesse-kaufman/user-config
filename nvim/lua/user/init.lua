@@ -84,3 +84,11 @@ vim.fn.sign_define(
     'DiagnosticSignHint',
     { texthl = 'DiagnosticSignHint', text = glx_icons.hint, numhl = '' }
 )
+
+
+vim.filetype.add({
+  extension = {
+    yaml = 'yaml.jinja2',
+  }
+})
+
