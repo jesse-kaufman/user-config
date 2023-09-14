@@ -12,6 +12,9 @@ HISTIGNORE=
 # Local variable for paths to prepend to PATH.
 GLX_PATHS=""
 
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 ##############
 # SETUP PATH
 #
@@ -27,6 +30,11 @@ if [[ ":$BREW_PATH:" != "::" ]] && [[ -d "$BREW_PATH/bin" ]]; then
     if [[ ":$PATH:" != *":$BREW_PATH/bin:"* ]]; then
         # Prepend bin dir to local var of paths
         GLX_PATHS="$BREW_PATH/bin:$GLX_PATHS"
+    fi
+
+    # Brew sbin dir isn't in path already.
+    if [[ ":$PATH:" != *":$BREW_PATH/sbin:"* ]]; then
+        # Prepend bin dir to local var of paths
         GLX_PATHS="$BREW_PATH/sbin:$GLX_PATHS"
     fi
 
