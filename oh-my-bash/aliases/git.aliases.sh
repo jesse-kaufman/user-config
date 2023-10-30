@@ -30,3 +30,6 @@ alias gb='git branch'
 alias grest='git restore --staged'
 alias grestore='git restore --staged'
 alias gunstage='git restore --staged'
+
+
+unalias grm
