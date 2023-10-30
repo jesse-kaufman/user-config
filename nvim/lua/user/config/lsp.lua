@@ -3,9 +3,9 @@ local lspconfig = require('lspconfig')
 local M = {}
 
 M.ensure_installed = {
-    'vimls',
+    -- 'vimls',
     'lua_ls',
-    'cssmodules_ls',
+    -- 'cssmodules_ls',
     'intelephense',
 }
 
