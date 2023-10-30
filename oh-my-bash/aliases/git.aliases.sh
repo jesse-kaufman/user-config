@@ -29,3 +29,6 @@ alias gai='git add -i'
 alias gb='git branch'
 alias grest='git restore --staged'
 alias gunstage='git restore --staged'
+
+
+unalias grm
