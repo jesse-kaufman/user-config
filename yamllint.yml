@@ -14,3 +14,4 @@ rules:
     required: only-when-needed
   indentation:
     spaces: 2
+  new-line-at-end-of-file: false

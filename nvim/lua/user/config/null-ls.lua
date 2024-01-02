@@ -14,7 +14,6 @@ M.ensure_installed = {
     'luacheck',
     'eslint_d',
     'shellcheck',
-    'shfmt',
     'beautysh',
     'yamllint',
     'markdownlint',
@@ -71,7 +70,6 @@ M.setup = function()
         b.formatting.prettierd,
         b.formatting.tidy,
         b.formatting.eslint_d,
-        b.formatting.shfmt,
         b.formatting.beautysh,
         b.formatting.sql_formatter,
         b.formatting.yamlfmt.with({
