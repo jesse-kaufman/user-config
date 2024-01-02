@@ -19,8 +19,8 @@
 
 1. Install additional software ([see below](#additional-software-installation))
 1. Setup NeoVim
-    1. Run NeoVim and run `:PlugInstall`
-    1. Restart NeoVim and wait for Mason to install dependencies
+   1. Run NeoVim and run `:PlugInstall`
+   1. Restart NeoVim and wait for Mason to install dependencies
 
 ---
 
@@ -37,15 +37,31 @@ brew install nodejs
 
 # composer
 brew install composer
-
-# rust (Only required until LSD's next release with color support)
-brew install rust
 ```
 
 ### Global Composer Dependencies
 
 ```bash
 composer global install
+```
+
+### Other Apps
+
+```bash
+# neovim
+brew install neovim --HEAD
+
+# lsd
+brew install lsd
+
+# htop
+brew install htop
+
+# colortail
+brew install colortail
+
+# vint (Use this over the Mason auto-install so we can use HEAD)
+brew install vint --HEAD
 ```
 
 ### macOS-only Dependencies
@@ -56,23 +72,4 @@ brew install coreutils
 
 # bash-completion
 brew install bash-completion
-```
-
-### Other Apps
-
-```bash
-# neovim
-brew install neovim --HEAD
-
-# lsd
-cargo install --git https://github.com/Peltoche/lsd.git --branch master
-
-# htop
-brew install htop
-
-# colortail
-brew install colortail
-
-# vint (Use this over the Mason auto-install so we can use HEAD)
-brew install vint --HEAD
 ```

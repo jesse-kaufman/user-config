@@ -6,7 +6,10 @@
 # All rights reserved.
 #
 
-# Don't ignore any history items when recalling.
+# Set default timezone
+export TZ="America/Chicago"
+
+# Do't ignore any history items when recalling.
 HISTIGNORE=
 
 # Local variable for paths to prepend to PATH.

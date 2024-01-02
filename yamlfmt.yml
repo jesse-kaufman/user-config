@@ -4,3 +4,4 @@ formatter:
   max_line_length: 110
   indent: 2
   retain_line_breaks: true
+  pad_line_comments: 2
