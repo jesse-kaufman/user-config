@@ -1,13 +1,9 @@
 #!/bin/bash
 
-for FILE in ~/plugins/fo-*;
+for FILE in ~/github/fo-*;
 do
 echo "$FILE";
 cd "$FILE" || exit
 git fetch && git status
 cd ../
 done
-
-echo ~/fo/
-cd ~/fo/ || exit
-git fetch && git status

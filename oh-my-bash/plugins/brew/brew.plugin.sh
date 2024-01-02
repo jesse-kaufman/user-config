@@ -19,7 +19,7 @@ fi
 # Add aliases for all GNU apps in the coreutils cask dir
 # shellcheck disable=2045
 if [ -d "$BREW_PATH/Cellar/coreutils" ]; then
-    for FILE in $(ls -1 "$BREW_PATH"/Cellar/coreutils/*/bin/); do
+    for FILE in gcp gtail gtar; do
 
         # Only act on files that start with g.
         if [[ $FILE != g* ]]; then
