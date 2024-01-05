@@ -62,6 +62,8 @@ alias dlogs='docker logs'
 alias dlog='docker logs'
 alias dlogs='docker logs'
 
+alias ds='docker stats'
+
 # MAKE SERVICE ALWAYS USE SUDO
 alias service='sudo service'
 alias systemctl='sudo systemctl'
