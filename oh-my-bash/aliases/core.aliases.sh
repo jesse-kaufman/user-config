@@ -68,3 +68,5 @@ alias ds='docker stats'
 alias service='sudo service'
 alias systemctl='sudo systemctl'
 alias apt='sudo apt'
+
+alias more='less'
