@@ -34,7 +34,7 @@ alias tic='tic -sx'
 
 
 # DOCKER ALIASES
-alias dcup='docker compose up -d'
+alias dcup='docker compose up'
 alias dcu='docker compose up -d'
 alias dcdn='docker compose down'
 alias dcd='docker compose down'
