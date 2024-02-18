@@ -7,7 +7,7 @@ local M = {}
 
 -- List builtins other than diagnostics here (diags are installed by Mason)
 M.ensure_installed = {
-    'prettierd',
+    'prettier',
     'stylua',
     'yamlfmt',
     'cpplint',
