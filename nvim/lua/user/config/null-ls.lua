@@ -62,7 +62,8 @@ M.setup = function()
 
         -- Formatters
         b.formatting.stylua,
-        b.formatting.phpcsfixer,
+        -- b.formatting.phpcsfixer,
+        -- b.formatting.phpcbf,
         b.formatting.phpcbf.with({
             command = os.getenv('HOME')
                 .. '/.config/composer/vendor/bin/phpcbf',
