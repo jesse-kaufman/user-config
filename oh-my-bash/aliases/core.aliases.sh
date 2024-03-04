@@ -42,6 +42,7 @@ alias dcdown='docker compose down'
 alias dcstart='docker compose start'
 alias dcstop='docker compose stop'
 alias dcpull='docker compose pull'
+alias dcbuild='docker compose build'
 
 alias dc='docker container'
 alias dci='docker container inspect'
