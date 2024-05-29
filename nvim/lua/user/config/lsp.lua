@@ -6,7 +6,7 @@ M.ensure_installed = {
     -- 'vimls',
     'lua_ls',
     -- 'cssmodules_ls',
-    'intelephense',
+    -- 'intelephense',
 }
 
 M.setup = function()
@@ -26,34 +26,34 @@ M.setup = function()
     --
     -- VIM LANGUAGE SERVER
     --
-    lspconfig.vimls.setup({
-        flags = flags,
-        capabilities = capabilities,
-        on_attach = on_attach,
-    })
+    -- lspconfig.vimls.setup({
+    --     flags = flags,
+    --     capabilities = capabilities,
+    --     on_attach = on_attach,
+    -- })
 
 
     -- SQL language server
-    lspconfig.sqlls.setup({
-        flags = flags,
-        capabilities = capabilities,
-        on_attach = on_attach,
-    })
+    -- lspconfig.sqlls.setup({
+    --     flags = flags,
+    --     capabilities = capabilities,
+    --     on_attach = on_attach,
+    -- })
 
     --
     -- CSS language server
     --
-    lspconfig.cssmodules_ls.setup({
-        flags = flags,
-        capabilities = capabilities,
-        on_attach = on_attach,
-    })
+    -- lspconfig.cssmodules_ls.setup({
+    --     flags = flags,
+    --     capabilities = capabilities,
+    --     on_attach = on_attach,
+    -- })
 
-    lspconfig.ccls.setup({
-        flags = flags,
-        capabilities = capabilities,
-        on_attach = on_attach,
-    })
+    -- lspconfig.ccls.setup({
+    --     flags = flags,
+    --     capabilities = capabilities,
+    --     on_attach = on_attach,
+    -- })
 
     lspconfig.bashls.setup({
         flags = flags,
@@ -98,39 +98,6 @@ M.setup = function()
         on_attach = on_attach,
     })
 
-    --
-    -- INTELEPHENSE (PHP) LANGUAGE SERVER
-    --
-
-    -- Only load if we aren't on mws1 to prevent performance issues
-    if require('user.util').getHostname() ~= 'mws1' then
-        lspconfig.intelephense.setup({
-            init_options = {
-                storagePath = os.getenv('HOME') .. '/intelephense/cache/',
-            },
-            settings = {
-                intelephense = {
-                    telemetry = false,
-                    files = {
-                        maxSize = 5000000,
-                        exclude = { 'vendor/**' },
-                    },
-                    environment = {
-                        includePaths = {
-                            os.getenv('HOME')
-                                .. '/.config/composer/vendor/furniture-options/fo-plugin-stubs/stubs/',
-                            os.getenv('HOME')
-                                .. '/.config/composer/vendor/php-stubs/',
-                        },
-                        documentRoot = '/data/sites/dev/wp-content/',
-                    },
-                },
-            },
-            flags = flags,
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-    end
 end
 
 return M
