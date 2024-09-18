@@ -34,7 +34,7 @@ alias tic='tic -sx'
 
 
 # DOCKER ALIASES
-alias dcup='docker compose up -d'
+alias dcup='docker compose up'
 alias dcu='docker compose up -d'
 alias dcdn='docker compose down'
 alias dcd='docker compose down'
@@ -42,27 +42,36 @@ alias dcdown='docker compose down'
 alias dcstart='docker compose start'
 alias dcstop='docker compose stop'
 alias dcpull='docker compose pull'
+alias dcbuild='docker compose build'
+alias dcpush='docker compose push'
+alias dcr='docker compose run'
 
 alias dc='docker container'
 alias dci='docker container inspect'
 alias dcl='docker container list --format "table {{.Names}}\t{{.Status}}\t{{.RunningFor}}\t{{.Image}}"'
 alias dcla='docker container list -a --format "table {{.Names}}\t{{.Status}}\t{{.RunningFor}}\t{{.Image}}"'
 
+alias dv='docker volume'
+alias dvi='docker volume inspect'
+alias dvp='docker volume prune'
+alias dvl='docker volume list'
+
 alias di='docker image'
-alias dip='docker image pull'
+alias dip='docker image prune'
 alias dil='docker image list'
-alias dila='docker image list -a'
 
 alias dn='docker network'
 alias dni='docker network inspect'
 alias dnl='docker network list'
+alias dnp='docker network prune'
 
 alias dl='docker logs'
-alias dlogs='docker logs'
-alias dlog='docker logs'
-alias dlogs='docker logs'
+alias ds='docker stats'
+alias dsys='docker system'
 
 # MAKE SERVICE ALWAYS USE SUDO
 alias service='sudo service'
 alias systemctl='sudo systemctl'
 alias apt='sudo apt'
+
+alias more='less'

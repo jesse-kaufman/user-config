@@ -7,23 +7,23 @@ local M = {}
 
 -- List builtins other than diagnostics here (diags are installed by Mason)
 M.ensure_installed = {
-    'prettierd',
-    'stylua',
+    'prettier',
+    -- 'stylua',
     'yamlfmt',
-    'cpplint',
+    -- 'cpplint',
     'luacheck',
-    'eslint_d',
+    -- 'eslint',
     'shellcheck',
     'beautysh',
     'yamllint',
-    'markdownlint',
-    'jsonlint',
-    'vint',
+    -- 'markdownlint',
+    -- 'jsonlint',
+    -- 'vint',
     'dotenv_linter',
-    'phpcsfixer',
-    'sql_formatter',
-    'autopep8',
-    'uncrustify',
+    -- 'phpcsfixer',
+    -- 'sql_formatter',
+    -- 'autopep8',
+    -- 'uncrustify',
 }
 
 M.setup = function()
@@ -38,18 +38,18 @@ M.setup = function()
     local sources = {
         -- Diagnostics/Linters
         b.diagnostics.luacheck,
-        b.diagnostics.eslint_d,
-        b.diagnostics.cpplint,
-        b.diagnostics.jsonlint,
-        b.diagnostics.markdownlint,
-        b.diagnostics.php,
+        -- b.diagnostics.eslint,
+        -- b.diagnostics.cpplint,
+        -- b.diagnostics.jsonlint,
+        -- b.diagnostics.markdownlint,
+        -- b.diagnostics.php,
         b.diagnostics.yamllint.with({
             extra_args = {
                 '-c',
                 os.getenv('HOME') .. '/.config/yamllint.yml',
             },
         }),
-        b.diagnostics.vint,
+        -- b.diagnostics.vint,
         b.diagnostics.shellcheck,
         b.diagnostics.dotenv_linter,
 
@@ -58,50 +58,35 @@ M.setup = function()
 
         -- Code Action Providers
         b.code_actions.shellcheck,
-        b.code_actions.eslint_d,
+        -- b.code_actions.eslint,
 
         -- Formatters
-        b.formatting.stylua,
-        b.formatting.phpcsfixer,
-        b.formatting.phpcbf.with({
-            command = os.getenv('HOME')
-                .. '/.config/composer/vendor/bin/phpcbf',
-        }),
-        b.formatting.prettierd,
-        b.formatting.tidy,
-        b.formatting.eslint_d,
+        -- b.formatting.stylua,
+        -- b.formatting.phpcsfixer,
+        -- b.formatting.phpcbf,
+        -- b.formatting.phpcbf.with({
+            -- command = os.getenv('HOME')
+                -- .. '/.config/composer/vendor/bin/phpcbf',
+        -- }),
+        b.formatting.prettier,
+        -- b.formatting.tidy,
+        -- b.formatting.eslint,
         b.formatting.beautysh,
-        b.formatting.sql_formatter,
+        -- b.formatting.sql_formatter,
         b.formatting.yamlfmt.with({
             extra_args = {
                 '-conf',
                 os.getenv('HOME') .. '/.config/yamlfmt.yml',
             },
         }),
-        b.formatting.autopep8,
-        b.formatting.uncrustify.with({
-            extra_args = {
-                '-c',
-                os.getenv('HOME') .. '/.config/uncrustify.cfg',
-            },
-        }),
+        -- b.formatting.autopep8,
+        -- b.formatting.uncrustify.with({
+            -- extra_args = {
+                -- '-c',
+                -- os.getenv('HOME') .. '/.config/uncrustify.cfg',
+            -- },
+        -- }),
     }
-
-    -- Disable phpcs on mws1
-    if require('user.util').getHostname() ~= 'mws1' then
-        -- We're not on mws1, add phpcs to diagnostics
-        table.insert(
-            sources,
-            b.diagnostics.phpcs.with({
-                command = os.getenv('HOME')
-                    .. '/.config/composer/vendor/bin/phpcs',
-                extra_args = {
-                    '--severity=1',
-                },
-                debounce = require('user.src.lsp-handler').php_debounce,
-            })
-        )
-    end
 
     null_ls.setup({
         -- debug = true,
