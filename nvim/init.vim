@@ -59,7 +59,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'rhysd/committia.vim'
 
     " Better colorcolumn.
-    Plug 'xiyaowong/virtcolumn.nvim'
+    "Plug 'xiyaowong/virtcolumn.nvim'
 
     " Icons for LSP menus/popups
     Plug 'onsails/lspkind.nvim'
