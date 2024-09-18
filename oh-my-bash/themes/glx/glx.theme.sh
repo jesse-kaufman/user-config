@@ -236,19 +236,16 @@ prompt_context() {
     PR="\n$(ansi_single $(text_effect reset))"
     PR="$PR$(ansi_single $(fg_color gray))┌"
 
-    if [[ "$HOST" = "re710" ]]; then
+    if [[ "$HOST" = "mac-mini" ]]; then
         HOST_BG="dkpurple"
         ICON="$(ansi_single $(fg_color green)) $(ansi_single $(fg_color ltwhite))"
     elif [[ "$HOST" = "re420" ]]; then
         HOST_BG="green"
         ICON="$(ansi_single $(fg_color dkpurple)) $(ansi_single $(fg_color black))"
-    elif [[ "$HOST" = "tgdev1" ]]; then
+    elif [[ "$HOST" = "utils" ]]; then
         HOST_BG="lavendar"
         ICON="󰙨 "
-    elif [[ "$HOST" = "TGDev2" ]]; then
-        HOST_BG="lavendar"
-        ICON="󰙨󰙨 "
-    elif [[ "$HOST" = "mws1" ]]; then
+    elif [[ "$HOST" = "server" ]]; then
         HOST_BG="orange"
         ICON=" "
     fi
