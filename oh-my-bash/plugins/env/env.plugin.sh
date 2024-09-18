@@ -118,6 +118,12 @@ fi
 #
 GLX_PATHS="$HOME/.config/bin:$GLX_PATHS"
 
+
+GLX_PATHS="$HOME/.local/bin:$GLX_PATHS"
+
+
+GLX_PATHS="./node_modules/.bin:$GLX_PATHS"
+
 #
 # Prepend our paths to $PATH
 #
