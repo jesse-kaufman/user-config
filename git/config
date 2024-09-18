@@ -9,3 +9,5 @@
 	editor = nvim
 [safe]
 	directory = /etc
+[init]
+	defaultBranch = main

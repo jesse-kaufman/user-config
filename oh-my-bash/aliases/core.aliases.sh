@@ -75,3 +75,5 @@ alias systemctl='sudo systemctl'
 alias apt='sudo apt'
 
 alias more='less'
+
+alias fmount='findmnt --fstab'
