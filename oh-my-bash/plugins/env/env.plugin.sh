@@ -60,8 +60,12 @@ if [[ ":$BREW_PATH:" != "::" ]] && [[ -d "$BREW_PATH/bin" ]]; then
     if [[ -d "$tar_path" ]]; then
         export PATH="$tar_path:$PATH"
     fi
-
 fi
+
+#
+# Setup JAVA_HOME
+#
+# export JAVA_HOME=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/
 
 #
 # Add global Cargo to path
@@ -81,7 +85,10 @@ if [[ ":$PATH:" != *":./vendor/bin:"* ]]; then
     GLX_PATHS="./vendor/bin:$GLX_PATHS"
 fi
 
-
+# Add ~/.local/bin
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    GLX_PATHS="$HOME/.local/bin:$GLX_PATHS"
+fi
 
 #
 # Add global composer to path
