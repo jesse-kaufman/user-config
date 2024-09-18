@@ -32,4 +32,4 @@ alias grestore='git restore --staged'
 alias gunstage='git restore --staged'
 
 
-unalias grm
+# unalias grm
