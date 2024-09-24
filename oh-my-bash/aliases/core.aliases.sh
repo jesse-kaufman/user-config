@@ -39,7 +39,8 @@ alias dcdn='docker compose down'
 alias dcstart='docker compose start'
 alias dcstop='docker compose stop'
 alias dcr='docker compose run'
-alias dce'docker compose exec'
+alias dce='docker compose exec'
+alias kopia='dce backup kopia'
 
 # Docker build commands
 alias dcbuild='docker compose build'
