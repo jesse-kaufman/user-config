@@ -33,3 +33,6 @@ ibus
 .bash_logout
 TabNine
 cni
+wireshark
+bin/mac2mqtt
+Transmission Remote GUI
