@@ -81,6 +81,7 @@ alias dsys='docker system'
 alias service='sudo service'
 alias systemctl='sudo systemctl'
 alias apt='sudo apt'
+alias aptitude='sudo aptitude'
 
 alias more='less'
 
