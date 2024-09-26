@@ -36,3 +36,5 @@ cni
 wireshark
 bin/mac2mqtt
 Transmission Remote GUI
+com.add0n.native_client
+configstore
