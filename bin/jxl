@@ -4,12 +4,17 @@ shopt -s nocasematch
 
 OIFS="$IFS"
 IFS=$'\n'
+
+mkdir jxl
+mkdir orig
+
 for file in *.*
 do
     if [[ $file =~ (jp[e]*g|png|webp|heic)$ ]]
     then
         echo "$file"
-        magick "$file" -quality 75 "$file.jxl"
+        magick "$file" -quality 75 "jxl/$file.jxl"
+        mv "$file" orig
     fi
 done
 IFS="$OIFS"
