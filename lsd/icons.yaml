@@ -43,6 +43,7 @@ name:
     readme: 
     readme.md: 
     csscomb.json: 
+    package.json: 󰘦
     photos: 󰉏
     pictures: 󰉏
     downloads: 󰉍
@@ -210,6 +211,7 @@ extension:
     markdown: 
     md: 
     mjs: 
+    cjs: 
     mkd: 
     mk: 
     mobi: 
