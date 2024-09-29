@@ -11,6 +11,7 @@ name:
     .bash_history: 
     .wget-hsts: 
     icloud documents: 
+    docker-compose: 
     cloud-drive": 
     "creative cloud files": 
     documents: 󰃖
@@ -93,7 +94,8 @@ extension:
     desktop: 
     diff: 
     dll: 
-    dockerfile: 
+    dockerfile: 
+    compose.yaml: 
     doc: 
     docx: 
     dump: 
