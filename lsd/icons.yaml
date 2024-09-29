@@ -96,6 +96,7 @@ extension:
     dll: 
     dockerfile: 
     compose.yaml: 
+    pug: 
     doc: 
     docx: 
     dump: 
@@ -156,6 +157,7 @@ extension:
     jxl: 
     jpeg: 
     jpg: 
+    svg: 
     bmp: 
     gif: 
     png: 
