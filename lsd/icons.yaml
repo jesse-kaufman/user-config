@@ -1,10 +1,10 @@
 ---
 name:
-    # .trash: 
-    .trash: 
+    .trash: 
     .emacs.d: 
     a.out: 
     stylua.toml: 
+    public: 
     vintrc.yaml: 
     uncrustify.cfg: 
     .mysql_history: 
@@ -40,38 +40,33 @@ name:
     .jsbeautifyrc: 
     jsbeautifyrc: 
     .csscomb.json: 
-    readme: 
-    readme.md: 
+    readme: 
+    readme.md: 
     csscomb.json: 
     photos: 󰉏
     pictures: 󰉏
     downloads: 󰉍
     "idrive downloads": 󰉍
     applications: 
-    library: 
+    library: 󱉟
     movies: 󰿎
     music: 󱍙
-    desktop: 
+    desktop: 󰧨
 filetype:
     dir: 
-    # dir: 
     file: 
-    # file: 
     pipe: 📩
     socket: 󱄉
     executable: 
     symlink-dir: 
-    # symlink-file: 
     symlink-file: 
 extension:
     1: 
     apk: 
-    avi: 
     bak: 󰁯
     bash: 
     bat: 
     bin: 
-    bmp: 
     bz2: 
     cargo: 󱘗
     cc: 
@@ -90,7 +85,6 @@ extension:
     csx: 
     c: 
     c++: 
-    cue: 
     cxx: 
     dat: 
     db: 
@@ -119,9 +113,7 @@ extension:
     exs: 
     ex: 
     fish: 
-    flac: 
-    flv: 
-    font: 
+    font: 
     fpl: 蘿
     fsi: 
     fs: 
@@ -130,18 +122,13 @@ extension:
     gemfile: 
     gemspec: 
     gform: 
-    gif: 
     git: 
     go: 
     gradle: 
     gsheet: 
-    gslides: 
     guardfile: 
     gz: 
     hbs: 
-    heic: 
-    heif: 
-    heix: 
     hh: 
     hpp: 
     hs: 
@@ -149,8 +136,6 @@ extension:
     htm: 
     h: 
     hxx: 
-    ico: 
-    image: 
     img: 
     iml: 
     info: 
@@ -162,13 +147,25 @@ extension:
     java: 
     jinja: 
     jl: 
-    jpeg: 
-    jpg: 
-    jxl: 
+    image: 󰋊
+    dmg: 󰋊
+    ico: 
+    jxl: 
+    jpeg: 
+    jpg: 
+    bmp: 
+    gif: 
+    png: 
+    webp: 
+    xcf: 
+    gslides: 
+    heic: 
+    heif: 
+    heix: 
     jsonc: 
     json: 
-    js: 
-    jsx: 
+    js: 
+    jsx: 󰜈
     key: 
     ksh: 
     kt: 
@@ -177,52 +174,60 @@ extension:
     ld: 
     lhs: 
     license: 
-    lisp: 
+    lisp: 
     list: 
     localized: 
     lock: 
     log: 
     lua: 
     lz: 
-    m3u8: 蘿
-    m3u: 蘿
+    m3u8: 󰲸
+    m3u: 󰲸
     m4a: 
+    mp3: 
+    ogg: 
+    opus: 
+    wav: 
+    cue: 
+    flac: 
+    wma: 
+    ogv: 
     m4v: 
+    mkv: 
+    mov: 
+    mp4: 
+    video: 
+    webm: 
+    wmv: 
+    avi: 
+    mpg: 
+    mpeg: 
+    m2ts: 
+    divx: 
+    flv: 
     magnet: 
     man: 
     markdown: 
     md: 
-    mjs: 
-    mkd: 
+    mjs: 
+    mkd: 
     mk: 
-    mkv: 
     mobi: 
-    mov: 
-    mp3: 
-    mp4: 
     msi: 
-    mustache: 
+    mustache: 󱗞
     nix: 
     npmignore: 
-    ogg: 
-    ogv: 
-    old: 
-    opus: 
-    orig: 
-    otf: 
+    otf: 
     o: 
     pdf: 
     pem: 
     phar: 
-    # php: 
     php: 󰌟
-    # pkg: 
     pkg: 󰀼
     plist: 
     pls: 蘿
     pl: 
     pm: 
-    png: 
     ppt: 
     pptx: 
     procfile: 
@@ -230,7 +235,6 @@ extension:
     ps1: 
     psd: 
     pub: 
-    pxm: 
     pyc: 
     py: 
     rakefile: 
@@ -241,12 +245,11 @@ extension:
     rdb: 
     rdoc: 
     rds: ﳒ
-    readme: 
+    readme: 
     rlib: 
     rl: 
     rmd: 
     rpm: 
-    rproj: 鉶
     rspec_parallel: 
     rspec_status: 
     rspec: 
@@ -254,8 +257,8 @@ extension:
     rs: 
     rtf: 
     rubydoc: 
-    r: ﳒ
-    ru: 
+    r: 󰰟
+    ru: 
     sass: 
     scala: 
     scpt: 
@@ -266,49 +269,38 @@ extension:
     slim: 
     sln: 
     so: 
-    sqlite3: 
+    sqlite3: 
     sql: 
-    srt: 
-    styl: 
-    stylus: 
+    srt: 󰨖
     sublime-package: 
     sublime-session: 
-    sub: 
+    sub: 󰨖
+    ass: 󰨖
     s: 
-    svg: 
     swift: 
     swp: 
     sym: 
     tar: 
     tex: 
     tgz: 
-    tiff: 
     toml: 
-    torrent: 歷
+    torrent: 
     trash: 
     ts: 
-    tsx: 
-    ttc: 
-    ttf: 
+    tsx: 󰜈
+    ttc: 
+    ttf: 
     t: 
     twig: 
     txt: 
-    video: 
     vim: 
-    vlc: 蘿
-    vue: ﵂
-    wav: 
-    webm: 
-    # webp: 
-    webp: 
+    vlc: 󰕼
+    vue: 
     windows: 
-    wma: 
-    wmv: 
     woff2: 
     woff: 
     wpl: 蘿
     xbps: 
-    xcf: 
     xls: 
     xlsx: 
     xml: 
