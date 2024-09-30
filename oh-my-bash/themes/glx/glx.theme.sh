@@ -245,6 +245,12 @@ prompt_context() {
     elif [[ "$HOST" = "utils" ]]; then
         HOST_BG="lavendar"
         ICON="󰙨 "
+    elif [[ "$HOST" = "old-macbook.lloydnet.org" ]]; then
+        HOST_BG="lavendar"
+        ICON="󰙨 "
+    elif [[ "$HOST" = "old-macbook" ]]; then
+        HOST_BG="lavendar"
+        ICON="󰙨 "
     elif [[ "$HOST" = "server" ]]; then
         HOST_BG="orange"
         ICON=" "

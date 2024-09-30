@@ -13,5 +13,5 @@ rules:
   quoted-strings:
     required: only-when-needed
   indentation:
-    spaces: 2
+    spaces: 4
   new-line-at-end-of-file: false
