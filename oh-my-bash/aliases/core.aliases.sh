@@ -87,3 +87,6 @@ alias aptitude='sudo aptitude'
 alias more='less'
 
 alias fmount='findmnt --fstab'
+
+
+alias idrive='dce idrive ./idrive'
