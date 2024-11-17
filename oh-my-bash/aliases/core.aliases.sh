@@ -90,3 +90,5 @@ alias fmount='findmnt --fstab'
 
 
 alias idrive='dce idrive ./idrive'
+
+alias ffmpeg='ffmpeg -hide_banner'
