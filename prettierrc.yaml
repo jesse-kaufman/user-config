@@ -1,5 +1,3 @@
 # .prettierrc or .prettierrc.yaml
-trailingComma: 'all'
 semi: false
-singleQuote: true
 bracketSameLine: true
