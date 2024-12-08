@@ -48,3 +48,7 @@ alias dcexec='docker compose -f ~/../containers/docker-compose.yaml exec -it '
 alias idrive='dcexec idrive ./idrive'
 alias kopia='dcexec backup kopia'
 alias subsai='dcexec subs subsai --format srt --destination-folder /subs'
+
+alias ve='node ~/github/video-edit/src/app.js'
+
+alias vobsub2srt='docker compose --file /home/containers/vobsub2srt/docker-compose.yaml exec vobsub2srt vobsub2srt'
