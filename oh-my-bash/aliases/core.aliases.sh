@@ -44,3 +44,5 @@ alias fmount='findmnt --fstab'
 
 
 alias ffmpeg='ffmpeg -hide_banner'
+
+alias cleanit='cleanit --verbose --config ~/.config/cleanit.yaml -t mine -t tidy -t ocr -t no-spam'
