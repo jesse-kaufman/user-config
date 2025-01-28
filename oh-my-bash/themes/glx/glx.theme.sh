@@ -239,7 +239,7 @@ prompt_context() {
     if [[ "$HOST" = "mac-mini" ]]; then
         HOST_BG="dkpurple"
         ICON="$(ansi_single $(fg_color green)) $(ansi_single $(fg_color ltwhite))"
-    elif [[ "$HOST" = "re420" ]]; then
+    elif [[ "$HOST" = "re420" || "$HOST" = "macbook" ]]; then
         HOST_BG="green"
         ICON="$(ansi_single $(fg_color dkpurple)) $(ansi_single $(fg_color black))"
     elif [[ "$HOST" = "utils" ]]; then

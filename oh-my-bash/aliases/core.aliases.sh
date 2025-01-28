@@ -32,52 +32,6 @@ fi
 
 alias tic='tic -sx'
 
-
-# Core Docker commands
-alias dcu='docker compose up -d'
-alias dcdn='docker compose down'
-alias dcstart='docker compose start'
-alias dcstop='docker compose stop'
-alias dcr='docker compose run'
-alias dce='docker compose exec'
-alias kopia='dce backup kopia'
-
-# Docker build commands
-alias dcbuild='docker compose build'
-alias dcpush='docker compose push'
-alias dcpull='docker compose pull'
-
-alias dprune='docker system prune -af'
-
-# Docker container commands
-alias dc='docker container'
-alias dci='docker container inspect'
-alias dcl='docker container list --format "table {{.Names}}\t{{.Status}}\t{{.RunningFor}}\t{{.Image}}"'
-alias dcla='docker container list -a --format "table {{.Names}}\t{{.Status}}\t{{.RunningFor}}\t{{.Image}}"'
-
-# Docker volume commands
-alias dv='docker volume'
-alias dvi='docker volume inspect'
-alias dvp='docker volume prune'
-alias dvl='docker volume list'
-
-# Docker image commands
-alias di='docker image'
-alias dii='docker image inspect'
-alias dip='docker image prune'
-alias dil='docker image list'
-
-# Docker network commands
-alias dn='docker network'
-alias dni='docker network inspect'
-alias dnl='docker network list'
-alias dnp='docker network prune'
-
-# Misc Docker commands
-alias dl='docker logs'
-alias ds='docker stats'
-alias dsys='docker system'
-
 # MAKE SERVICE ALWAYS USE SUDO
 alias service='sudo service'
 alias systemctl='sudo systemctl'
@@ -87,3 +41,8 @@ alias aptitude='sudo aptitude'
 alias more='less'
 
 alias fmount='findmnt --fstab'
+
+
+alias ffmpeg='ffmpeg -hide_banner'
+
+alias cleanit='cleanit --verbose --config ~/.config/cleanit.yaml -t mine -t tidy -t ocr -t no-spam'

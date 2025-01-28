@@ -1,0 +1,3 @@
+# .prettierrc or .prettierrc.yaml
+semi: false
+bracketSameLine: true

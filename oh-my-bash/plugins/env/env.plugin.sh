@@ -128,6 +128,7 @@ GLX_PATHS="./node_modules/.bin:$GLX_PATHS"
 # Prepend our paths to $PATH
 #
 export PATH="${GLX_PATHS}${PATH}"
+export TESSDATA_PREFIX=~/tessdata_best
 
 ###########################
 # OTHER ENV VARS / CONFIG
@@ -137,3 +138,4 @@ export PATH="${GLX_PATHS}${PATH}"
 # Don't autocomplete vars for cd
 #
 shopt -u cdable_vars
+
