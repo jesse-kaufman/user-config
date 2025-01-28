@@ -1,0 +1,1078 @@
+templates:
+  - &star-to-note
+    tags:
+      - star-to-note
+    priority: 100000
+  - &star-to-bracket
+    tags:
+      - star-to-bracket
+    priority: 100000
+  - &mine
+    tags:
+      - mine
+      - ocr
+      - minimal
+      - default
+    priority: 10000
+  - &ducktales
+    tags:
+      - ducktales
+    priority: 100000
+  - &no-spam-text-contains
+    type: text
+    tags:
+      - no-spam
+      - default
+  - &no-spam-regex-contains
+    type: regex
+    tags:
+      - no-spam
+      - default
+    priority: 10000
+  - &no-spam-text-contains-ignorecase
+    <<: *no-spam-text-contains
+    flags: ignorecase
+
+rules:
+  ##
+  ## CHANGE STAR TO BRACKET
+  ##
+  replace-star-with-open-bracket[star-to-bracket]:
+    <<: *star-to-bracket
+    patterns:
+      - ^\*
+    replacement: "["
+    flags: multiline
+    examples:
+      ? |
+        *gulps*
+      : |
+        [gulps*
+  replace-star-with-close-bracket[star-to-bracket]:
+    <<: *star-to-bracket
+    patterns:
+      - ' ?\*$(?P<x>)'
+      - ' \*(?P<x>[^\s]?)'
+    replacement: ']\g<x>'
+    flags: multiline
+    examples:
+      ? |
+        *gulps*
+      : |
+        *gulps]
+
+  ##
+  ## REPLACE STAR WITH NOTE
+  ##
+
+  # Replace "*.<" with ". ♪<"
+  replace-star-dot-lt-with-dot-note-lt[star-to-note]:
+    <<: *star-to-note
+    flags: multiline
+    patterns: \*\.\<
+    replacement: . ♪<
+    examples:
+      ? |
+        <i>♪ Souls that burn
+        and bodies ache*.</i>
+      : |
+        <i>♪ Souls that burn
+        and bodies ache. ♪</i>
+  # Replace star with note
+  replace-star-with-note[star-to-note]:
+    <<: *star-to-note
+    flags: multiline
+    patterns: \*
+    replacement: ♪
+    examples:
+      ? |
+        <i>* Come on, baby,
+        won't you give me a break</i>
+      : |
+        <i>♪ Come on, baby,
+        won't you give me a break</i>
+
+  ##
+  ## NO-SPAM RULES
+  ##
+
+  # Nix episode titles in subs
+  drop-titles[no-spam]:
+    <<: *no-spam-regex-contains
+    flags: multiline
+    patterns:
+      - '- = \d\d\d =-'
+      - Season \d+ Episode \d+\n"
+  # Nix ads
+  drop-ads-and-credits[no-spam]:
+    <<: *no-spam-text-contains-ignorecase
+    patterns:
+      - Download more movies for free
+      - podnapisi.net
+      - Sync & corrections by
+      - Sync and corrected by
+      - Sync and corrections by
+      - Synced & corrected by
+      - Fixed & Synced By
+      - "Synchro:"
+      - "Synchro :"
+      - "Synch:"
+      - Sync, corrected by
+      - Subtitles by
+      - Sync by Alice
+      - YTS.LT
+      - YTS.MX
+      - YIFY
+      - XQ2☻♥
+      - GlowGaze.Com
+      - oAkao & do_Ob
+      - Team Subs-Addicts
+      - ==-
+      - ==ÆÆÀÃÐÜÀÖÔ°ÇãÇé·îÏ×==-
+      - =ÆÆÀÃÐÜ×ÖÄ»×é=-
+      - ragbear
+      - www.All-about-Subs.fr
+      - "Sync: oAkaZabo & Toupack"
+      - "Capture: swsub.com"
+      - Subsfreak
+      - Captionmax
+      - Adri_CSI
+      - Easy Subtitles Synchronizer 1.0.0.0
+      - Subtitles made by the Bloc Team
+      - "Subtitles: sub-way.fr"
+      - Subtitles downloaded from
+      - Download Movie Subtitles Searcher from
+      - "Subtitles: The FW"
+      - www.addic7ed.com
+      - sub-way.fr
+      - "Sync: Golgi"
+      - Jesslataree
+      - meixente
+      - Jesslataree
+      - LuiZast
+      - caveman7
+      - Sync by honeybunny
+      - Sync by YesCool
+      - "Sync: Jess, Lin"
+      - n17to1
+      - www.ydy.com/bbs
+      - Encoded by hunter
+      - bbs.sfile2012
+      - "Sync: YTET-"
+      - n17to1
+      - "Sync: FRM@¾ÆÄÒ·¹´ü"
+      - "Sync: Sixe"
+      - FRM@FadeOut
+      - Sync by n17to1
+      - clearFoster101
+      - Synced by YYeTs
+      - Sync by YYeTs
+      - Sync by deGroote
+      - Sync by Finovsk
+      - Sync by Rafael UPD
+      - "By : H a M e D"
+      - Synced by Uncle Frank
+      - WEB-DL
+      - Subtitled By J.R. Media Services, Inc.
+      - Sync & corrections
+      - Sync:3p loves manny
+      - "Sync: Screw you Jay"
+      - Sync:É­Æo°®ÂüÄá
+      - Sync:¹§Ï²Jay!
+      - Synced by Pacific
+      - Sync:3p°®ÂüÄá
+      - Synchronized by srjanapala
+      - Sync by elderman
+      - Sync by Sixe
+      - FOROM.COM
+      - Sync by yyets.Net
+      - Sync by kuniva
+      - addic7ed.com
+      - Subtitleorom.com
+      - seriessub.com
+      - blued888
+      - www.tvsubtitles.net
+      - Captioning made possible by
+      - Crazy4TV.com
+    examples:
+      - Downloaded from YTS.LT
+      - Downloaded from YTS.MX
+      - Home of YIFY movies
+      - ♪Subtitles by♪ XQ2☻♥
+      - Subtitles by Annoying Release Group
+  # Remove subtitle that's only "'"
+  drop-single-quote[mine]:
+    <<: *mine
+    patterns: ^'$
+
+  ##
+  ## STRIP FONT TAGS
+  ##
+  drop-font-tags[mine]:
+    <<: *mine
+    patterns: (?P<x>.*?)(?:<font[^>]*?>)|(?:<\/font>)
+    flags: multiline
+    replacement: \g<x>
+    examples:
+      ? |
+        <font size=30><b><i><u>This text should be bold, italics and underline</u></i></b></font>
+        <font size=9 color="00ff00">This text should be small and green</font>
+        <font color=#ff0000 size=9>This text should be small and red</font>
+        <font color=brown size=24>This text should be big and brown</font>
+      : |
+        <b><i><u>This text should be bold, italics and underline</u></i></b>
+        This text should be small and green
+        This text should be small and red
+        This text should be big and brown
+
+  ##
+  ## OCR/TIDY RULES
+  ##
+
+  # Fix GULPS
+  fix-gulp[mine]:
+    <<: *mine
+    patterns: \[GU/PS\]
+    replacement: "[GULPS]"
+
+  # Fix note character
+  replace-J-single-quote-with-note[mine]:
+    <<: *mine
+    flags: multiline
+    patterns:
+      - "J' "
+      - "J“ "
+      - 'J" '
+      - "S' "
+    replacement: "♪ "
+    examples:
+      ? |
+        [Venom] J' I say either
+        And I say "either" ♪
+      : |
+        [Venom] ♪ I say either
+        And I say "either" ♪
+  replace-starting-junk-with-note[mine]:
+    <<: *mine
+    patterns: ^(J\b|#|\&|â™ª|¶) ?
+    replacement: "♪ "
+    flags: multiline
+    examples:
+      ? |
+        J I know it.
+        Why you know that?
+      : |
+        ♪ I know it.
+        Why you know that?
+      ? |
+        \# I know it.
+        Why you know that?
+      : |
+        ♪ I know it.
+        Why you know that?
+      ? |
+        * I know it.
+        Why you know that?
+      : |
+        ♪ I know it.
+        Why you know that?
+  replace-trailing-junk-with-note[mine]:
+    <<: *mine
+    patterns: ' ?(\bJ|#|\&|â™ª|¶)$'
+    flags: multiline
+    replacement: " ♪"
+    examples:
+      ? |
+        I know it.
+        Why you know that? J
+      : |
+        I know it.
+        Why you know that? ♪
+      ? |
+        I know it.
+        Why you know that? *
+      : |
+        I know it.
+        Why you know that? ♪
+      ? |
+        I know it.
+        Why you know that?#
+      : |
+        I know it.
+        Why you know that? ♪
+  replace-hyphen-ampersand-with-hyphen-note[mine]:
+    <<: *mine
+    patterns: ^\-\&
+    replacement: "- ♪"
+    examples:
+      ? |
+        -& Then we must part J
+      : |
+        - ♪ Then we must part J
+  replace-dash-note-with-dash-space-bracket[mine]:
+    <<: *mine
+    patterns: -♪
+    replacement: "- ♪"
+    flags: multiline
+    examples:
+      ? |
+        -& Then we must part
+      : |
+        - ♪ Then we must part
+  fix-note-after-bracket[mine]:
+    <<: *mine
+    patterns: \] (\&|J\b)'?
+    replacement: "] ♪"
+    flags: multiline
+    examples:
+      ? |
+        [man] \& So if I like pajamas
+      : |
+        [man] ♪ So if I like pajamas
+      ? |
+        [man] J So if I like pajamas
+      : |
+        [man] ♪ So if I like pajamas
+
+  ##
+  # Fix "I"
+  #
+  replace-space-bracket-space-with-I[mine]:
+    <<: *mine
+    flags: multiline
+    patterns: ' (\[|\]|i) '
+    replacement: " I "
+    examples:
+      ? |
+        And if \] refuse?
+      : |
+        And if I refuse?
+      ? |
+        And if \[ refuse?
+      : |
+        And if I refuse?
+  replace--1-with-space-I-character[mine]:
+    <<: *mine
+    flags: multiline
+    patterns: (?P<x>\-\s?)1\b
+    replacement: \g<x>I
+    examples:
+      ? |
+        - 1 know it.
+        - Why you know that?
+      : |
+        - I know it.
+        - Why you know that?
+  replace-starting-l-space-with-I-space[mine]:
+    <<: *mine
+    patterns: ^l\b
+    replacement: I
+    flags: multiline
+    examples:
+      ? |
+        l see you.
+      : |
+        I see you.
+  replace-space-l-space-with-space-I-space[mine]:
+    <<: *mine
+    patterns: \bl\s
+    replacement: "I "
+    flags: multiline
+    examples:
+      ? |
+        Well l never!
+      : |
+        Well I never!
+  replace-ii-space-with-it[mine]:
+    <<: *mine
+    patterns: "Ii "
+    replacement: "It "
+    flags: multiline
+    examples:
+      ? |
+        Ii contains the psychic vibrations
+      : |
+        It contains the psychic vibrations
+
+  ##
+  ## FIX VV TO W
+  ##
+
+  replace-wvvw-with-www[mine]:
+    <<: *mine
+    patterns:
+      - wvvw
+      - vvvvvv
+    replacement: www
+    flags: multiline
+  replace-wvvvv-with-www[mine]:
+    <<: *mine
+    patterns: wvvvv
+    replacement: www
+    flags: multiline
+
+  # Change vvi to wi
+  replace-vvi-with-wi[mine]:
+    <<: *mine
+    patterns: \bvvi\b
+    replacement: wi
+    flags: multiline
+    examples:
+      ? |
+        Donald. Quit rovvin'.
+      : |
+        Donald. Quit rowin'.
+  # Change vva with wa
+  replace-vva-with-wa[mine]:
+    <<: *mine
+    patterns: vva
+    replacement: wa
+    flags: multiline
+    examples:
+      ? |
+        I've got to vvarn them!
+      : |
+        I've got to warn them!
+  # Change vvo to wo
+  replace-vvo-with-wo[mine]:
+    <<: *mine
+    patterns: vvo
+    replacement: wo
+    flags: multiline
+    examples:
+      ? |
+        There's DuckvvortHs signal.
+      : |
+        There's DuckwortHs signal.
+  # Change vve to we
+  replace-vve-with-vve[mine]:
+    <<: *mine
+    patterns: vve
+    replacement: we
+    flags: multiline
+    examples:
+      ? |
+        - Are vve gonna go after it. Uncle Scrooge?
+      : |
+        - Are we gonna go after it. Uncle Scrooge?
+  # Change ovv to ow
+  replace-ovv-with-ow[mine]:
+    <<: *mine
+    patterns: ovv
+    replacement: ow
+    flags: multiline
+    examples:
+      ? |
+        And <i>I'll</i> not be done in by my ovvn kin.
+      : |
+        And <i>I'll</i> not be done in by my own kin.
+  # Change evv to ew
+  replace-evv-with-ew[mine]:
+    <<: *mine
+    patterns:
+      - (?P<y>e|E)vv(?P<x>(h|\b))
+    replacement: \g<y>w\g<x>
+    flags: multiline
+    examples:
+      ? |
+        And <i>I'll</i> not be done in by my ovvn kin.
+      : |
+        And <i>I'll</i> not be done in by my own kin.
+  # Change vvil to wil
+  replace-vvil-with-wil[mine]:
+    <<: *mine
+    patterns: vvil
+    replacement: wil
+    flags: multiline
+  replace-vvis-with-wis[mine]:
+    <<: *mine
+    patterns: vvis
+    replacement: wis
+    flags: multiline
+  fix-niño[mine]:
+    <<: *mine
+    patterns: Ã±
+    replacement: ñ
+    flags: multiline
+  replace-ivvin-with-i-win[mine]:
+    <<: *mine
+    patterns: \bIvvi
+    replacement: I wi
+    flags: multiline
+  replace-Ludvving-with-Ludwing[mine]:
+    <<: *mine
+    patterns: Ludvving
+    replacement: Ludwing
+    flags: multiline
+  replace-vvid-with-wid[mine]:
+    <<: *mine
+    patterns: vvid
+    replacement: wid
+    flags: multiline
+  replace--v--with--w--[mine]:
+    <<: *mine
+    patterns: -vv-
+    replacement: -w-
+    flags: multiline
+  # Change vvit to wil
+  replace-vvit-with-wit[mine]:
+    <<: *mine
+    patterns: vvit
+    replacement: wit
+    flags: multiline
+  # Change vvit to wil
+  replace-evv-with-wit[mine]:
+    <<: *mine
+    patterns: vvit
+    replacement: wit
+    flags: multiline
+  # Change vvh to wh
+  replace-vvh-with-wh[mine]:
+    <<: *mine
+    patterns: vvh
+    replacement: wh
+    flags: multiline
+    examples:
+      ? |
+        to end up somevvheres around here.
+      : |
+        to end up somewheres around here.
+  # Replace "whcfs"/"Whcfs" with "who's"/"Who's"
+  replace-whcfs-with-who's[mine]:
+    <<: *mine
+    patterns: (?P<x>W|w)hcfs
+    replacement: \g<x>ho's
+    flags: multiline
+    examples:
+      ? |
+        Thanks. Pal. Time to show this overgrown
+        budgie whcfs the pilot around here.
+      : |
+        Thanks. Pal. Time to show this overgrown
+        budgie who's the pilot around here.
+  # Replace "whcfd"/"Whcfd" with "who'd"/"Who'd"
+  replace-whcfd-with-who's[mine]:
+    <<: *mine
+    patterns: (?P<x>W|w)hcfd
+    replacement: \g<x>ho'd
+    flags: multiline
+    examples:
+      ? |
+        whcfd love a pastrami on rye.
+      : |
+        who'd love a pastrami on rye.
+  # Replace "whafs"/"Whafs" with "who'd"/"Who'd"
+  replace-vvhafs-with-who's[mine]:
+    <<: *mine
+    patterns: (?P<x>W|w)hafs
+    replacement: \g<x>hat's
+    flags: multiline
+    examples:
+      ? |
+        Give me back vvhafs mine!
+      : |
+        Give me back what's mine!
+
+  ##
+  ## MISC WORD FIXES
+  ##
+
+  # Fix niño
+  replace-nifio-with-niño[mine]:
+    <<: *mine
+    patterns: nifio
+    replacement: niño
+    flags:
+      - multiline
+      - ignorecase
+  # Change S0 to So
+  replace-S0-with-So[mine]:
+    <<: *mine
+    patterns: S0
+    replacement: So
+    flags: multiline
+    examples:
+      ? |
+        - S0.
+        - So what?
+      : |
+        - So.
+        - So what?
+  # Change S0 to So
+  replace-t0-with-to[mine]:
+    <<: *mine
+    patterns: (?P<x>t|T)0
+    replacement: \g<x>o
+    flags: multiline
+  # Change l-I-I to I-I-I
+  replace-l-i-i-with-i-i-i[mine]:
+    <<: *mine
+    patterns: L\-(i|I)\-(i|I)
+    replacement: I-I-I
+    flags: multiline
+    examples:
+      ? |
+        That is. L-l-l...
+      : |
+        That is. I-I-I...
+  replace-i-pipe-with-i-i[mine]:
+    <<: *mine
+    patterns: I-\|
+    replacement: I-I
+    flags: multiline
+    examples:
+      ? |
+        Well. I-| never really…
+      : |
+        Well. I-I never really…
+  fix-backfires[mine]:
+    <<: *mine
+    patterns: backfi res
+    replacement: backfires
+    flags: multiline
+  fix-boys[mine]:
+    <<: *mine
+    patterns: bOJ\/S
+    replacement: boys
+    flags: multiline
+  fix-laidback[mine]:
+    <<: *mine
+    patterns: Iaidback
+    replacement: laidback
+  fix-double-exclamation[mine]:
+    <<: *mine
+    patterns: \'\.!
+    replacement: "!!"
+  fix-exclamation[mine]:
+    <<: *mine
+    patterns: "'\\. "
+    replacement: "! "
+  fix-abi[mine]:
+    <<: *mine
+    patterns: \[ab!\]
+    replacement: "[Abi]"
+  fix-beakley[mine]:
+    <<: *mine
+    patterns: Beak/ey
+    replacement: Beakley
+  fix-standalone-double-quote[mine]:
+    <<: *mine
+    patterns: ' " '
+    replacement: " "
+  fix-whatd[mine]:
+    <<: *mine
+    patterns: Whafd
+    replacement: What'd
+  fix-donald'll[mine]:
+    <<: *mine
+    patterns: DonalcFll
+    replacement: Donald'll
+  fix-senior[mine]:
+    <<: *mine
+    patterns: (?P<x>s|S)efior
+    replacement: \g<x>eñior
+  fix-boats[mine]:
+    <<: *mine
+    patterns: (?P<x>b|B)oafs
+    replacement: \g<x>oat's
+  fix-squealing[mine]:
+    <<: *mine
+    patterns: Gquea\/ing
+    replacement: Squealing
+  fix-burley[mine]:
+    <<: *mine
+    patterns: Bur\/ey
+    replacement: Burley
+  fix-whered[mine]:
+    <<: *mine
+    patterns: (?P<x>W|w)herdd
+    replacement: \g<x>here'd
+  fix-squawks[mine]:
+    <<: *mine
+    patterns: (?P<x>S|s)quaw/ks
+    replacement: \g<x>quaks
+  fix-gasp[mine]:
+    <<: *mine
+    patterns: gas\/B
+    replacement: gasp
+  fix-slattery-exclaim[mine]:
+    <<: *mine
+    patterns: Slatteryl
+    replacement: Slattery!
+  fix-slattery[mine]:
+    <<: *mine
+    patterns: S\/atfery
+    replacement: Slattery
+  fix-gasp2[mine]:
+    <<: *mine
+    patterns:
+      - 963\/18
+      - 953\/18
+      - 953\/93
+      - 9\/68\/18
+    replacement: gasps
+  fix-gold-fever[mine]:
+    <<: *mine
+    patterns: 90k! Ievefs
+    replacement: gold fever's
+  fix-awk[mine]:
+    <<: *mine
+    patterns: (?P<x>a|A)vvk
+    replacement: \g<x>wk
+    flags: multiline
+  fix-you![mine]:
+    <<: *mine
+    patterns: YOul
+    replacement: YOU!
+    flags: multiline
+  fix-italicized-I'll[mine]:
+    <<: *mine
+    patterns: <i>I'll<\/i>
+    replacement: I'll
+    flags: multiline
+  fix-yoohoo[mine]:
+    <<: *mine
+    patterns: youhoe
+    replacement: yoohoo
+    flags: multiline
+  fix-sighs[mine]:
+    <<: *mine
+    patterns: Wghs
+    replacement: Sighs
+    flags: multiline
+  fix-eatherless[mine]:
+    <<: *mine
+    patterns: eather\/ass
+    replacement: eatherless
+    flags: multiline
+  fix-v[mine]:
+    <<: *mine
+    patterns: \\\/
+    replacement: V
+    flags: multiline
+  fix-brannigan[mine]:
+    <<: *mine
+    patterns: brannigan
+    replacement: Brannigan
+    flags: multiline
+  fix-brannigans-law[mine]:
+    <<: *mine
+    patterns: Brannigan's law
+    replacement: Brannigans's Law
+    flags: multiline
+  fix-kif[mine]:
+    <<: *mine
+    patterns: \bkif\b
+    replacement: Kif
+    flags: multiline
+  fix-fry-in-brackets[mine]:
+    <<: *mine
+    patterns: \[fry
+    replacement: "[Fry"
+    flags: multiline
+  fix-zergon[mine]:
+    <<: *mine
+    patterns: vergon
+    replacement: Vergon
+    flags: multiline
+  fix-open-bracket[mine]:
+    <<: *mine
+    patterns: '\[ '
+    replacement: "["
+    flags: multiline
+  fix-close-bracket[mine]:
+    <<: *mine
+    patterns: ' \]'
+    replacement: "]"
+    flags: multiline
+  fix-zapp[mine]:
+    <<: *mine
+    patterns: \bzapp\b
+    replacement: Zapp
+    flags: multiline
+  fix-leela[mine]:
+    <<: *mine
+    patterns: \bleela\b
+    replacement: Leela
+    flags: multiline
+  fix-bender[mine]:
+    <<: *mine
+    patterns: \[bender\]
+    replacement: "[Bender]"
+    flags: multiline
+  fix-high-Pitched[mine]:
+    <<: *mine
+    patterns: high-Pitched
+    replacement: high-pitched
+    flags: multiline
+  fix--O--[mine]:
+    <<: *mine
+    patterns: -O-[^a-zA-Z]
+    replacement: -o-
+    flags: multiline
+  fix--Oh[mine]:
+    <<: *mine
+    patterns: -Oh
+    replacement: -oh
+    flags: multiline
+  fix-bender2[mine]:
+    <<: *mine
+    patterns: (?>(?<! a )|(?<!fender ))bender\b
+    replacement: Bender
+    flags: multiline
+  fix-bendering[mine]:
+    <<: *mine
+    patterns: bendering
+    replacement: Bendering
+    flags: multiline
+  fix-mül[mine]:
+    <<: *mine
+    patterns: \b(Mul|Ml|Mal)\b
+    replacement: Mül
+    flags: multiline
+  fix-Tsûuri[mine]:
+    <<: *mine
+    patterns:
+      - Tsluri
+      - TsQOuri
+      - TsQuri
+      - TsOuri
+    replacement: Tsûuri
+    flags: multiline
+
+  ##
+  ## FIX ELLIPSIS
+  ##
+  replace-double-hyphen-with-ellipsis[mine]:
+    <<: *mine
+    patterns:
+      - --
+      - \.\.\.
+    replacement: …
+    flags: multiline
+    examples:
+      ? |
+        Time will tell--
+      : |
+        Time will tell…
+      ? |
+        Time will tell...
+      : |
+        Time will tell…
+
+  ##
+  ## FIX BRACKETS/PARENS
+  ##
+
+  ##
+  # Fix up nit-picky things like replacing parens with brackets and spacing
+  #
+  replace-open-paren-with-bracket[mine]:
+    <<: *mine
+    patterns: \(
+    replacement: "["
+    examples:
+      ? |
+        <i>(peasants cheer)</i>
+      : |
+        <i>[peasants cheer)</i>
+  replace-close-paren-with-bracket[mine]:
+    <<: *mine
+    patterns: \)
+    replacement: "]"
+    flags: multiline
+    examples:
+      ? |
+        <i>(peasants cheer)</i>
+      : |
+        <i>(peasants cheer]</i>
+  fix-hyphen-open-bracket-spacing[mine]:
+    <<: *mine
+    patterns: -\[
+    replacement: "- ["
+    flags: multiline
+    examples:
+      ? |
+        "[man on TV] That's what you think!"
+      : |
+        "[man on TV] That's what you think!"
+
+  ##
+  ## DuckTales fixes
+  ##
+
+  ##
+  # Fix up numerous OCR issues with DuckTales theme song
+  #
+  fix-ducktales-intro[ducktales]:
+    <<: *ducktales
+    patterns: \(I "DuckTales" theme
+    replacement: '["DuckTales" theme'
+    examples:
+      ? |
+        'I "DuckTales" theme'
+      : |
+        '"DuckTales" theme'
+  fix-ducktales-intro-song[ducktales]:
+    <<: *mine
+    patterns:
+      - <i>I (?P<x>Life is like a hurricane)
+      - <i>I (?P<x>Race cars. Lasers. Aeroplanes)
+      - <i>I (?P<x>Racecars. Lasers. Aeroplanes)
+      - <i>I (?P<x>It's a duck-blur)
+      - <i>I (?P<x>It's a duck blur)
+      - <i>I (?P<x>Might solve a mystery)
+      - <i>I (?P<x>or rewrite history.)
+      - <i>I (?P<x>Ooh-ooh.)
+      - <i>I (?P<x>D-d-d-danger)
+      - <i>I (?P<x>D-D-D-danger)
+      - <i>I (?P<x>Watch behind you)
+      - <i>I (?P<x>There's a stranger)
+      - <i>I (?P<x>Here in Duckburg)
+      - <i>\? (?P<x>What to do\?)
+      - <i>\? (?P<x>Tales of derring-do.)
+      - <i>\? (?P<x>Every day.)
+      - <i>\? (?P<x>Not ponytails or cottontails no.)
+    replacement: <i>♪ \g<x>
+    examples:
+      ? |
+        <i>I Life is like a hurricane
+      : |
+        <i>♪ Life is like a hurricane
+      ? |
+        <i>I Race cars. Lasers. Aeroplanes
+      : |
+        <i>♪ Race cars. Lasers. Aeroplanes
+  fix-ducktales-intro-song2[ducktales]:
+    <<: *ducktales
+    priority: 100000000
+    patterns:
+      - \? DuckTales Ooh-ooh.
+
+    replacement: <i>♪ DuckTales Ooh-ooh.</i>
+    examples:
+      ? |
+        "? DuckTales Ooh-ooh."
+      : |
+        <i>♪ DuckTales Ooh-ooh.</i>
+  fix-ducktales-intro-song3[ducktales]:
+    <<: *ducktales
+    patterns:
+      - J“ Duck Ta lea. Ooh-ooh.
+    replacement: <i>♪ DuckTales. Ooh-ooh.</i>
+    examples:
+      ? |
+        J“ Duck Ta lea. Ooh-ooh.
+      : |
+        ♪ DuckTales. Ooh-ooh.
+  fix-broken-do[ducktales]:
+    <<: *ducktales
+    patterns: do\/i\>
+    replacement: do
+  fix-ducktales-intro-song4[ducktales]:
+    <<: *ducktales
+    patterns:
+      - derring-do\.
+      - derring-do
+    replacement: daring do
+    examples:
+      ? |
+        <i>♪ Tales of derring-do.
+      : |
+        <i>♪ Tales of daring do.
+  fix-duckworth[ducktales]:
+    <<: *ducktales
+    patterns:
+      - (?P<x>Duckvvort)Hs
+      - (?P<x>Duckwort)Hs
+    replacement: \g<x>h's
+    examples:
+      ? |
+        There's DuckwortHs signal.
+      : |
+        There's Duckworth's signal.
+  fix-ducktales[ducktales]:
+    <<: *ducktales
+    patterns: I <i>DuckTa\/es</i> - I <i>Ooh-ooh.</i>
+    replacement: <i>♪ DuckTales Ooh-ooh.</i>
+  fix-ducktales-intro-song5[ducktales]:
+    <<: *ducktales
+    patterns:
+      - "- I (?P<x>D-d-d-danger!)"
+      - "- I (?P<x>Watch behind you)"
+    replacement: <i>♪ \g<x></i>
+  fix-glomgold[ducktales]:
+    <<: *ducktales
+    flags: ignorecase
+    patterns: G\/omgo\/d
+    replacement: Glomgold
+  fix-beakley2[ducktales]:
+    <<: *ducktales
+    patterns: Mrs\.\nBeakley
+    replacement: Mrs. Beakley
+  fix-more-ducktales[ducktales]:
+    <<: *ducktales
+    patterns: Hound the missing ha"
+    replacement: I found the missing half
+  fix-more-ducktales2[ducktales]:
+    <<: *ducktales
+    patterns: oi the treasure map
+    replacement: of the treasure map
+  fix-more-ducktales3[ducktals]:
+    <<: *ducktales
+    patterns: McDuckl\.
+    replacement: McDuck!
+  fix-babyface-beagle[ducktales]:
+    <<: *ducktales
+    patterns: BabyfaceBug\/e
+    replacement: Babyface Beagle
+  fix-scroogerello[ducktales]:
+    <<: *ducktales
+    patterns: Scroogerel\/o
+    replacement: Scroogerello
+  fix-blackheart[ducktales]:
+    <<: *ducktales
+    patterns: B\/ackheart
+    replacement: Blackheart
+  fix-whistling-quacking[ducktales]:
+    <<: *ducktales
+    patterns: Whistiinglquacking
+    replacement: whistling/quacking
+  fix-scrooge[ducktales]:
+    <<: *ducktales
+    patterns: SCFOOQ\/e
+    replacement: SCROOGE
+  fix-malick[ducktales]:
+    <<: *ducktales
+    patterns: Ma\/ick
+    replacement: Malick
+  fix-woodchucks[ducktales]:
+    <<: *ducktales
+    patterns: I\/Voodchuckis
+    replacement: Woodchuck's
+  fix-moorloon[ducktales]:
+    <<: *ducktales
+    patterns: Moor\/eon
+    replacement: Moorloon
+
+  ##
+  ## Overrides
+  ##
+
+  ##
+  # Disable the "drop interjections" rule in tidy:en
+  #
+  drop-interjections-single-lines[tidy:en]:
+    <<: *mine
+    patterns: xxxxxxxxxxxxxxxxxxxxx
+    examples:
+      - xxxxxxxxxxxxxxxxxxxxx
+  drop-starting-dash-for-single-lines[tidy]:
+    <<: *mine
+    patterns: xxxxxxxxxxxxxxxxxxxxx2
+    replacement: xxxxxxxxxxxxxxxxxxxxx2
+    examples:
+      ? |
+        xxxxxxxxxxxxxxxxxxxxx2
+      : |
+        xxxxxxxxxxxxxxxxxxxxx2
