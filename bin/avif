@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# Directory containing the images to convert
+INPUT_DIR="." # Change to your input directory
+OUTPUT_DIR="." # Directory to save the converted AVIF files
+
+# Create the output directory if it doesn't exist
+mkdir -p "$OUTPUT_DIR"
+
+# Supported image file extensions
+SUPPORTED_EXTENSIONS=("jpg" "jpeg" "png" "bmp" "tiff" "gif" "webp")
+
+# Loop through all files in the input directory
+for file in "$INPUT_DIR"/*; do
+  # Get file extension and convert to lowercase
+  ext="${file##*.}"
+  ext="${ext,,}"
+
+  # Check if the file has a supported extension
+  if [[ " ${SUPPORTED_EXTENSIONS[*]} " == *" $ext "* ]]; then
+    # Extract the filename without extension
+    filename=$(basename -- "$file")
+    filename_no_ext="${filename%.*}"
+
+    # Set the output file path
+    output_file="$OUTPUT_DIR/$filename_no_ext.avif"
+
+    # Convert the file to AVIF
+    echo "Converting $file to $output_file..."
+    magick -quality 80 "$file" "$output_file"
+
+    if [[ $? -eq 0 ]]; then
+      echo "Successfully converted $file to $output_file."
+    else
+      echo "Failed to convert $file."
+    fi
+  fi
+done
+
