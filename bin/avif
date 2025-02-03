@@ -8,13 +8,25 @@ OUTPUT_DIR="." # Directory to save the converted AVIF files
 mkdir -p "$OUTPUT_DIR"
 
 # Supported image file extensions
-SUPPORTED_EXTENSIONS=("jpg" "jpeg" "png" "bmp" "tiff" "gif" "webp")
+SUPPORTED_EXTENSIONS=("jpg" "jpeg" "png" "bmp" "tiff" "webp" "jxl")
 
 # Loop through all files in the input directory
 for file in "$INPUT_DIR"/*; do
   # Get file extension and convert to lowercase
   ext="${file##*.}"
   ext="${ext,,}"
+
+  # Get the lowercase filename
+  filename=$(basename -- "$file")
+  lower_filename="${filename,,}"
+
+   # Skip files containing specific text
+  if [[ "$lower_filename" == *"thumb."* || "$lower_filename" == *"folder."* || \
+        "$lower_filename" == *"backdrop"* || "$lower_filename" == *"cover."* || \
+        "$lower_filename" == *"poster."* ]]; then
+    echo "Skipping file: $file"
+    continue
+  fi
 
   # Check if the file has a supported extension
   if [[ " ${SUPPORTED_EXTENSIONS[*]} " == *" $ext "* ]]; then
@@ -31,6 +43,7 @@ for file in "$INPUT_DIR"/*; do
 
     if [[ $? -eq 0 ]]; then
       echo "Successfully converted $file to $output_file."
+      rm "$file"
     else
       echo "Failed to convert $file."
     fi
