@@ -47,7 +47,7 @@ rules:
       ? |
         *gulps*
       : |
-        [gulps*
+        "[gulps*"
   replace-star-with-close-bracket[star-to-bracket]:
     <<: *star-to-bracket
     patterns:
@@ -64,33 +64,36 @@ rules:
   ##
   ## REPLACE STAR WITH NOTE
   ##
-
-  # Replace "*.<" with ". ♪<"
-  replace-star-dot-lt-with-dot-note-lt[star-to-note]:
-    <<: *star-to-note
-    flags: multiline
-    patterns: \*\.\<
-    replacement: . ♪<
+  # Replace 2 stars with 2 notes
+  replace-2-stars-with-2-notes[mine]:
+    <<: *mine
+    patterns: ^\*\*$
+    replacement: "♪♪"
     examples:
       ? |
-        <i>♪ Souls that burn
-        and bodies ache*.</i>
+        <i>**</i>
       : |
-        <i>♪ Souls that burn
-        and bodies ache. ♪</i>
-  # Replace star with note
-  replace-star-with-note[star-to-note]:
-    <<: *star-to-note
-    flags: multiline
-    patterns: \*
-    replacement: ♪
+        <i>♪♪</i>
+  # Replace * at start of line with ♪
+  replace-starting-star-with-note[mine]:
+    <<: *mine
+    patterns: ^\*
+    replacement: "♪"
     examples:
       ? |
-        <i>* Come on, baby,
-        won't you give me a break</i>
+        * Singing
       : |
-        <i>♪ Come on, baby,
-        won't you give me a break</i>
+        ♪ Singing
+  # Replace * at end of line with ♪
+  replace-ending-star-with-note[mine]:
+    <<: *mine
+    patterns: \*$
+    replacement: "♪"
+    examples:
+      ? |
+        * Singing
+      : |
+        ♪ Singing
 
   ##
   ## NO-SPAM RULES
@@ -127,6 +130,8 @@ rules:
       - GlowGaze.Com
       - oAkao & do_Ob
       - Team Subs-Addicts
+      - '"The IT Crowd": season'
+      - «The IT Crowd»
       - ==-
       - ==ÆÆÀÃÐÜÀÖÔ°ÇãÇé·îÏ×==-
       - =ÆÆÀÃÐÜ×ÖÄ»×é=-
@@ -153,6 +158,7 @@ rules:
       - caveman7
       - Sync by honeybunny
       - Sync by YesCool
+      - chucky83@freemail.hu
       - "Sync: Jess, Lin"
       - n17to1
       - www.ydy.com/bbs
@@ -228,6 +234,35 @@ rules:
   ##
   ## OCR/TIDY RULES
   ##
+  fix-note7[mine]:
+    <<: *mine
+    patterns: LADIE♪
+    replacement: "LADIES'"
+
+  fix-note6[mine]:
+    <<: *mine
+    patterns: GUY♪
+    replacement: "GUYS'"
+
+  fix-note4[mine]:
+    <<: *mine
+    patterns: PARENT♪
+    replacement: "PARENTS'"
+
+  fix-note3[mine]:
+    <<: *mine
+    patterns: CYRU♪
+    replacement: "CYRUS'"
+
+  fix-note2[mine]:
+    <<: *mine
+    patterns: JULE♪
+    replacement: "JULES'"
+
+  fix-note[mine]:
+    <<: *mine
+    patterns: GU♪
+    replacement: "GUS'"
 
   # Fix GULPS
   fix-gulp[mine]:
@@ -240,10 +275,10 @@ rules:
     <<: *mine
     flags: multiline
     patterns:
-      - "J' "
-      - "J“ "
-      - 'J" '
-      - "S' "
+      - "\bJ'\b"
+      - "\bJ“\b"
+      - '\bJ"\b'
+      - "\bS'\b"
     replacement: "♪ "
     examples:
       ? |
@@ -254,8 +289,8 @@ rules:
         And I say "either" ♪
   replace-starting-junk-with-note[mine]:
     <<: *mine
-    patterns: ^(J\b|#|\&|â™ª|¶) ?
-    replacement: "♪ "
+    patterns: ^(J\b(?!\.)|#|&|♫|¶)
+    replacement: "?♪ "
     flags: multiline
     examples:
       ? |
@@ -309,6 +344,20 @@ rules:
         -& Then we must part J
       : |
         - ♪ Then we must part J
+  replace-question-note-with-note[mine]:
+    <<: *mine
+    patterns: \?♪
+    replacement: ♪
+    examples:
+      ?  "?♪"
+      : ♪
+  replace-note-dash-note-with-two-notes[mine]:
+    <<: *mine
+    patterns: ♪ \' ♪
+    replacement: ♪♪
+    examples:
+      ? "♪ ' ♪"
+      : ♪♪
   replace-dash-note-with-dash-space-bracket[mine]:
     <<: *mine
     patterns: -♪
@@ -375,7 +424,7 @@ rules:
         I see you.
   replace-space-l-space-with-space-I-space[mine]:
     <<: *mine
-    patterns: \bl\s
+    patterns: \b(l|1)\s
     replacement: "I "
     flags: multiline
     examples:
@@ -893,9 +942,10 @@ rules:
     flags: multiline
     examples:
       ? |
-        "[man on TV] That's what you think!"
+        "-[man on TV] That's what you think!"
       : |
-        "[man on TV] That's what you think!"
+        "- [man on TV] That's what you think!"
+
 
   ##
   ## DuckTales fixes
