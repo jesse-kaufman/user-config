@@ -236,7 +236,7 @@ prompt_context() {
     PR="\n$(ansi_single $(text_effect reset))"
     PR="$PR$(ansi_single $(fg_color gray))┌"
 
-    if [[ "$HOST" = "mac-mini" ]]; then
+    if [[ "$HOST" = "mac-mini" || "$HOST" = "10IT03" ]]; then
         HOST_BG="dkpurple"
         ICON="$(ansi_single $(fg_color green)) $(ansi_single $(fg_color ltwhite))"
     elif [[ "$HOST" = "re420" || "$HOST" = "macbook" ]]; then
@@ -251,7 +251,7 @@ prompt_context() {
     elif [[ "$HOST" = "old-macbook" ]]; then
         HOST_BG="lavendar"
         ICON="󰙨 "
-    elif [[ "$HOST" = "server" ]]; then
+    elif [[ "$HOST" = "server" || "$HOST" = "10linux01" ]]; then
         HOST_BG="orange"
         ICON=" "
     fi

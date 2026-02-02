@@ -207,125 +207,16 @@ local config = {
                     if bufname == 'COMMIT_EDITMSG' then
                         return ''
                     end
-                    return size
+                    return size .. ' '
                 end,
                 color = { bg = file_bg_color },
                 padding = { left = 1, right = 0 },
                 cond = conditions.hide_in_width,
             },
+         },
 
-            {
-                function()
-                    return ' ' -- .. require('lsp-status').status()
-                end,
-                color = { bg = file_bg_color },
-                padding = { left = 0, right = 0 },
-                separator = { right = glx_icons.arrow_right_filled },
-            },
-        },
-
-        -- DIAGNOSTICS
-        lualine_c = {
-
-            -- FILE DIAGNOSTICS
-            {
-                'diagnostics',
-                separator = '',
-                sources = { 'nvim_diagnostic' },
-                symbols = {
-                    error = ' ',
-                    warn = ' ',
-                    info = ' ',
-                    hint = '󰌵',
-                },
-                color = { bg = vim.g.glx_c_lualine_bg },
-                diagnostics_color = {
-                    -- color_error = { fg = vim.g.glx_c_red },
-                    -- color_warn = { fg = vim.g.glx_c_yellow },
-                    -- color_info = { fg = vim.g.glx_c_ltblue },
-                    -- color_hint = { fg = vim.g.glx_c_lualine_fg },
-                },
-                {
-                    '%w',
-                    cond = function()
-                        return vim.wo.previewwindow
-                    end,
-                },
-                {
-                    '%r',
-                    cond = function()
-                        return vim.bo.readonly
-                    end,
-                },
-                {
-                    '%q',
-                    cond = function()
-                        if vim.bo.buftype == 'quickfix' then
-                            return glx_icons.gear
-                        end
-                    end,
-                },
-            },
-
-            -- LSP
-            {
-                function()
-                    if next(vim.lsp.get_active_clients()) == nil then
-                        return 'No LSP'
-                    end
-                    return require('lsp-status').status_progress()
-                end,
-                icon = glx_icons.gear,
-                color = { bg = vim.g.glx_c_lualine_bg },
-                cond = conditions.hide_in_width,
-            },
-            -- {
-            --     'lsp_progress',
-            --     display_components = {
-            --         'lsp_client_name',
-            --         'spinner',
-            --         { 'title', 'percentage', 'message' },
-            --     },
-            --     spinner_symbols = {
-            --         '⠋',
-            --         '⠙',
-            --         '⠹',
-            --         '⠸',
-            --         '⠼',
-            --         '⠴',
-            --         '⠦',
-            --         '⠧',
-            --         '⠇',
-            --         '⠏',
-            --     },
-            --     timer = {
-            --         progress_enddelay = 800,
-            --         spinner = 1000,
-            --         lsp_client_name_enddelay = 1000,
-            --     },
-            --     colors = {
-            --         percentage = vim.g.glx_c_lualine_fg,
-            --         message = vim.g.glx_c_gray,
-            --         title = vim.g.glx_c_yellow,
-            --         lsp_client_name = vim.g.glx_c_lualine_fg,
-            --         use = true,
-            --     },
-            --     color = { bg = vim.g.glx_c_lualine_bg },
-            --     separators = {
-            --         progress = ' | ',
-            --         percentage = { pre = '[', post = '%%]' },
-            --         messages = {
-            --             commenced = 'In Progress',
-            --             completed = 'Completed',
-            --         },
-            --         lsp_client_name = { pre = glx_icons.gear .. ' ', post = '' },
-            --         message = {
-            --             pre = ' - ',
-            --             post = '',
-            --         },
-            --     },
-            --     cond = conditions.hide_in_width,
-            -- },
+         -- UNUSED
+         lualine_c = {
         },
 
         --

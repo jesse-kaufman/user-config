@@ -21,7 +21,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'jesse-kaufman/vim-glandix'
 
     " Show context/indent lines.
-    Plug 'lukas-reineke/indent-blankline.nvim'
+    " Plug 'lukas-reineke/indent-blankline.nvim'
 
     " Custom status line.
     Plug 'nvim-lualine/lualine.nvim'
@@ -44,8 +44,6 @@ call plug#begin('~/.vim/plugged')
     " Plug 'chase/vim-ansible-yaml'
     Plug 'pearofducks/ansible-vim'
 
-    Plug 'nvim-lua/lsp-status.nvim'
-
     " Add devicons
     Plug 'nvim-tree/nvim-web-devicons'
 
@@ -59,55 +57,23 @@ call plug#begin('~/.vim/plugged')
     Plug 'rhysd/committia.vim'
 
     " Better colorcolumn.
-    "Plug 'xiyaowong/virtcolumn.nvim'
-
-    " Icons for LSP menus/popups
-    Plug 'onsails/lspkind.nvim'
+    Plug 'xiyaowong/virtcolumn.nvim'
 
     " Improved syntax highlighting.
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     " Autocomplete plugins
-    Plug 'hrsh7th/cmp-nvim-lsp'                " Autocomplete LSP items.
     Plug 'hrsh7th/cmp-buffer'                  " Autocomplete buffer items.
     Plug 'hrsh7th/cmp-path'                    " Autocomplete filesystem path items
     Plug 'hrsh7th/cmp-cmdline'                 " Autocomplete VIM command line items
-    Plug 'hrsh7th/cmp-nvim-lsp-signature-help' " Autocomplete signatures easily
-    Plug 'SirVer/ultisnips'                    " UltiSnips snippets
-    Plug 'quangnguyen30192/cmp-nvim-ultisnips' " Add autocomplete support for ultisnips
-    Plug 'honza/vim-snippets'                  " Autocomplete snippets
-    Plug 'windwp/nvim-autopairs'               " Autocomplete (), [], and {}
+    " Plug 'honza/vim-snippets'                  " Autocomplete snippets
+    " Plug 'windwp/nvim-autopairs'               " Autocomplete (), [], and {}
     Plug 'hrsh7th/nvim-cmp'                    " Autocomplete plugin.
 
     Plug 'kevinhwang91/nvim-hlslens'  " Show better info when searching
 
-    "
-    " LSP / Diagnostics
-    "
-
-    " Required by null-ls
-    Plug 'nvim-lua/plenary.nvim'
-
     " Use Mason for handling installing/loading language server support.
-    Plug 'williamboman/mason.nvim'
-    Plug 'williamboman/mason-lspconfig.nvim'
-    " LSP configuration helpers -- must load after Mason.
-    Plug 'neovim/nvim-lspconfig'
-    " Use null-ls for external linters
-    Plug 'jose-elias-alvarez/null-ls.nvim'
-    " Integrate null-ls with Mason
-    Plug 'jay-babu/mason-null-ls.nvim'
-
-
-    " Add LSP progress to lualine
-    Plug 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
-
-    " Improved LSP interface.
-    Plug 'folke/trouble.nvim'
-
-    Plug 'Maan2003/lsp_lines.nvim'
-    Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
-    Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
+    " Plug 'williamboman/mason.nvim'
 call plug#end()
 
 colorscheme glandix     " Set color scheme
@@ -174,16 +140,6 @@ set guicursor+=a:blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
 " Make command/search use | cursor
 set guicursor+=c:ver50
 
-" UltiSnips Configuration
-let g:UltiSnipsSnippetDirectories=[data_dir.'/plugged/vim-snippets/UltiSnips',config_dir.'/ultisnips']
-let g:UltiSnipsJumpForwardTrigger='<Tab>' " Alt+Tab
-let g:UltiSnipsJumpBackwardTrigger='<S-Tab>' " Alt+Shift+Tab
-"let g:UltiSnipsExpandTrigger='<A-Tab>'
-let g:UltiSnipsListSnippets='<A-Tab>'
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit='vertical'
-
 let g:loaded_python_provier=0
 let g:loaded_ruby_provider = 0
 let g:loaded_perl_provider = 0
@@ -244,21 +200,21 @@ endfunction
 " -------------------------- "
 
 " Highlight current context indent line.
-let g:indent_blankline_show_current_context = v:true
+"let g:indent_blankline_show_current_context = v:true
 
 " Highlight start of current contect.
-let g:indent_blankline_show_current_context_start = v:false
+"let g:indent_blankline_show_current_context_start = v:false
 
 " Hide trailing virtual spaces in indent lines.
-let g:indent_blankline_show_trailing_blankline_indent = v:false
+"let g:indent_blankline_show_trailing_blankline_indent = v:false
 
 " Hide EOL on blank lines (and draw indent line instead)
-let g:indent_blankline_show_end_of_line = v:false
+"let g:indent_blankline_show_end_of_line = v:false
 
 " Disable indent lines if nolist is set
-let g:indent_blankline_disable_with_nolist = v:true
+"let g:indent_blankline_disable_with_nolist = v:true
 
-let g:indent_blankline_use_treesitter = v:false
+"let g:indent_blankline_use_treesitter = v:false
 
 
 " -------------------------- "
@@ -472,27 +428,16 @@ function! ToggleNoChars()
         set colorcolumn=0
         let &showbreak = ''
         call clearmatches()
-        lua require('toggle_lsp_diagnostics').turn_off_diagnostics()
-        lua require('trouble').close()
         set nohlsearch
     else
         set number
         set list
         setlocal signcolumn=yes:1
         let &showbreak = '↪'
-        lua require('user.config.trouble').show_trouble()
         set hlsearch
     endif
     let s:my_noCharsState = !s:my_noCharsState
 endfunction
-
-" Retab spaced file, but only indentation
-command! Retab call RetabIndents()
-func! RetabIndents()
-    let saved_view = winsaveview()
-    execute '%s@^\( \{'.&tabstop.'}\)\+@\=repeat("\t", len(submatch(0))/'.&tabstop.')@'
-    call winrestview(saved_view)
-endfunc
 
 function! ColorizeHiFile()
     let i = 1
@@ -510,15 +455,6 @@ function! GetHiGroup()
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
 
-
-" Statusline
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
-
-  return ''
-endfunction
 
 " Use yaml.jinja2 syntax for yaml files (from ansible-vim plugin)
 augroup yaml_ft

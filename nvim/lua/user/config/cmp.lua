@@ -12,38 +12,12 @@ local glx_icons = require('user.icons.glx-icons')
 --
 -- Autocomplete pairs when item selected from menu
 --
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+-- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+-- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
 cmp.setup({
     formatting = {
         fields = { 'abbr', 'kind', 'menu' },
-        format = require('lspkind').cmp_format({
-            -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-            mode = 'symbol_text',
-            preset = 'default', -- requires nerd-fonts font
-            menu = {
-                nvim_lsp = '[LSP]',
-                nvim_lsp_signature_help = '[LSP_SIG]',
-                ultisnips = '[US]',
-                cmp_git = '[CMP_GIT]',
-                buffer = glx_icons.file,
-                -- cmdline = glx_icons.bash,
-                -- nvim_lsp = glx_icons.gear,
-                -- nvim_lsp_signature_help = glx_icons.gear,
-                -- ultisnips = glx_icons.bolt,
-                -- cmp_git = glx_icons.git_icon,
-                -- buffer = glx_icons.file,
-                -- cmdline = glx_icons.bash,
-            },
-            symbol_map = glx_icons.kind_icons,
-        }),
-    },
-    snippet = {
-        -- REQUIRED - you must specify a snippet engine
-        expand = function(args)
-            vim.fn['UltiSnips#Anon'](args.body) -- For `ultisnips` users.
-        end,
     },
     window = {
         completion = cmp.config.window.bordered(),
@@ -60,9 +34,6 @@ cmp.setup({
         ['<Tab>'] = cmp.mapping.confirm({ select = true }),
     }),
     sources = cmp.config.sources({
-        { name = 'nvim_lsp_signature_help' },
-        { name = 'nvim_lsp' },
-        { name = 'ultisnips' },
         { name = 'buffer' },
         { name = 'path' },
     }),
