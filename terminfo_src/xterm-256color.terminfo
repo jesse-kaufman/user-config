@@ -3,4 +3,6 @@
 xterm-256color|xterm with 256 colors,
   Smulx=\E[4\:%p1%dm,
   Setulc=\E[58\:2\:%p1%{65536}%/%d\:%p1%{256}%/%{255}%&%d\:%p1%{255}%&%d%;m,
+  kmous=,
+  XM=,
   use=xterm-256color,
