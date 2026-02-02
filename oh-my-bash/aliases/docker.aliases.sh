@@ -4,8 +4,14 @@ alias dcu='docker compose up -d'
 alias dcdn='docker compose down'
 alias dcstart='docker compose start'
 alias dcstop='docker compose stop'
-alias dcr='docker compose run'
 alias dce='docker compose exec'
+
+alias dcc='docker compose'
+alias dcr='docker compose restart'
+alias dcl='docker compose ls'
+alias dccl='docker compose ps -a --format "table {{.Service}}\t{{.Status}}\t{{.RunningFor}}\t{{.Image}}\t{{.Name}}"'
+
+
 
 # Docker build commands
 alias dcbuild='docker compose build'
@@ -16,7 +22,7 @@ alias dcpul='dcpull'
 # Docker container commands
 alias dc='docker container'
 alias dci='docker container inspect'
-alias dcl='docker container list --format "table {{.Names}}\t{{.Status}}\t{{.RunningFor}}\t{{.Image}}"'
+#alias dcl='docker container list --format "table {{.Names}}\t{{.Status}}\t{{.RunningFor}}\t{{.Image}}"'
 alias dcla='docker container list -a --format "table {{.Names}}\t{{.Status}}\t{{.RunningFor}}\t{{.Image}}"'
 
 # Docker volume commands
@@ -51,4 +57,4 @@ alias subsai='dcexec subs subsai --format srt --destination-folder /subs'
 
 alias ve='node ~/github/video-edit/src/app.js'
 
-alias vobsub2srt='docker compose --file /home/containers/vobsub2srt/docker-compose.yaml exec vobsub2srt vobsub2srt'
+alias vobsub2srt='docker compose --file /home/containers/vobsub2srt/docker-compose.yaml run --rm vobsub2srt vobsub2srt'
