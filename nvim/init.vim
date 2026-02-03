@@ -63,17 +63,22 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     " Autocomplete plugins
+    Plug 'hrsh7th/nvim-cmp'                    " Autocomplete plugin.
     Plug 'hrsh7th/cmp-buffer'                  " Autocomplete buffer items.
     Plug 'hrsh7th/cmp-path'                    " Autocomplete filesystem path items
     Plug 'hrsh7th/cmp-cmdline'                 " Autocomplete VIM command line items
     " Plug 'honza/vim-snippets'                  " Autocomplete snippets
     " Plug 'windwp/nvim-autopairs'               " Autocomplete (), [], and {}
-    Plug 'hrsh7th/nvim-cmp'                    " Autocomplete plugin.
+    " Plug 'hrsh7th/cmp-nvim-lsp'                " Autocomplete LSP items.
+    Plug 'hrsh7th/cmp-buffer'                  " Autocomplete buffer items.
+    Plug 'hrsh7th/cmp-path'                    " Autocomplete filesystem path items
+    Plug 'hrsh7th/cmp-cmdline'                 " Autocomplete VIM command line items
+    " Plug 'hrsh7th/cmp-nvim-lsp-signature-help' " Autocomplete signatures easily
+    " Plug 'SirVer/ultisnips'                    " UltiSnips snippets
+    " Plug 'quangnguyen30192/cmp-nvim-ultisnips' " Add autocomplete support for ultisnips
+    Plug 'honza/vim-snippets'                  " Autocomplete snippets
+    Plug 'windwp/nvim-autopairs'               " Autocomplete (), [], and {}
 
-    Plug 'kevinhwang91/nvim-hlslens'  " Show better info when searching
-
-    " Use Mason for handling installing/loading language server support.
-    " Plug 'williamboman/mason.nvim'
 call plug#end()
 
 colorscheme glandix     " Set color scheme

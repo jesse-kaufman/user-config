@@ -215,8 +215,52 @@ local config = {
             },
          },
 
-         -- UNUSED
-         lualine_c = {
+        -- DIAGNOSTICS
+        lualine_c = {
+
+            -- FILE DIAGNOSTICS
+            {
+                'diagnostics',
+                separator = '',
+                sources = { 'nvim_diagnostic' },
+                symbols = {
+                    error = ' ',
+                    warn = ' ',
+                    info = ' ',
+                    hint = '󰌵',
+                },
+                color = { bg = vim.g.glx_c_lualine_bg },
+                diagnostics_color = {
+                    -- color_error = { fg = vim.g.glx_c_red },
+                    -- color_warn = { fg = vim.g.glx_c_yellow },
+                    -- color_info = { fg = vim.g.glx_c_ltblue },
+                    -- color_hint = { fg = vim.g.glx_c_lualine_fg },
+                },
+                {
+                    '%w',
+                    cond = function()
+                        return vim.wo.previewwindow
+                    end,
+                },
+                {
+                    '%r',
+                    cond = function()
+                        return vim.bo.readonly
+                    end,
+                },
+                {
+                    '%q',
+                    cond = function()
+                        if vim.bo.buftype == 'quickfix' then
+                            return glx_icons.gear
+                        end
+                    end,
+                },
+            },
+
+            -- LSP
+            {
+            },
         },
 
         --
